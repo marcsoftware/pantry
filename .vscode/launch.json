@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ReactAndSpringDataRestApplication<react-and-spring-data-rest-basic>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.greglturnquist.payroll.ReactAndSpringDataRestApplication",
+            "projectName": "react-and-spring-data-rest-basic",
+            "args": ""
+        }
+    ]
+}
