@@ -1,5 +1,7 @@
 package com.greglturnquist.payroll;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,19 @@ public class MainController {
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
 		// This returns a JSON or XML with the users
+	
+
 		return userRepository.findAll();
+	}
+
+	@GetMapping(path="/mongo")
+	public @ResponseBody List<Customer> getAllMongo() {
+		// This returns a JSON or XML with the users
+		for (Customer customer : mongoRepository.findAll()) {
+			System.out.println(customer);
+		}
+		System.out.println();
+
+		return mongoRepository.findAll();
 	}
 }
