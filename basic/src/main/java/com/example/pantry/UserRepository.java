@@ -1,8 +1,8 @@
-package com.example.payroll;
+package com.example.pantry;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.payroll.User;
+import com.example.pantry.User;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete

@@ -1,4 +1,4 @@
-package com.example.payroll;
+package com.example.pantry;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

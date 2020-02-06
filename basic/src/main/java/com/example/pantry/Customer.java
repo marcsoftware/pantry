@@ -1,4 +1,4 @@
-package com.example.payroll;
+package com.example.pantry;
 
 import org.springframework.data.annotation.Id;
 
