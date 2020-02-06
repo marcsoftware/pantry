@@ -48,6 +48,8 @@ public class MainController {
 
 	@PostMapping(path= "/json",consumes = "application/json")
 	public @ResponseBody String update(@RequestBody Food food) {
+
+		FoodRepository.save(food);
 		return "yes";
 	}
 }
