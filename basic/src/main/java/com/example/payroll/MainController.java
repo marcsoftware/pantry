@@ -26,7 +26,9 @@ public class MainController {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
-	  Customer c = new Customer(name,email);
+	  Customer c = new Customer();
+	  c.setName(name);
+		c.setEmail(email);
 	  mongoRepository.save(c);
 
 		User n = new User();
