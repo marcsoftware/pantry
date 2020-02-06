@@ -57,12 +57,12 @@ class EmployeeList extends React.Component{
 						
 						<th>name</th>
 						<th>calories</th>
-						<th>unit</th>
 						<th>amount</th>
+						
 
 						<th>ratio cals</th>
-						<th>ratio unit</th>
-						<th>ratio label</th>
+						<th>ratio amount</th>
+						
 					</tr>
 					{employees}
 				</tbody>
@@ -82,11 +82,11 @@ class Employee extends React.Component{
 				
 				<td>{this.props.employee.name}</td>
 				<td>{this.props.employee.consumed_calories}</td>
-				<td>{this.props.employee.consumed_unit}</td>
-				<td>{this.props.employee.consumed_label}</td>
+				<td>{this.props.employee.consumed_unit} {this.props.employee.consumed_label}</td>
+				
 				<td>{this.props.employee.ratio_calories}</td>
-				<td>{this.props.employee.ratio_label}</td>
-				<td>{this.props.employee.ratio_unit}</td>
+				<td>{this.props.employee.ratio_unit} {this.props.employee.ratio_label}</td>
+				
 			</tr>
 			</>
 		)
