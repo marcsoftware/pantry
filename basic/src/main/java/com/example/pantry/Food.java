@@ -1,5 +1,7 @@
 package com.example.pantry;
 
+import javax.persistence.Temporal;
+
 import org.springframework.data.annotation.Id;
 
 
@@ -17,6 +19,9 @@ public class Food{
 	public String ratio_label;
 	public String ratio_unit;
 
+	
+	public String date;
+	
 	public Food() {}
 
 	public Food(String name, 
@@ -38,7 +43,7 @@ public class Food{
 		this.ratio_calories=ratio_calories;
 		this.ratio_label=ratio_label;
 		this.ratio_unit=ratio_unit;
-
+		this.date="todays date";
 	
 	}
 
