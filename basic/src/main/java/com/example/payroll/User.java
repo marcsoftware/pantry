@@ -1,4 +1,4 @@
-package com.greglturnquist.payroll;
+package com.example.payroll;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

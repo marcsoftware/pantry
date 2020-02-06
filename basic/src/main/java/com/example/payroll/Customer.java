@@ -1,4 +1,4 @@
-package com.greglturnquist.payroll;
+package com.example.payroll;
 
 import org.springframework.data.annotation.Id;
 

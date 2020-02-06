@@ -1,5 +1,5 @@
 
-package com.greglturnquist.payroll;
+package com.example.payroll;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
