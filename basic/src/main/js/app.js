@@ -24,7 +24,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		client({method: 'GET', path: '/demo/all'}).done(response => {
+		client({method: 'GET', path: '/demo/mongo'}).done(response => {
 			this.setState({employees: response.entity});
 		});
 	}
