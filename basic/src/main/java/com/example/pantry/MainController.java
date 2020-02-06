@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class MainController {
 
+	
+
 	@Autowired
-	private CustomerRepository mongoRepository;
+	private FoodRepository FoodRepository;
 
 	@PostMapping(path="/add") // Map ONLY POST Requests
 	public @ResponseBody String addNewUser (@RequestParam String name
@@ -23,11 +25,10 @@ public class MainController {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
-	  Customer c = new Customer(name,email);
-	  
-	  
+	  Food c = new Food(name,email);
 	
-	  mongoRepository.save(c);
+	
+	  FoodRepository.save(c);
 
 	
 		return "Saved";
@@ -36,13 +37,9 @@ public class MainController {
 
 
 	@GetMapping(path="/mongo")
-	public @ResponseBody List<Customer> getAllMongo() {
-		// This returns a JSON or XML with the users
-		for (Customer customer : mongoRepository.findAll()) {
-			System.out.println(customer);
-		}
-		System.out.println();
+	public @ResponseBody List<Food> getAllMongo() {
+		
 
-		return mongoRepository.findAll();
+		return FoodRepository.findAll();
 	}
 }
