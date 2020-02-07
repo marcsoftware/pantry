@@ -16,20 +16,7 @@ class NameForm extends React.Component {
 	  this.setState({ [event.target.name]: event.target.value });
 	}
   
-	getData() {
-		// create a new XMLHttpRequest
-		var xhr = new XMLHttpRequest()
 	
-		// get a callback when the server responds
-		xhr.addEventListener('load', () => {
-		  // update the state of the component with the result here
-		  alert(xhr.responseText)
-		})
-		// open the request with the verb and the url
-		xhr.open('GET', '/demo/mongo')
-		// send the request
-		xhr.send()
-	  }
 
 
 	  sendData() {
