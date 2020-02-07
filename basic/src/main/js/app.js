@@ -20,12 +20,12 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {employees: []};
+		this.state = {foods: []};
 	}
 
 	componentDidMount() {
 		client({method: 'GET', path: '/demo/mongo'}).done(response => {
-			this.setState({employees: response.entity});
+			this.setState({foods: response.entity});
 		});
 	}
 
@@ -33,19 +33,19 @@ class App extends React.Component {
 		return (
 			<>
 			<Home/>
-			<EmployeeList employees={this.state.employees}/>
+			<FoodList foods={this.state.foods}/>
 			</>
 		)
 	}
 }
 // end::app[]
 
-// tag::employee-list[]
-class EmployeeList extends React.Component{
-	//<Employee key={employee._links.self.href} employee={employee}/>
+
+class FoodList extends React.Component{
+	
 	render() {
-		const employees = this.props.employees.map(employee =>
-			<Employee key={employee.id} employee={employee}/>
+		const foods = this.props.foods.map(food =>
+			<Food key={food.id} food={food}/>
 			
 		);
 		return (
@@ -65,38 +65,38 @@ class EmployeeList extends React.Component{
 						<th>date</th>
 						
 					</tr>
-					{employees}
+					{foods}
 				</tbody>
 			</table>
 		)
 	}
 }
-// end::employee-list[]
 
-// tag::employee[]
-class Employee extends React.Component{
+
+
+class Food extends React.Component{
 	render() {
 		return (
 			<>
 			
 			<tr>
 				
-				<td>{this.props.employee.name}</td>
-				<td>{this.props.employee.consumed_calories}</td>
-				<td>{this.props.employee.consumed_unit} {this.props.employee.consumed_label}</td>
+				<td>{this.props.food.name}</td>
+				<td>{this.props.food.consumed_calories}</td>
+				<td>{this.props.food.consumed_unit} {this.props.food.consumed_label}</td>
 				
-				<td>{this.props.employee.ratio_calories}</td>
-				<td>{this.props.employee.ratio_unit} {this.props.employee.ratio_label}</td>
-				<td>{this.props.employee.date}</td>
+				<td>{this.props.food.ratio_calories}</td>
+				<td>{this.props.food.ratio_unit} {this.props.food.ratio_label}</td>
+				<td>{this.props.food.date}</td>
 				
 			</tr>
 			</>
 		)
 	}
 }
-// end::employee[]
 
-// tag::render[]
+
+
 ReactDOM.render(
 	<App />,
 	document.getElementById('react')
