@@ -6,6 +6,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
 
+import NameForm from './NameForm';
 
 import {
 	BrowserRouter as Router,
@@ -34,7 +35,7 @@ class App extends React.Component {
 		return (
 			<>
 			
-			<Form/>
+			<NameForm/>
 			<FoodList foods={this.state.foods}/>
 			</>
 		)
@@ -103,21 +104,4 @@ ReactDOM.render(
 
 
 
-  function Form() {
 
-	return <form>
-	<label>
-	  Name:
-	  <input type="text"  name="name" /><br/>
-	  consumed amount:
-	  <input type="text" name="name" /><br/>
-	  consumed calories:
-	  <input type="text" name="name" /><br/>
-	  ratio amount:
-	  <input type="text" name="name" /><br/>
-	  ratio calories:
-	  <input type="text" name="name" /><br/>
-	</label><br/>
-	<input type="submit" value="Submit" />
-  </form>
-  }
