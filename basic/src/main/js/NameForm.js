@@ -12,42 +12,43 @@ class NameForm extends React.Component {
 	}
   
 	handleChange(event) {
-	  this.setState({value: event.target.value});
+	  //this.setState({value: event.target.value});
+	  this.setState({ [event.target.name]: event.target.value });
 	}
   
 
 
 	handleSubmit(event) {
-	  alert('A name was submitted: ' + this.state.value);
+	  alert('form was submitted: ' + this.state.name);
 	  event.preventDefault();
 	}
   
 	render() {
 	  return (
-		<form onSubmit={this.handleSubmit}>
+		<form >
 		  <label>
 			Name:
-			<input type="text" value={this.state.value} onChange={this.handleChange} /><br/>
+			<input type="text" name="name" onChange={this.handleChange} /><br/>
 		  </label>
 
 		  <label>
 		  consumed amount:
-		  <input type="text" name="name" /><br/>
+		  <input type="text" name="amount" onChange={this.handleChange} /><br/>
 		  </label>
 		  
 		  <label>
 		  consumed calories:
-		  <input type="text" name="name" /><br/>
+		  <input type="text" name="calories" onChange={this.handleChange} /><br/>
 		  </label>
 
 		  <label>
 		  ratio amount:
-		  <input type="text" name="name" /><br/>
+		  <input type="text" name="ratio_amount" onChange={this.handleChange} /><br/>
 		  ratio calories:
-		  <input type="text" name="name" /><br/>
+		  <input type="text" name="ratio_calories" onChange={this.handleChange} /><br/>
 		</label><br/>
 
-		  <input type="submit" value="Submit" />
+		  <input type="button" value="Submit" onClick={this.handleSubmit} />
 		</form>
 	  );
 	}
