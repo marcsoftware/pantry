@@ -15,24 +15,7 @@ class NameForm extends React.Component {
 	  this.setState({value: event.target.value});
 	}
   
-	Form() {
 
-		return <form>
-		<label>
-		  Name:
-		  <input type="text"  name="name" /><br/>
-		  consumed amount:
-		  <input type="text" name="name" /><br/>
-		  consumed calories:
-		  <input type="text" name="name" /><br/>
-		  ratio amount:
-		  <input type="text" name="name" /><br/>
-		  ratio calories:
-		  <input type="text" name="name" /><br/>
-		</label><br/>
-		<input type="submit" value="Submit" />
-	  </form>
-	  }
 
 	handleSubmit(event) {
 	  alert('A name was submitted: ' + this.state.value);
@@ -44,8 +27,26 @@ class NameForm extends React.Component {
 		<form onSubmit={this.handleSubmit}>
 		  <label>
 			Name:
-			<input type="text" value={this.state.value} onChange={this.handleChange} />
+			<input type="text" value={this.state.value} onChange={this.handleChange} /><br/>
 		  </label>
+
+		  <label>
+		  consumed amount:
+		  <input type="text" name="name" /><br/>
+		  </label>
+		  
+		  <label>
+		  consumed calories:
+		  <input type="text" name="name" /><br/>
+		  </label>
+
+		  <label>
+		  ratio amount:
+		  <input type="text" name="name" /><br/>
+		  ratio calories:
+		  <input type="text" name="name" /><br/>
+		</label><br/>
+
 		  <input type="submit" value="Submit" />
 		</form>
 	  );
