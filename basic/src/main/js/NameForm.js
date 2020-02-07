@@ -16,10 +16,24 @@ class NameForm extends React.Component {
 	  this.setState({ [event.target.name]: event.target.value });
 	}
   
-
+	getData() {
+		// create a new XMLHttpRequest
+		var xhr = new XMLHttpRequest()
+	
+		// get a callback when the server responds
+		xhr.addEventListener('load', () => {
+		  // update the state of the component with the result here
+		  alert(xhr.responseText)
+		})
+		// open the request with the verb and the url
+		xhr.open('GET', 'https://dog.ceo/api/breeds/list/all')
+		// send the request
+		xhr.send()
+	  }
 
 	handleSubmit(event) {
-	  alert('form was submitted: ' + this.state.name);
+	  ('form was submitted: ' + this.state.name);
+	  this.getData();
 	  event.preventDefault();
 	}
   
