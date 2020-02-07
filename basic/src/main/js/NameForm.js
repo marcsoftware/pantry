@@ -31,11 +31,35 @@ class NameForm extends React.Component {
 		xhr.send()
 	  }
 
+
+	  sendData() {
+
+		fetch('/demo/json', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				 
+				"name": "coke",
+				"consumed_calories": 1,
+				"consumed_label": 2,
+				"consumed_unit": 3,
+				"ratio_calories": 4,
+				"ratio_label": 5,
+				"ratio_unit": 600
+			})
+		})
+
+	
+	
+	  }
 	 
 
 	handleSubmit(event) {
 	  ('form was submitted: ' + this.state.name);
-	  this.getData();
+	  this.sendData();
 	  event.preventDefault();
 	}
   
