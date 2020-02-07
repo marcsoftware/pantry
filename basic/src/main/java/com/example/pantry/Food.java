@@ -1,6 +1,8 @@
 package com.example.pantry;
 
 import javax.persistence.Temporal;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;   
 
 import org.springframework.data.annotation.Id;
 
@@ -19,7 +21,7 @@ public class Food{
 	public String ratio_label;
 	public String ratio_unit;
 
-	
+
 	public String date;
 	
 	public Food() {}
@@ -43,7 +45,12 @@ public class Food{
 		this.ratio_calories=ratio_calories;
 		this.ratio_label=ratio_label;
 		this.ratio_unit=ratio_unit;
-		this.date="todays date";
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		
+
+		this.date=dtf.format(now);
 	
 	}
 
