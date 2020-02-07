@@ -26,10 +26,12 @@ class NameForm extends React.Component {
 		  alert(xhr.responseText)
 		})
 		// open the request with the verb and the url
-		xhr.open('GET', 'https://dog.ceo/api/breeds/list/all')
+		xhr.open('GET', '/demo/mongo')
 		// send the request
 		xhr.send()
 	  }
+
+	 
 
 	handleSubmit(event) {
 	  ('form was submitted: ' + this.state.name);
@@ -63,6 +65,8 @@ class NameForm extends React.Component {
 		</label><br/>
 
 		  <input type="button" value="Submit" onClick={this.handleSubmit} />
+		  
+		  
 		</form>
 	  );
 	}
