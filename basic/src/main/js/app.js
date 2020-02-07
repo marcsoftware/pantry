@@ -62,6 +62,7 @@ class EmployeeList extends React.Component{
 
 						<th>ratio cals</th>
 						<th>ratio amount</th>
+						<th>date</th>
 						
 					</tr>
 					{employees}
@@ -86,6 +87,7 @@ class Employee extends React.Component{
 				
 				<td>{this.props.employee.ratio_calories}</td>
 				<td>{this.props.employee.ratio_unit} {this.props.employee.ratio_label}</td>
+				<td>{this.props.employee.date}</td>
 				
 			</tr>
 			</>
