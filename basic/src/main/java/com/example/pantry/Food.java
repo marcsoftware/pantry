@@ -54,6 +54,15 @@ public class Food{
 	
 	}
 
+	public void setDate(){
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		
+
+		this.date=dtf.format(now);
+	
+	}
+
 	@Override
 	public String toString() {
 		return String.format(
