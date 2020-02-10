@@ -9,6 +9,8 @@ class NameForm extends React.Component {
   
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
+
+	  
 	}
   
 	handleChange(event) {
@@ -48,7 +50,7 @@ class NameForm extends React.Component {
 	  ('form was submitted: ' + this.state.name);
 	  this.sendData();
 	  this.props.myFunc(); // tell parent to update the food-grid componet
-	  alert(1)
+	  
 	  event.preventDefault();
 	}
   

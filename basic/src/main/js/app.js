@@ -23,6 +23,8 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {foods: []};
+		this.handleChildFunc = this.handleChildFunc.bind(this);
+		
 	}
 
 	
@@ -31,19 +33,20 @@ class App extends React.Component {
 		
 		client({method: 'GET', path: '/demo/mongo'}).done(response => {
 			this.setState({foods: response.entity});
+			
 		});
 	}
 
 	// when form is submitted update the food-table
 	handleChildFunc(){
+		
 		client({method: 'GET', path: '/demo/mongo'}).done(response => {
 			this.setState({foods: response.entity});
+			
 		});
-		alert('38 update the table');
-		
-		
-		
 	}
+
+	
 
 	render() {
 		return (
