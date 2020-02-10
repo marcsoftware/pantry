@@ -23,6 +23,7 @@ public class Food{
 
 
 	public String date;
+	public String time;
 	
 	public Food() {}
 
@@ -46,20 +47,20 @@ public class Food{
 		this.ratio_label=ratio_label;
 		this.ratio_unit=ratio_unit;
 
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+		DateTimeFormatter clock_formater = DateTimeFormatter.ofPattern("HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
-		
-
 		this.date=dtf.format(now);
+		this.time=clock_formater.format(now);
 	
 	}
 
 	public void setDate(){
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+		DateTimeFormatter clock_formater = DateTimeFormatter.ofPattern("HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
-		
-
 		this.date=dtf.format(now);
+		this.time=clock_formater.format(now);
 	
 	}
 

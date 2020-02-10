@@ -83,7 +83,7 @@ class FoodList extends React.Component{
 						<th>amount</th>
 						<th>ratio cals</th>
 						<th>ratio amount</th>
-						<th>date</th>
+						<th>time</th>
 						
 					</tr>
 					{foods}
@@ -106,7 +106,7 @@ class Food extends React.Component{
 				<td>{this.props.food.consumed_unit}{this.props.food.consumed_label}</td>
 				<td>{this.props.food.ratio_calories}</td>
 				<td>{this.props.food.ratio_unit}{this.props.food.ratio_label}</td>
-				<td>{this.props.food.date}</td>
+				<td>{this.props.food.time}</td>
 
 			</tr>
 			</>
