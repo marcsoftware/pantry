@@ -17,9 +17,35 @@ class NameForm extends React.Component {
 	  this.setState({ [event.target.name]: event.target.value });
 	  
 	}
+
+	checkUndefined(x){
+		if(x === "undefined"){
+			x="";
+			return "";
+		}else{
+			x=x;
+			return x;
+		}
+	}
   
 	  sendData() {
-		
+		//check for undefined variables
+
+		if(typeof this.state.amount == 'undefined'){
+			this.state.amount="";
+		}
+		if(typeof this.state.calories  == 'undefined'){
+			this.state.calories="";
+		}
+		if(typeof this.state.ratio_amount  == 'undefined'){
+			this.state.ratio_amount="";
+		}
+		if(typeof this.state.ratio_calories  == 'undefined'){
+			this.state.ratio_calories="";
+		}
+
+
+		//save to database
 		fetch('/demo/json', {
 			method: 'POST',
 			headers: {
