@@ -30,9 +30,7 @@ class NameForm extends React.Component {
   
 	  sendData() {
 		//check for undefined variables
-		if(typeof this.state.name == 'undefined'){
-			return;
-		}
+		
 		if(typeof this.state.amount == 'undefined'){
 			this.state.amount="";
 		}
@@ -72,7 +70,11 @@ class NameForm extends React.Component {
 	 
 
 	handleSubmit(event) {
-	  ('form was submitted: ' + this.state.name);
+	  // stop form from being clear is name is blank but other fields are not
+		if(typeof this.state.name == 'undefined'){
+			return;
+		}
+
 	  this.sendData();
 	  this.props.myFunc(); // tell parent to update the food-grid componet
 	  this.clearForm();
