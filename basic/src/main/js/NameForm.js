@@ -75,13 +75,17 @@ class NameForm extends React.Component {
 	  ('form was submitted: ' + this.state.name);
 	  this.sendData();
 	  this.props.myFunc(); // tell parent to update the food-grid componet
-	  
+	  this.clearForm();
 	  event.preventDefault();
 	}
-  
+	
+	clearForm () { 
+		document.getElementById("create-food-form").reset();
+	  }
+
 	render() {
 	  return (
-		<form >
+		<form id="create-food-form">
 		  <label>
 			Name:
 			<input type="text" name="name" onChange={this.handleChange} /><br/>
