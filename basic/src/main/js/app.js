@@ -25,7 +25,10 @@ class App extends React.Component {
 		this.state = {foods: []};
 	}
 
+	
+
 	componentDidMount() {
+		
 		client({method: 'GET', path: '/demo/mongo'}).done(response => {
 			this.setState({foods: response.entity});
 		});
@@ -33,7 +36,12 @@ class App extends React.Component {
 
 	// when form is submitted update the food-table
 	handleChildFunc(){
-		alert('update the table');
+		client({method: 'GET', path: '/demo/mongo'}).done(response => {
+			this.setState({foods: response.entity});
+		});
+		alert('38 update the table');
+		
+		
 		
 	}
 
@@ -41,7 +49,9 @@ class App extends React.Component {
 		return (
 			<>
 				<NameForm myFunc={this.handleChildFunc}  />
-				<FoodList foods={this.state.foods}  />
+				<FoodList foods={this.state.foods}   
+						  
+		        />
 			</>
 		)
 	}
@@ -51,6 +61,8 @@ class App extends React.Component {
 
 class FoodList extends React.Component{
 	
+
+
 	render() {
 		const foods = this.props.foods.map(food =>
 			<Food key={food.id} food={food}/>
