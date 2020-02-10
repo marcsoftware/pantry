@@ -10,19 +10,16 @@ class NameForm extends React.Component {
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
 
-	  
 	}
   
 	handleChange(event) {
 	  //this.setState({value: event.target.value});
 	  this.setState({ [event.target.name]: event.target.value });
+	  
 	}
   
-	
-
-
 	  sendData() {
-
+		
 		fetch('/demo/json', {
 			method: 'POST',
 			headers: {
@@ -31,13 +28,13 @@ class NameForm extends React.Component {
 			},
 			body: JSON.stringify({
 				 
-				"name": "hardcoded",
-				"consumed_calories": "00",
-				"consumed_label": "can",
-				"consumed_unit": "4",
-				"ratio_calories": "140",
-				"ratio_label": "can",
-				"ratio_unit": "1"
+				"name": this.state.name,
+				"consumed_calories": this.state.calories,
+				"consumed_label":this.state.amount.replace(/[0-9\s]/g, ""),
+				"consumed_unit":this.state.amount.replace(/\D/g, ""),
+				"ratio_calories": this.state.ratio_calories,
+				"ratio_label": this.state.ratio_amount.replace(/[0-9\s]/g, ""),
+				"ratio_unit": this.state.ratio_amount.replace(/\D/g, "")
 			})
 		})
 
