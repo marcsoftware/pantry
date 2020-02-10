@@ -31,12 +31,17 @@ class App extends React.Component {
 		});
 	}
 
+	// when form is submitted update the food-table
+	handleChildFunc(){
+		alert('update the table');
+		
+	}
+
 	render() {
 		return (
 			<>
-			
-			<NameForm/>
-			<FoodList foods={this.state.foods}/>
+				<NameForm myFunc={this.handleChildFunc}  />
+				<FoodList foods={this.state.foods}  />
 			</>
 		)
 	}

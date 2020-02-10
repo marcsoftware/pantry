@@ -47,6 +47,8 @@ class NameForm extends React.Component {
 	handleSubmit(event) {
 	  ('form was submitted: ' + this.state.name);
 	  this.sendData();
+	  this.props.myFunc(); // tell parent to update the food-grid componet
+	  
 	  event.preventDefault();
 	}
   
