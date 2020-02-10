@@ -29,13 +29,13 @@ class NameForm extends React.Component {
 			},
 			body: JSON.stringify({
 				 
-				"name": "coke",
-				"consumed_calories": 1,
-				"consumed_label": 2,
-				"consumed_unit": 3,
-				"ratio_calories": 4,
-				"ratio_label": 5,
-				"ratio_unit": 600
+				"name": "hardcoded",
+				"consumed_calories": "00",
+				"consumed_label": "can",
+				"consumed_unit": "4",
+				"ratio_calories": "140",
+				"ratio_label": "can",
+				"ratio_unit": "1"
 			})
 		})
 
@@ -48,7 +48,7 @@ class NameForm extends React.Component {
 	  ('form was submitted: ' + this.state.name);
 	  this.sendData();
 	  this.props.myFunc(); // tell parent to update the food-grid componet
-	  
+	  alert(1)
 	  event.preventDefault();
 	}
   
