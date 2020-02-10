@@ -46,6 +46,14 @@ public class MainController {
 	}
 
 
+	@GetMapping(path="/today")
+	public @ResponseBody List<Food> getAllFromToday() {
+		
+
+		return FoodRepository.findAll();
+	}
+
+
 	@PostMapping(path= "/json",consumes = "application/json")
 	public @ResponseBody String update(@RequestBody Food food) {
 		food.setDate();
