@@ -47,24 +47,31 @@ public class Food{
 		this.ratio_label=ratio_label;
 		this.ratio_unit=ratio_unit;
 
-		//TODO make this a function
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-		DateTimeFormatter clock_formater = DateTimeFormatter.ofPattern("HH:mm:ss");  
-		LocalDateTime now = LocalDateTime.now();  
-		this.date=dtf.format(now);
-		this.time=clock_formater.format(now);
+		//
+		String[] both=createTimestamp();
+		this.date=(both[0]);
+		this.time=(both[1]);
 	
 	}
 
 	public void setDate(){
-		//TODO make this a function
+		//
+		String[] both=createTimestamp();
+		this.date=(both[0]);
+		this.time=(both[1]);
+	
+	}
+
+	// returns an array that holds the calendar-date AND clock-time
+	private static String[] createTimestamp(){
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		DateTimeFormatter clock_formater = DateTimeFormatter.ofPattern("HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
-		this.date=dtf.format(now);
-		this.time=clock_formater.format(now);
-	
+		String calendarDate=dtf.format(now);
+		String clockTime=clock_formater.format(now);
+		return new String[] { calendarDate, clockTime };
 	}
+
 
 	@Override
 	public String toString() {
