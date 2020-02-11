@@ -47,7 +47,8 @@ public class Food{
 		this.ratio_label=ratio_label;
 		this.ratio_unit=ratio_unit;
 
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+		//TODO make this a function
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		DateTimeFormatter clock_formater = DateTimeFormatter.ofPattern("HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
 		this.date=dtf.format(now);
@@ -56,7 +57,8 @@ public class Food{
 	}
 
 	public void setDate(){
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+		//TODO make this a function
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		DateTimeFormatter clock_formater = DateTimeFormatter.ofPattern("HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
 		this.date=dtf.format(now);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +45,9 @@ public class MainController {
 	}
 
 
-	@GetMapping(path="/today")
-	public @ResponseBody List<Food> getAllFromToday() {
-		return FoodRepository.findByDate("2020/02/10");
+	@GetMapping(path="/date/{date}")
+	public @ResponseBody List<Food> getAllFromToday(@PathVariable String date) {
+		return FoodRepository.findByDate(date);
 	}
 
 
