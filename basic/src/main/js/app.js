@@ -69,6 +69,7 @@ class App extends React.Component {
 		return (
 			<>
 				<NameForm myFunc={this.handleChildFunc}  />
+				<DateNavigation />
 				<FoodList foods={this.state.foods}   />
 			</>
 		)
@@ -111,6 +112,8 @@ class FoodList extends React.Component{
 
 
 class Food extends React.Component{
+
+	
 	render() {
 		return (
 			<>
@@ -129,7 +132,23 @@ class Food extends React.Component{
 	}
 }
 
-
+class DateNavigation extends React.Component{
+	
+	handleClick(e){
+		alert(e);
+	}
+	
+	render() {
+		return (
+			<>
+				 <input type="button" value="<-" onClick={this.handleClick} />
+				 <input type="button" value="today" onClick={this.handleClick} />
+				 <input type="button" value="->" onClick={this.handleClick} />
+			<p>prev X next</p>
+			</>
+		)
+	}
+}
 
 ReactDOM.render(
 	<App />,
