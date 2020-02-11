@@ -28,8 +28,12 @@ class App extends React.Component {
 		
 	}
 
-
-
+	/*
+	//this function needs babel inorder to work
+	incrementCount = () => {
+		
+	  }
+*/
 	getDate(){
 		let newDate = new Date()
 		let day = newDate.getDate();
