@@ -40,17 +40,13 @@ public class MainController {
 
 	@GetMapping(path="/mongo")
 	public @ResponseBody List<Food> getAllMongo() {
-		
-
 		return FoodRepository.findAll();
 	}
 
 
 	@GetMapping(path="/today")
 	public @ResponseBody List<Food> getAllFromToday() {
-		
-
-		return FoodRepository.findAll();
+		return FoodRepository.findByDate("2020/02/10");
 	}
 
 
