@@ -52,9 +52,7 @@ class App extends React.Component {
 		return (
 			<>
 				<NameForm myFunc={this.handleChildFunc}  />
-				<FoodList foods={this.state.foods}   
-						  
-		        />
+				<FoodList foods={this.state.foods}   />
 			</>
 		)
 	}
