@@ -23,15 +23,17 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {foods: [0],date:0};
+		this.state = {foods: [0],date_offset:0};
 		
 		this.handleChildFunc = this.handleChildFunc.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
+		this.getDate = this.getDate.bind(this);
 		
 	}
 
 	getDate(){
-		let newDate = new Date()
+		let newDate = new Date();
+		newDate.setDate(newDate.getDate() +(this.state.date_offset));
 		let day = newDate.getDate();
 		let month = newDate.getMonth() + 1;
 		let year = newDate.getFullYear();
@@ -45,12 +47,13 @@ class App extends React.Component {
 			month="0"+month; // pad with a zero
 		}
 
+		alert(year+'-'+month+'-'+day);
 		return year+'-'+month+'-'+day;
 	}
 
 	componentDidMount() {
 		let today = this.getDate();
-		this.test();
+		
 		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
 			this.setState({foods: response.entity});
 			
@@ -68,8 +71,14 @@ class App extends React.Component {
 
 	//called from child
 	handleDateChange(arg){
-		this.state.date += arg;
-		alert('changedate =: '+this.state.date);
+		
+		if(arg==0){
+			this.state.date_offset=0;
+		}else{
+			this.state.date_offset += arg;
+		}
+
+		this.getDate();
 	}
 	
 
