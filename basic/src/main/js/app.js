@@ -38,7 +38,6 @@ class App extends React.Component {
 		let month = newDate.getMonth() + 1;
 		let year = newDate.getFullYear();
 
-		
 		if(day <10){
 			day="0"+day; // pad with a zero
 		}
@@ -92,7 +91,7 @@ class App extends React.Component {
 		)
 	}
 }
-// end::app[]
+
 
 
 class FoodList extends React.Component{
@@ -172,8 +171,3 @@ ReactDOM.render(
 	<App />,
 	document.getElementById('react')
 )
-
-
-
-
-
