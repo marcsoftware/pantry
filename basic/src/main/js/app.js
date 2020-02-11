@@ -25,18 +25,10 @@ class App extends React.Component {
 		super(props);
 		this.state = {foods: [0],date:0};
 		
-		
-
 		this.handleChildFunc = this.handleChildFunc.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
 		
 	}
-
-
-
-test(){
-	alert(this.state.foods);
-}
 
 	getDate(){
 		let newDate = new Date()
