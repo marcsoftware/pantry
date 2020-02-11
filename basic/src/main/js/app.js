@@ -23,21 +23,16 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {foods: [0]};
+		this.state = {foods: [0],date:0};
 		
 		
 
 		this.handleChildFunc = this.handleChildFunc.bind(this);
-		this.test = this.test.bind(this);
+		this.handleDateChange = this.handleDateChange.bind(this);
 		
 	}
 
-	/*
-	//this function needs babel inorder to work
-	incrementCount = () => {
-		
-	  }
-*/
+
 
 test(){
 	alert(this.state.foods);
@@ -81,7 +76,8 @@ test(){
 
 	//called from child
 	handleDateChange(arg){
-		alert('handledatechange: '+arg);
+		this.state.date += arg;
+		alert('changedate =: '+this.state.date);
 	}
 	
 
