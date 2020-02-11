@@ -23,7 +23,7 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {foods: [0],date_offset:0};
+		this.state = {foods: [],date_offset:0}; 
 		
 		this.handleChildFunc = this.handleChildFunc.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
@@ -46,12 +46,13 @@ class App extends React.Component {
 			month="0"+month; // pad with a zero
 		}
 
-		alert(year+'-'+month+'-'+day);
 		return year+'-'+month+'-'+day;
 	}
 
+	//get all food items where date is today
+	
 	componentDidMount() {
-		let today = this.getDate();
+		let today = this.getDate(); //todo today should be target_date
 		
 		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
 			this.setState({foods: response.entity});
@@ -62,13 +63,17 @@ class App extends React.Component {
 	// when form is submitted update the food-table
 	handleChildFunc(){
 		
-		client({method: 'GET', path: '/demo/mongo'}).done(response => {
+		let today = this.getDate(); //todo today should be target_date
+		
+		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
 			this.setState({foods: response.entity});
 			
 		});
 	}
 
 	//called from child
+	//if is -1 it subtacts a day , +1 means add a day
+	// if arg==0 means set to today
 	handleDateChange(arg){
 		
 		if(arg==0){
@@ -77,7 +82,7 @@ class App extends React.Component {
 			this.state.date_offset += arg;
 		}
 
-		this.getDate();
+		this.handleChildFunc();
 	}
 	
 
