@@ -9,6 +9,7 @@ class NameForm extends React.Component {
   
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
+	  this.getFormData = this.getFormData.bind(this);
 
 	}
   
@@ -28,39 +29,28 @@ class NameForm extends React.Component {
 		}
 	}
 
-	  //TODO: extract data from form 
+	  // DESCRIPTION : processes form data before sending
 	  // do math (algebra and +-/*)
 	  // convert to JSON or string so that sendData can use it.
 	  //clear form ?
 	  getFormData(){
 
-	  }
-  
-	  sendData() {
-		//check for undefined variables
-		
-		if(typeof this.state.amount == 'undefined'){
-			this.state.amount="";
-		}
-		if(typeof this.state.calories  == 'undefined'){
-			this.state.calories="";
-		}
-		if(typeof this.state.ratio_amount  == 'undefined'){
-			this.state.ratio_amount="";
-		}
-		if(typeof this.state.ratio_calories  == 'undefined'){
-			this.state.ratio_calories="";
-		}
+			//deal with undefined problem
+			if(typeof this.state.amount == 'undefined'){
+				this.state.amount="";
+			}
+			if(typeof this.state.calories  == 'undefined'){
+				this.state.calories="";
+			}
+			if(typeof this.state.ratio_amount  == 'undefined'){
+				this.state.ratio_amount="";
+			}
+			if(typeof this.state.ratio_calories  == 'undefined'){
+				this.state.ratio_calories="";
+			}
 
-
-		//save to database
-		fetch('/demo/json', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
+			//
+			var form_json=JSON.stringify({
 				 
 				"name": this.state.name,
 				"consumed_calories": this.state.calories,
@@ -70,6 +60,20 @@ class NameForm extends React.Component {
 				"ratio_label": this.state.ratio_amount.replace(/[0-9\s]/g, ""),
 				"ratio_unit": this.state.ratio_amount.replace(/\D/g, "")
 			})
+
+			return form_json;
+	  }
+  
+	  sendData(form_json) {
+	
+		//save to database
+		fetch('/demo/json', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: form_json
 		})
 
 	
@@ -78,15 +82,15 @@ class NameForm extends React.Component {
 	 
 
 	handleSubmit(event) {
-	  // stop form from being clear is name is blank but other fields are not
+		// stop form from being clear is name is blank but other fields are not
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
-
-	  this.sendData();
-	  this.props.myFunc(); // tell parent to update the food-grid componet
-	  this.clearForm();
-	  event.preventDefault();
+		var	form_json=	this.getFormData();
+		this.sendData(form_json);
+		this.props.myFunc(); // tell parent to update the food-grid componet
+		this.clearForm();
+		event.preventDefault();
 	}
 	
 	clearForm () { 
