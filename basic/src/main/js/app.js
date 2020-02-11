@@ -79,13 +79,17 @@ test(){
 		});
 	}
 
+	//called from child
+	handleDateChange(arg){
+		alert('handledatechange: '+arg);
+	}
 	
 
 	render() {
 		return (
 			<>
 				<NameForm myFunc={this.handleChildFunc}  />
-				<DateNavigation />
+				<DateNavigation changeDate={this.handleDateChange} />
 				<FoodList foods={this.state.foods}   />
 			</>
 		)
@@ -150,16 +154,17 @@ class Food extends React.Component{
 
 class DateNavigation extends React.Component{
 	
-	handleClick(e){
-		alert(e);
-	}
 	
+	handleClick(arg){
+		
+		this.props.changeDate(arg); 
+	}
 	render() {
 		return (
 			<>
-				 <input type="button" value="<-" onClick={this.handleClick} />
-				 <input type="button" value="today" onClick={this.handleClick} />
-				 <input type="button" value="->" onClick={this.handleClick} />
+				 <input type="button" value="<-" onClick={() => this.handleClick(-1)} />
+				 <input type="button" value="today" onClick={() => this.handleClick(0)} />
+				 <input type="button" value="->"  onClick={() => this.handleClick(1)} />
 			<p>prev X next</p>
 			</>
 		)
