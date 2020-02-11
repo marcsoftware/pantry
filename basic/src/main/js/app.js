@@ -28,6 +28,8 @@ class App extends React.Component {
 		
 	}
 
+
+
 	getDate(){
 		let newDate = new Date()
 		let day = newDate.getDate();

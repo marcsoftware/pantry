@@ -15,9 +15,7 @@
   ],
   "author": "Marc",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": ""
-  },
+  
   "homepage": "",
   "dependencies": {
     "react": "^16.5.2",
