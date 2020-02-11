@@ -109,7 +109,7 @@ class FoodList extends React.Component{
 		);
 		return (
 			<table>
-				app
+				
 				<tbody>
 					
 					<tr>
