@@ -23,8 +23,12 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {foods: []};
+		this.state = {foods: [0]};
+		
+		
+
 		this.handleChildFunc = this.handleChildFunc.bind(this);
+		this.test = this.test.bind(this);
 		
 	}
 
@@ -34,6 +38,11 @@ class App extends React.Component {
 		
 	  }
 */
+
+test(){
+	alert(this.state.foods);
+}
+
 	getDate(){
 		let newDate = new Date()
 		let day = newDate.getDate();
@@ -54,7 +63,7 @@ class App extends React.Component {
 
 	componentDidMount() {
 		let today = this.getDate();
-		
+		this.test();
 		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
 			this.setState({foods: response.entity});
 			
