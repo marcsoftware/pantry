@@ -2,9 +2,10 @@
 
 
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const client = require('./client');
+import React, { Component } from 'react';
+
+import ReactDOM from 'react-dom';
+import client from './client';
 
 import NameForm from './NameForm';
 
