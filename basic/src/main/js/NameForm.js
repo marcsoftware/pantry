@@ -54,11 +54,11 @@ class NameForm extends React.Component {
 				 
 				"name": this.state.name,
 				"consumed_calories": this.state.calories,
-				"consumed_label":this.state.amount.replace(/[0-9\s]/g, ""),
-				"consumed_unit":this.state.amount.replace(/\D/g, ""),
+				"consumed_label":this.state.amount.replace(/[\d\/\\\+\-\*\s]/g, ""),//delete math including space
+				"consumed_unit":this.state.amount.replace(/[^\d\/\\\+\-\*]/g, ""), //delete non-math
 				"ratio_calories": this.state.ratio_calories,
-				"ratio_label": this.state.ratio_amount.replace(/[0-9\s]/g, ""),
-				"ratio_unit": this.state.ratio_amount.replace(/\D/g, "")
+				"ratio_label": this.state.ratio_amount.replace(/[\d\/\\\+\-\*\s]/g, ""),
+				"ratio_unit": this.state.ratio_amount.replace(/[^\d\/\\\+\-\*]/g, "")
 			})
 
 			return form_json;
