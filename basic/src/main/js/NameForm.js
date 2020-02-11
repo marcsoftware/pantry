@@ -27,6 +27,14 @@ class NameForm extends React.Component {
 			return x;
 		}
 	}
+
+	  //TODO: extract data from form 
+	  // do math (algebra and +-/*)
+	  // convert to JSON or string so that sendData can use it.
+	  //clear form ?
+	  getFormData(){
+
+	  }
   
 	  sendData() {
 		//check for undefined variables

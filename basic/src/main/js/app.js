@@ -50,7 +50,6 @@ class App extends React.Component {
 	}
 
 	//get all food items where date is today
-	
 	componentDidMount() {
 		let today = this.getDate(); //todo today should be target_date
 		
