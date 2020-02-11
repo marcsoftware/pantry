@@ -27,11 +27,28 @@ class App extends React.Component {
 		
 	}
 
-	
+	getDate(){
+		let newDate = new Date()
+		let day = newDate.getDate();
+		let month = newDate.getMonth() + 1;
+		let year = newDate.getFullYear();
+
+		
+		if(day <10){
+			day="0"+day; // pad with a zero
+		}
+
+		if(month <10){
+			month="0"+month; // pad with a zero
+		}
+
+		return year+'-'+month+'-'+day;
+	}
 
 	componentDidMount() {
+		let today = this.getDate();
 		
-		client({method: 'GET', path: '/demo/mongo'}).done(response => {
+		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
 			this.setState({foods: response.entity});
 			
 		});
