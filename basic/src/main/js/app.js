@@ -1,14 +1,7 @@
-
-
-
-
 import React, { Component } from 'react';
-
 import ReactDOM from 'react-dom';
 import client from './client';
-
 import NameForm from './NameForm';
-
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -17,8 +10,6 @@ import {
   } from "react-router-dom";
 
 
-
-// tag::app[]
 class App extends React.Component {
 
 	constructor(props) {
@@ -100,8 +91,6 @@ class App extends React.Component {
 
 class FoodList extends React.Component{
 	
-
-
 	render() {
 		const foods = this.props.foods.map(food =>
 			<Food key={food.id} food={food}/>
