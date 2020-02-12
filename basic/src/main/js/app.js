@@ -104,10 +104,10 @@ class FoodList extends React.Component{
 					<tr>
 						
 						<th>name</th>
-						<th>calories</th>
 						<th>amount</th>
-						<th>ratio cals</th>
+						<th>calories</th>
 						<th>ratio amount</th>
+						<th>ratio calories</th>
 						<th>time</th>
 						
 					</tr>
@@ -129,10 +129,10 @@ class Food extends React.Component{
 			
 			<tr>
 				<td>{this.props.food.name}</td>
-				<td>{this.props.food.consumed_calories}</td>
 				<td>{this.props.food.consumed_unit}{this.props.food.consumed_label}</td>
-				<td>{this.props.food.ratio_calories}</td>
+				<td>{this.props.food.consumed_calories}</td>
 				<td>{this.props.food.ratio_unit}{this.props.food.ratio_label}</td>
+				<td>{this.props.food.ratio_calories}</td>
 				<td>{this.props.food.time}</td>
 
 			</tr>
