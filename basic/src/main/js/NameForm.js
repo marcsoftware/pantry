@@ -145,13 +145,13 @@ class NameForm extends React.Component {
 			</label>
 
 			<datalist id="suggest">
-    <option value="Chrome" />
-    <option value="Firefox hardcoded all" />
-    <option value="Internet Explorer" />
-    <option value="Opera" />
-    <option value="Safari" />
-    <option value="Microsoft Edge" />   
-</datalist>
+				<option value="Chrome hardcoded" />
+				<option value="Firefox hardcoded all" />
+				<option value="Internet Explorer" />
+				<option value="Opera" />
+				<option value="Safari" />
+				<option value="Microsoft Edge" />   
+			</datalist>
 
 			<label>
 				consumed amount:
