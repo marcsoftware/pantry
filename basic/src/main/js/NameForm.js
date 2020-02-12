@@ -141,8 +141,17 @@ class NameForm extends React.Component {
 		<form id="create-food-form">
 			<label>
 				Name:
-				<input type="text" name="name" onChange={this.handleChange} /><br/>
+				<input type="text" list="suggest" name="name" onChange={this.handleChange} /><br/>
 			</label>
+
+			<datalist id="suggest">
+    <option value="Chrome" />
+    <option value="Firefox hardcoded all" />
+    <option value="Internet Explorer" />
+    <option value="Opera" />
+    <option value="Safari" />
+    <option value="Microsoft Edge" />   
+</datalist>
 
 			<label>
 				consumed amount:
