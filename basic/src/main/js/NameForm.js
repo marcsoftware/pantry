@@ -94,9 +94,14 @@ class NameForm extends React.Component {
 		event.preventDefault();
 	}
 
+	evaluateArithmeticExpression(food){
+		return food;
+	}
+
 	processForm(){
 		
 		var	food=this.getFormData();
+		food=this.evaluateArithmeticExpression(food);
 		food=this.doAlgebra(food);
 		return food;
 	}
