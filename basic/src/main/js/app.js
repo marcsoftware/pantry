@@ -102,14 +102,12 @@ class FoodList extends React.Component{
 				<tbody>
 					
 					<tr>
-						
 						<th>name</th>
 						<th>amount</th>
 						<th>calories</th>
 						<th>ratio amount</th>
 						<th>ratio calories</th>
 						<th>time</th>
-						
 					</tr>
 					{foods}
 				</tbody>
