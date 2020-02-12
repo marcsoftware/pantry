@@ -139,31 +139,30 @@ class NameForm extends React.Component {
 	render() {
 	  return (
 		<form id="create-food-form">
-		  <label>
-			Name:
-			<input type="text" name="name" onChange={this.handleChange} /><br/>
-		  </label>
+			<label>
+				Name:
+				<input type="text" name="name" onChange={this.handleChange} /><br/>
+			</label>
 
-		  <label>
-		  consumed amount:
-		  <input type="text" name="amount" onChange={this.handleChange} /><br/>
-		  </label>
-		  
-		  <label>
-		  consumed calories:
-		  <input type="text" name="calories" onChange={this.handleChange} /><br/>
-		  </label>
+			<label>
+				consumed amount:
+				<input type="text" name="amount" onChange={this.handleChange} /><br/>
+			</label>
+			
+			<label>
+				consumed calories:
+				<input type="text" name="calories" onChange={this.handleChange} /><br/>
+			</label>
 
-		  <label>
-		  ratio amount:
-		  <input type="text" name="ratio_amount" onChange={this.handleChange} /><br/>
-		  ratio calories:
-		  <input type="text" name="ratio_calories" onChange={this.handleChange} /><br/>
-		</label><br/>
+			<label>
+				ratio amount:
+				<input type="text" name="ratio_amount" onChange={this.handleChange} /><br/>
+				ratio calories:
+				<input type="text" name="ratio_calories" onChange={this.handleChange} /><br/>
+			</label><br/>
 
 		  <input type="button" value="Submit" onClick={this.handleSubmit} />
-		  
-		  
+		   
 		</form>
 	  );
 	}
