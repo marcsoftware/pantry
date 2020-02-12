@@ -16,33 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class MainController {
 
-	
-
 	@Autowired
 	private FoodRepository FoodRepository;
-
-	@PostMapping(path="/add") // Map ONLY POST Requests
-	public @ResponseBody String addNewUser (@RequestParam String name
-			, @RequestParam String email) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
-
-	  Food c = new Food(name,email,"X","X","X","X","X");
-	
-	
-	  FoodRepository.save(c);
-
-	
-		return "Saved";
-	}
-
-
 
 	@GetMapping(path="/mongo")
 	public @ResponseBody List<Food> getAllMongo() {
 		return FoodRepository.findAll();
 	}
-
 
 	@GetMapping(path="/date/{date}")
 	public @ResponseBody List<Food> getAllFromToday(@PathVariable String date) {
