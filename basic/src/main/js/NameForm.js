@@ -50,15 +50,15 @@ class NameForm extends React.Component {
 			}
 
 			//
-			var form_json=JSON.stringify({
+			var form_json=({
 				 
 				"name": this.state.name,
-				"consumed_calories":parseFloat( this.state.calories),
+				"consumed_calories": this.state.calories.replace(/[^\d\/\\\+\-\*\.]/g, ""),
 				"consumed_label":this.state.amount.replace(/[\d\/\\\+\-\*\s\.]/g, ""),//delete math including space
-				"consumed_unit":parseFloat(this.state.amount.replace(/[^\d\/\\\+\-\*\.]/g, "")), //delete non-math
-				"ratio_calories": parseFloat(this.state.ratio_calories),
+				"consumed_unit":this.state.amount.replace(/[^\d\/\\\+\-\*\.]/g, ""), //delete non-math
+				"ratio_calories": this.state.ratio_calories.replace(/[^\d\/\\\+\-\*\.]/g, ""),
 				"ratio_label": this.state.ratio_amount.replace(/[\d\/\\\+\-\*\s\.]/g, ""),
-				"ratio_unit": parseFloat(this.state.ratio_amount.replace(/[^\d\/\\\+\-\*\.]/g, ""))
+				"ratio_unit": this.state.ratio_amount.replace(/[^\d\/\\\+\-\*\.]/g, "")
 			})
 			
 			return form_json;
@@ -88,31 +88,46 @@ class NameForm extends React.Component {
 		}
 		
 		var form_json=this.processForm();
+		
 		this.sendData(form_json);
 		this.props.myFunc(); // tell parent to update the food-grid componet
 		this.clearForm();
 		event.preventDefault();
 	}
 
-	evaluateArithmeticExpression(food){
+	evaluateArithmeticExpressions(food){
+
+		food.consumed_calories=this.evaluate(food.consumed_calories);
+		food.consumed_unit=this.evaluate(food.consumed_unit);
+		food.ratio_calories=this.evaluate(food.ratio_calories);
+		food.ratio_unit=this.evaluate(food.ratio_unit);
+	
 		return food;
 	}
 
-	processForm(){
+	// accepts a string like "1*5/2"
+	// and returns a float
+	evaluate( expression){
+		return parseFloat(expression);
+	}
+
+	processForm(){ 
 		
 		var	food=this.getFormData();
-		food=this.evaluateArithmeticExpression(food);
+		
+		food=this.evaluateArithmeticExpressions(food);
+		
 		food=this.doAlgebra(food);
 		return food;
 	}
+
 	// 
 	doAlgebra(food){
-		food=JSON.parse(food);
-		
-		if(food.ratio_label===food.consumed_label && food.consumed_calories===null){
+
+		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){
 			food.consumed_calories=food.ratio_calories*(food.consumed_unit/food.ratio_unit);
 		}
-
+		
 		return food;
 	}
 	
