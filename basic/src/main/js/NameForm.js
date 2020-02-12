@@ -53,14 +53,14 @@ class NameForm extends React.Component {
 			var form_json=JSON.stringify({
 				 
 				"name": this.state.name,
-				"consumed_calories":parseInt( this.state.calories),
-				"consumed_label":this.state.amount.replace(/[\d\/\\\+\-\*\s]/g, ""),//delete math including space
-				"consumed_unit":parseInt(this.state.amount.replace(/[^\d\/\\\+\-\*\.]/g, "")), //delete non-math
-				"ratio_calories": parseInt(this.state.ratio_calories),
-				"ratio_label": this.state.ratio_amount.replace(/[\d\/\\\+\-\*\s]/g, ""),
-				"ratio_unit": parseInt(this.state.ratio_amount.replace(/[^\d\/\\\+\-\*\.]/g, ""))
+				"consumed_calories":parseFloat( this.state.calories),
+				"consumed_label":this.state.amount.replace(/[\d\/\\\+\-\*\s\.]/g, ""),//delete math including space
+				"consumed_unit":parseFloat(this.state.amount.replace(/[^\d\/\\\+\-\*\.]/g, "")), //delete non-math
+				"ratio_calories": parseFloat(this.state.ratio_calories),
+				"ratio_label": this.state.ratio_amount.replace(/[\d\/\\\+\-\*\s\.]/g, ""),
+				"ratio_unit": parseFloat(this.state.ratio_amount.replace(/[^\d\/\\\+\-\*\.]/g, ""))
 			})
-
+			
 			return form_json;
 	  }
   
@@ -95,6 +95,7 @@ class NameForm extends React.Component {
 	}
 
 	processForm(){
+		
 		var	food=this.getFormData();
 		food=this.doAlgebra(food);
 		return food;
