@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { create, all } from 'mathjs'
 
-
+const math = create(all);
 class NameForm extends React.Component {
 	constructor(props) {
 	  super(props);
@@ -108,15 +109,14 @@ class NameForm extends React.Component {
 	// accepts a string like "1*5/2"
 	// and returns a float
 	evaluate( expression){
-		return parseFloat(expression);
+		
+		return parseFloat(math.evaluate(expression));
 	}
 
 	processForm(){ 
 		
 		var	food=this.getFormData();
-		
 		food=this.evaluateArithmeticExpressions(food);
-		
 		food=this.doAlgebra(food);
 		return food;
 	}
