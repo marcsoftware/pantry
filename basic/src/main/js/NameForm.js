@@ -87,13 +87,17 @@ class NameForm extends React.Component {
 			return;
 		}
 		var	form_json=	this.getFormData();
-		form_json=this.doAlgebra(form_json);
+		form_json=this.processForm(form_json);
 		this.sendData(form_json);
 		this.props.myFunc(); // tell parent to update the food-grid componet
 		this.clearForm();
 		event.preventDefault();
 	}
 
+	processForm(food){
+		food=this.doAlgebra(food);
+		return food;
+	}
 	// 
 	doAlgebra(food){
 		food=JSON.parse(food);
