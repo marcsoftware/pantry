@@ -32,7 +32,7 @@ class NameForm extends React.Component {
 	  // DESCRIPTION : processes form data before sending
 	  // do math (algebra and +-/*)
 	  // convert to JSON or string so that sendData can use it.
-	  //clear form ?
+	  //
 	  getFormData(){
 
 			//deal with undefined problem
@@ -53,12 +53,12 @@ class NameForm extends React.Component {
 			var form_json=JSON.stringify({
 				 
 				"name": this.state.name,
-				"consumed_calories": this.state.calories,
+				"consumed_calories":parseInt( this.state.calories),
 				"consumed_label":this.state.amount.replace(/[\d\/\\\+\-\*\s]/g, ""),//delete math including space
-				"consumed_unit":this.state.amount.replace(/[^\d\/\\\+\-\*\.]/g, ""), //delete non-math
-				"ratio_calories": this.state.ratio_calories,
+				"consumed_unit":parseInt(this.state.amount.replace(/[^\d\/\\\+\-\*\.]/g, "")), //delete non-math
+				"ratio_calories": parseInt(this.state.ratio_calories),
 				"ratio_label": this.state.ratio_amount.replace(/[\d\/\\\+\-\*\s]/g, ""),
-				"ratio_unit": this.state.ratio_amount.replace(/[^\d\/\\\+\-\*\.]/g, "")
+				"ratio_unit": parseInt(this.state.ratio_amount.replace(/[^\d\/\\\+\-\*\.]/g, ""))
 			})
 
 			return form_json;
@@ -73,7 +73,7 @@ class NameForm extends React.Component {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: form_json
+			body: JSON.stringify(form_json)
 		})
 
 	
@@ -87,10 +87,22 @@ class NameForm extends React.Component {
 			return;
 		}
 		var	form_json=	this.getFormData();
+		form_json=this.doAlgebra(form_json);
 		this.sendData(form_json);
 		this.props.myFunc(); // tell parent to update the food-grid componet
 		this.clearForm();
 		event.preventDefault();
+	}
+
+	// 
+	doAlgebra(food){
+		food=JSON.parse(food);
+		
+		if(food.ratio_label===food.consumed_label && food.consumed_calories===null){
+			food.consumed_calories=food.ratio_calories*(food.consumed_unit/food.ratio_unit);
+		}
+
+		return food;
 	}
 	
 	clearForm () { 
