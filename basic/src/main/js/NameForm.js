@@ -98,17 +98,17 @@ class NameForm extends React.Component {
 
 	evaluateArithmeticExpressions(food){
 
-		food.consumed_calories=this.evaluate(food.consumed_calories);
-		food.consumed_unit=this.evaluate(food.consumed_unit);
-		food.ratio_calories=this.evaluate(food.ratio_calories);
-		food.ratio_unit=this.evaluate(food.ratio_unit);
+		food.consumed_calories=this.evaluateMath(food.consumed_calories);
+		food.consumed_unit=this.evaluateMath(food.consumed_unit);
+		food.ratio_calories=this.evaluateMath(food.ratio_calories);
+		food.ratio_unit=this.evaluateMath(food.ratio_unit);
 	
 		return food;
 	}
 
 	// accepts a string like "1*5/2"
 	// and returns a float
-	evaluate( expression){
+	evaluateMath( expression){
 		
 		return parseFloat(math.evaluate(expression));
 	}
@@ -123,6 +123,7 @@ class NameForm extends React.Component {
 
 	// 
 	doAlgebra(food){
+
 
 		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){
 			food.consumed_calories=food.ratio_calories*(food.consumed_unit/food.ratio_unit);
