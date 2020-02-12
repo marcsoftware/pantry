@@ -86,15 +86,16 @@ class NameForm extends React.Component {
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
-		var	form_json=	this.getFormData();
-		form_json=this.processForm(form_json);
+		
+		var form_json=this.processForm();
 		this.sendData(form_json);
 		this.props.myFunc(); // tell parent to update the food-grid componet
 		this.clearForm();
 		event.preventDefault();
 	}
 
-	processForm(food){
+	processForm(){
+		var	food=this.getFormData();
 		food=this.doAlgebra(food);
 		return food;
 	}
