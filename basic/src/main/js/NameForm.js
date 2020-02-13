@@ -157,7 +157,7 @@ class NameForm extends React.Component {
 			
 			<label>
 				consumed calories:
-				<input type="text" name="calories" onChange={this.handleChange} /><br/>
+				<input type="text" name="calories" onChange={this.handleChange} /> automatically calculated from ratio<br/>
 			</label>
 
 			<label>
