@@ -6,8 +6,8 @@ const math = create(all);
 class NameForm extends React.Component {
 	constructor(props) {
 	  super(props);
-	  this.state = {value: ''};
-  
+	  this.state = {value: '',names: ["prop","moreprop"]};
+  	
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.getFormData = this.getFormData.bind(this);
@@ -28,6 +28,21 @@ class NameForm extends React.Component {
 			x=x;
 			return x;
 		}
+	}
+
+	componentDidMount(){
+		
+	}
+	// TODO call this as user types, and then use data to populate dropdown
+	// might need to call on componentDidMount also
+	populateDropdown(){
+		
+		
+		
+		client({method: 'GET', path: "/demo/list/food"}).done(response => {
+			this.setState({names: response.entity});
+			
+		});
 	}
 
 	  // DESCRIPTION : processes form data before sending
@@ -77,8 +92,6 @@ class NameForm extends React.Component {
 			body: JSON.stringify(form_json)
 		})
 
-	
-	
 	  }
 	 
 
@@ -123,7 +136,6 @@ class NameForm extends React.Component {
 
 	// 
 	doAlgebra(food){
-
 
 		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){
 			food.consumed_calories=food.ratio_calories*(food.consumed_unit/food.ratio_unit);
