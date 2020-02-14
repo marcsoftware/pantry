@@ -8,5 +8,5 @@ public interface FoodRepository extends MongoRepository<Food, String> {
 
     List<Food> findByDate(String date);
     List<Food> findByName(String name);
-    //TODO db.getCollection('food').distinct("name")
+    
 }
