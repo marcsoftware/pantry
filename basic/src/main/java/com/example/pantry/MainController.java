@@ -30,7 +30,7 @@ public class MainController {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
-	@GetMapping(path = "/mongo")
+	@GetMapping(path = "/food")
 	public @ResponseBody List<Food> getAllMongo() {
 		return FoodRepository.findAll();
 	}
@@ -45,7 +45,7 @@ public class MainController {
 		return FoodRepository.findByName(name);
 	}
 
-	@GetMapping(path = "/z/{name}")
+	@GetMapping(path = "/list/{name}")
 	public @ResponseBody List<String> getFromTemplate(@PathVariable String name) {
 		List<String> categoryList = new ArrayList<>();
 		DistinctIterable distinctIterable = mongoTemplate.getCollection("food").distinct("name",String.class);
@@ -58,7 +58,7 @@ public class MainController {
 	}
 
 
-	@PostMapping(path= "/json",consumes = "application/json")
+	@PostMapping(path= "/food",consumes = "application/json")
 	public @ResponseBody String update(@RequestBody Food food) {
 		food.setDate();
 		FoodRepository.save(food);
