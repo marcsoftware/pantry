@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { create, all } from 'mathjs'
+import client from './client';
 
 const math = create(all);
 class NameForm extends React.Component {
 	constructor(props) {
 	  super(props);
-	  this.state = {value: '',names: ["prop","moreprop"]};
+	  this.state = {value: '',names: []};
   	
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.getFormData = this.getFormData.bind(this);
-
+	
+	  this.populateDropdown();
 	}
   
 	handleChange(event) {
@@ -91,7 +93,6 @@ class NameForm extends React.Component {
 
 	  }
 	 
-
 	handleSubmit(event) {
 		// stop form from being clear is name is blank but other fields are not
 		if(typeof this.state.name == 'undefined'){
@@ -184,7 +185,7 @@ class DropDown extends React.Component{
 	
 	render() {
 		const names = this.props.names.map(name =>
-			<option value={name} />
+			<option value={name} key={name}/>
 			
 		);
 	
@@ -197,6 +198,5 @@ class DropDown extends React.Component{
 		)
 	}
 }
-
 
 export default NameForm;
