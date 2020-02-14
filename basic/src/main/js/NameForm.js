@@ -97,6 +97,9 @@ class NameForm extends React.Component {
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
+
+		var joined = this.state.names.concat(name);
+		this.setState({ names: joined })
 		this.state.names.push(name); // TODO need to make dropdown re-render
 		var form_json=this.processForm();
 		
