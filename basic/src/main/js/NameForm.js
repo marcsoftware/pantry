@@ -144,11 +144,7 @@ class NameForm extends React.Component {
 				<input type="text" list="suggest" name="name" onChange={this.handleChange} /><br/>
 			</label>
 
-			<datalist id="suggest">
-				<option value="Coca-cola hardcoded" />
-				<option value="Taco hardcoded" />
-				
-			</datalist>
+			<DropDown />
 
 			<label>
 				consumed amount:
@@ -173,5 +169,24 @@ class NameForm extends React.Component {
 	  );
 	}
   }
+
+  
+class DropDown extends React.Component{
+	
+	render() {
+	
+		return (
+			
+				
+			<datalist id="suggest">
+				<option value="Coca-cola hardcoded" />
+				<option value="Taco hardcoded" />
+				
+			</datalist>
+		
+		)
+	}
+}
+
 
   export default NameForm;
