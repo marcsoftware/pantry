@@ -32,7 +32,6 @@ class NameForm extends React.Component {
 		}
 	}
 
-
 	// TODO use data to populate dropdown
 	// might need to call on componentDidMount also
 	populateDropdown(){
@@ -98,7 +97,7 @@ class NameForm extends React.Component {
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
-		
+		this.state.names.push(name); // TODO need to make dropdown re-render
 		var form_json=this.processForm();
 		
 		this.sendData(form_json);
