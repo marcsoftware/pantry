@@ -68,7 +68,7 @@ class NameForm extends React.Component {
 	  sendData(form_json) {
 	
 		//save to database
-		fetch('/demo/json', {
+		fetch('/demo/food', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -174,14 +174,13 @@ class NameForm extends React.Component {
 class DropDown extends React.Component{
 	
 	render() {
+		
 	
 		return (
-			
 				
 			<datalist id="suggest">
 				<option value="Coca-cola hardcoded" />
 				<option value="Taco hardcoded" />
-				
 			</datalist>
 		
 		)
