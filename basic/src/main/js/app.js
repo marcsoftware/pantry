@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import client from './client';
 import NameForm from './NameForm';
+
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -15,11 +16,9 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {foods: [],date_offset:0}; 
-		
 		this.handleChildFunc = this.handleChildFunc.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
 		this.getDate = this.getDate.bind(this);
-		
 	}
 
 	getDate(){
@@ -88,7 +87,6 @@ class App extends React.Component {
 }
 
 
-
 class FoodList extends React.Component{
 	
 	render() {
@@ -117,9 +115,7 @@ class FoodList extends React.Component{
 }
 
 
-
 class Food extends React.Component{
-
 	
 	render() {
 		return (
@@ -152,7 +148,6 @@ class DateNavigation extends React.Component{
 				 <input type="button" value="<-" onClick={() => this.handleClick(-1)} />
 				 <input type="button" value="today" onClick={() => this.handleClick(0)} />
 				 <input type="button" value="->"  onClick={() => this.handleClick(1)} />
-			
 			</>
 		)
 	}

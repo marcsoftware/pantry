@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 
-const base = <h1>AAAAAAAAAAAAAAAAAAAAAAAAA<App/></h1>;
+const base = <App/>;
 
 ReactDOM.render(<base />, document.getElementById('root'));
 

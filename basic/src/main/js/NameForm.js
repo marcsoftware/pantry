@@ -30,15 +30,10 @@ class NameForm extends React.Component {
 		}
 	}
 
-	componentDidMount(){
-		
-	}
-	// TODO call this as user types, and then use data to populate dropdown
+
+	// TODO use data to populate dropdown
 	// might need to call on componentDidMount also
 	populateDropdown(){
-		
-		
-		
 		client({method: 'GET', path: "/demo/list/food"}).done(response => {
 			this.setState({names: response.entity});
 			
@@ -65,16 +60,18 @@ class NameForm extends React.Component {
 				this.state.ratio_calories="";
 			}
 
+			const catchLetters = new RegExp(/[^\d\/\\\+\-\*\.]/g); // \w will catch numbers so have to do it long way
+			const catchMath = new RegExp(/[\d\/\\\+\-\*\s\.]/g);
 			//
 			var form_json=({
 				 
 				"name": this.state.name,
-				"consumed_calories": this.state.calories.replace(/[^\d\/\\\+\-\*\.]/g, ""),
-				"consumed_label":this.state.amount.replace(/[\d\/\\\+\-\*\s\.]/g, ""),//delete math including space
-				"consumed_unit":this.state.amount.replace(/[^\d\/\\\+\-\*\.]/g, ""), //delete non-math
-				"ratio_calories": this.state.ratio_calories.replace(/[^\d\/\\\+\-\*\.]/g, ""),
-				"ratio_label": this.state.ratio_amount.replace(/[\d\/\\\+\-\*\s\.]/g, ""),
-				"ratio_unit": this.state.ratio_amount.replace(/[^\d\/\\\+\-\*\.]/g, "")
+				"consumed_calories": this.state.calories.replace(catchLetters, ""),
+				"consumed_label":this.state.amount.replace(catchMath, ""),//delete math including space
+				"consumed_unit":this.state.amount.replace(catchLetters, ""), //delete non-math
+				"ratio_calories": this.state.ratio_calories.replace(catchLetters, ""),
+				"ratio_label": this.state.ratio_amount.replace(catchMath, ""),
+				"ratio_unit": this.state.ratio_amount.replace(catchLetters, "")
 			})
 			
 			return form_json;
@@ -202,4 +199,4 @@ class DropDown extends React.Component{
 }
 
 
-  export default NameForm;
+export default NameForm;

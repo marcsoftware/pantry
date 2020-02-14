@@ -21,7 +21,6 @@ public class Food{
 	public String ratio_label;
 	public String ratio_unit;
 
-
 	public String date;
 	public String time;
 	
@@ -71,7 +70,6 @@ public class Food{
 		String clockTime=clock_formater.format(now);
 		return new String[] { calendarDate, clockTime };
 	}
-
 
 	@Override
 	public String toString() {
