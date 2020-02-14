@@ -33,6 +33,12 @@ public class MainController {
 		return FoodRepository.findByName(name);
 	}
 
+	@GetMapping(path="/z/{name}")
+	public @ResponseBody List<Food> getFromTemplate(@PathVariable String name) {
+		return FoodRepository.findByName(name);
+	}
+
+
 	@PostMapping(path= "/json",consumes = "application/json")
 	public @ResponseBody String update(@RequestBody Food food) {
 		food.setDate();
