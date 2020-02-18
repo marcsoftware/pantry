@@ -7,7 +7,7 @@ const math = create(all);
 class NameForm extends React.Component {
 	constructor(props) {
 	  super(props);
-	  this.state = {value: '',names: [],stats:[]};
+	  this.state = {value: '',names: [],stats:[],labels:[]};
   	
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,6 +42,21 @@ class NameForm extends React.Component {
 		});
 	}
 
+	testForLetters(item){
+		return item.search(/[a-zA-Z]/i)>-1 && item !== "null";
+	}
+
+	 
+
+	filterLabels(list){
+		list=list.filter(this.testForLetters);
+		list = list.filter(function(item, index){
+			return list.indexOf(item) >= index;
+		});
+		
+		return list;
+	}
+
 
 	getStats(){
 		if (this.state.name===""){ //if null dont waste time calling database
@@ -49,7 +64,7 @@ class NameForm extends React.Component {
 		}
 		client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
 			this.setState({stats: response.entity});
-			
+			this.setState({labels:this.filterLabels(response.entity)});
 		});
 	}
 
@@ -170,13 +185,13 @@ class NameForm extends React.Component {
 				onChange={this.handleChange} /><br/>
 			</label>
 
-			<DropDown names={this.state.names}   />
+			<DropDown names={this.state.labels}   />
 
 			<label>
 				consumed amount:
 				<input type="text" name="amount" onChange={this.handleChange} /><br/>
 			</label>
-	  <p>{this.state.stats}</p><br/>
+	  <span>{this.state.labels}</span><br/>
 			<label>
 				consumed calories:
 				<input type="text" name="calories" onChange={this.handleChange} /> automatically calculated from ratio<br/>
