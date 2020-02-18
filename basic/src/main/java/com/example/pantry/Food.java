@@ -74,9 +74,12 @@ public class Food{
 	@Override
 	public String toString() {
 		return String.format(
-				"stat[ratio_unit=%s, ratio_label='%s', calories='%s']",
+				"%s, '%s','%s'",
 				ratio_unit, ratio_label, ratio_calories);
 	}
+
+
+	
 
 }
 

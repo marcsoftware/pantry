@@ -69,7 +69,10 @@ public class MainController {
 
 		for (Food food : userTest6) {
 			System.out.println("userTest6 - " + food);
-			labelList.add(food.toString());
+			String[] item = food.toString().split(",");
+			labelList.add(item[0]);
+			labelList.add(item[1]);
+			labelList.add(item[2]);
 		}
 
 		//----------
