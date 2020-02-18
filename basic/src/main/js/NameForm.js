@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { create, all } from 'mathjs'
 import client from './client';
 
+
 const math = create(all);
 class NameForm extends React.Component {
 	constructor(props) {
