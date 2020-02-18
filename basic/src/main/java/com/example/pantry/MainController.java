@@ -74,14 +74,6 @@ public class MainController {
 
 		//----------
 
-		List<String> categoryList = new ArrayList<>();
-		DistinctIterable<String> distinctIterable = 
-		               mongoTemplate.getCollection("food").distinct("name",String.class);
-		MongoCursor<String> cursor = distinctIterable.iterator();
-		while (cursor.hasNext()) {
-			String category = (String)cursor.next();
-			categoryList.add(category);
-		}
 		return labelList;
 	}
 
