@@ -7,7 +7,7 @@ const math = create(all);
 class NameForm extends React.Component {
 	constructor(props) {
 	  super(props);
-	  this.state = {value: '',names: []};
+	  this.state = {value: '',names: [],stats:[]};
   	
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,6 +37,14 @@ class NameForm extends React.Component {
 	populateDropdown(){
 		client({method: 'GET', path: "/demo/list/food"}).done(response => {
 			this.setState({names: response.entity});
+			
+		});
+	}
+
+
+	getStats(){
+		client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
+			this.setState({stats: response.entity});
 			
 		});
 	}
@@ -97,7 +105,7 @@ class NameForm extends React.Component {
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
-
+		this.getStats();
 		var joined = this.state.names.concat(name);
 		this.setState({ names: joined })
 		this.state.names.push(name); // TODO need to make dropdown re-render
