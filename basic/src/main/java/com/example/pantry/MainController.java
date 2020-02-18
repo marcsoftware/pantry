@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,8 +59,20 @@ public class MainController {
 
 	@GetMapping(path = "/stats/{name}")
 	public @ResponseBody List<String> getStats(@PathVariable String name) {
+		//------
+		List<String> labelList = new ArrayList<>();
 		Query query6 = new Query();
 		query6.addCriteria(Criteria.where("name").regex("coke", "i"));
+
+		List<Food> userTest6 = mongoTemplate.find(query6, Food.class);
+		System.out.println("query6 - " + query6.toString());
+
+		for (Food food : userTest6) {
+			System.out.println("userTest6 - " + food);
+			labelList.add(food.toString());
+		}
+
+		//----------
 
 		List<String> categoryList = new ArrayList<>();
 		DistinctIterable<String> distinctIterable = 
@@ -69,7 +82,7 @@ public class MainController {
 			String category = (String)cursor.next();
 			categoryList.add(category);
 		}
-		return categoryList;
+		return labelList;
 	}
 
 	@PostMapping(path= "/food",consumes = "application/json")
