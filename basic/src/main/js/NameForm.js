@@ -137,6 +137,7 @@ class NameForm extends React.Component {
 		this.sendData(form_json);
 		this.props.myFunc(); // tell parent to update the food-grid componet
 		this.clearForm();
+		this.state = {value: '',names: [],stats:[],labels:[]};
 		event.preventDefault();
 	}
 
