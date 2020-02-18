@@ -12,6 +12,7 @@ class NameForm extends React.Component {
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.getFormData = this.getFormData.bind(this);
+	  this.getStats = this.getStats.bind(this);
 	
 	  this.populateDropdown();
 	}
@@ -43,9 +44,12 @@ class NameForm extends React.Component {
 
 
 	getStats(){
+		if (this.state.name===""){ //if null dont waste time calling database
+			return;
+		}
 		client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
 			this.setState({stats: response.entity});
-			
+			alert(response.entity);
 		});
 	}
 
@@ -105,7 +109,7 @@ class NameForm extends React.Component {
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
-		this.getStats();
+		this.getStats();//
 		var joined = this.state.names.concat(name);
 		this.setState({ names: joined })
 		this.state.names.push(name); // TODO need to make dropdown re-render
@@ -161,7 +165,9 @@ class NameForm extends React.Component {
 		<form id="create-food-form">
 			<label>
 				Name:
-				<input type="text" list="suggest" name="name" onChange={this.handleChange} /><br/>
+				<input type="text" list="suggest" name="name"  
+				onBlur={this.getStats}
+				onChange={this.handleChange} /><br/>
 			</label>
 
 			<DropDown names={this.state.names}   />
