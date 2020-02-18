@@ -13,11 +13,11 @@ public class Food{
 	public String id;
 
 	public String name;
-	public int consumed_calories;
+	public String consumed_calories;
 	public String consumed_label;
 	public String consumed_unit;
 
-	public int ratio_calories;
+	public String ratio_calories;
 	public String ratio_label;
 	public String ratio_unit;
 
@@ -27,11 +27,11 @@ public class Food{
 	public Food() {}
 
 	public Food(String name, 
-				int consumed_calories,
+				String consumed_calories,
 				String consumed_label,
 				String consumed_unit,
 
-				int ratio_calories,
+				String ratio_calories,
 				String ratio_label,
 				String ratio_unit
 				 
