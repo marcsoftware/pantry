@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { create, all } from 'mathjs'
 import client from './client';
 
+//TODO put math functions in a different component
 
 const math = create(all);
 class NameForm extends React.Component {
@@ -14,6 +15,8 @@ class NameForm extends React.Component {
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.getFormData = this.getFormData.bind(this);
 	  this.getStats = this.getStats.bind(this);
+
+	  this.doAlgebra = this.doAlgebra.bind(this);
 	
 	  this.populateDropdown();
 	}
@@ -89,8 +92,8 @@ class NameForm extends React.Component {
 				this.state.ratio_calories="";
 			}
 
-			const catchLetters = new RegExp(/[^\d\/\\\+\-\*\.]/g); // \w will catch numbers so have to do it long way
-			const catchMath = new RegExp(/[\d\/\\\+\-\*\s\.]/g);
+			const catchLetters = new RegExp(/[^\d\/\\\+\-\*\.\ ]/g); // \w will catch numbers so have to do it long way
+			const catchMath = new RegExp(/[\d\/\\\+\-\*\s\.\ ]/g);
 			//
 			var form_json=({
 				 
@@ -164,6 +167,11 @@ class NameForm extends React.Component {
 
 	// 
 	doAlgebra(food){
+		if(food.ratio_label === "" && food.consumed_label !== ""){
+			//then look up label
+			var index = this.state.stats.indexOf(food.consumed_label);
+			alert(index);
+		}
 
 		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){
 			food.consumed_calories=food.ratio_calories*(food.consumed_unit/food.ratio_unit);
