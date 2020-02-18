@@ -74,7 +74,7 @@ public class Food{
 	@Override
 	public String toString() {
 		return String.format(
-				"%s, '%s','%s'",
+				"%s, %s,%s",
 				ratio_unit, ratio_label, ratio_calories);
 	}
 

@@ -49,7 +49,7 @@ class NameForm extends React.Component {
 		}
 		client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
 			this.setState({stats: response.entity});
-			alert(response.entity);
+			
 		});
 	}
 
@@ -176,7 +176,7 @@ class NameForm extends React.Component {
 				consumed amount:
 				<input type="text" name="amount" onChange={this.handleChange} /><br/>
 			</label>
-			
+	  <p>{this.state.stats}</p><br/>
 			<label>
 				consumed calories:
 				<input type="text" name="calories" onChange={this.handleChange} /> automatically calculated from ratio<br/>
