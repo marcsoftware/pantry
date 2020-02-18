@@ -13,11 +13,11 @@ public class Food{
 	public String id;
 
 	public String name;
-	public String consumed_calories;
+	public int consumed_calories;
 	public String consumed_label;
 	public String consumed_unit;
 
-	public String ratio_calories;
+	public int ratio_calories;
 	public String ratio_label;
 	public String ratio_unit;
 
@@ -27,11 +27,11 @@ public class Food{
 	public Food() {}
 
 	public Food(String name, 
-				String consumed_calories,
+				int consumed_calories,
 				String consumed_label,
 				String consumed_unit,
 
-				String ratio_calories,
+				int ratio_calories,
 				String ratio_label,
 				String ratio_unit
 				 
@@ -75,7 +75,7 @@ public class Food{
 	public String toString() {
 		return String.format(
 				"%s,%s,%s",
-				ratio_unit, ratio_label, ratio_calories);
+				ratio_label,ratio_unit,ratio_calories);
 	}
 
 

@@ -170,7 +170,7 @@ class NameForm extends React.Component {
 		if(food.ratio_label === "" && food.consumed_label !== ""){
 			//then look up label
 			var index = this.state.stats.indexOf(food.consumed_label);
-			alert(index);
+			this.state.ratio_calories=this.state.stats[index+2];
 		}
 
 		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){

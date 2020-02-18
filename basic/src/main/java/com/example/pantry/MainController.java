@@ -62,7 +62,7 @@ public class MainController {
 		//------
 		List<String> labelList = new ArrayList<>();
 		Query query6 = new Query();
-		query6.addCriteria(Criteria.where("name").regex("coke", "i"));
+		query6.addCriteria(Criteria.where("name").regex("coke", "i").and("ratio_calories").gt(0));
 
 		List<Food> userTest6 = mongoTemplate.find(query6, Food.class);
 		System.out.println("query6 - " + query6.toString());
