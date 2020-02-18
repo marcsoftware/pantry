@@ -1,8 +1,10 @@
 package com.example.pantry;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +58,9 @@ public class MainController {
 
 	@GetMapping(path = "/stats/{name}")
 	public @ResponseBody List<String> getStats(@PathVariable String name) {
+		Query query6 = new Query();
+		query6.addCriteria(Criteria.where("name").regex("coke", "i"));
+
 		List<String> categoryList = new ArrayList<>();
 		DistinctIterable<String> distinctIterable = 
 		               mongoTemplate.getCollection("food").distinct("name",String.class);
