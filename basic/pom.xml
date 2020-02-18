@@ -109,6 +109,7 @@
 				</executions>
 			</plugin>
 			<!-- end::frontend-maven-plugin[] -->
+			
 		</plugins>
 	</build>
 
