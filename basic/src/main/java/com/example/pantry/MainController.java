@@ -41,7 +41,10 @@ public class MainController {
 	@GetMapping(path = "/list/{name}")
 	public @ResponseBody List<String> getFromTemplate(@PathVariable String name) {
 		List<String> categoryList = new ArrayList<>();
-		DistinctIterable<String> distinctIterable = mongoTemplate.getCollection("food").distinct("name",String.class);
+		
+		DistinctIterable<String> distinctIterable = 
+					mongoTemplate.getCollection("food").distinct("name",String.class);
+		
 		MongoCursor<String> cursor = distinctIterable.iterator();
 		while (cursor.hasNext()) {
 			String category = (String)cursor.next();
@@ -50,6 +53,19 @@ public class MainController {
 		return categoryList;
 	}
 
+
+	@GetMapping(path = "/stats/{name}")
+	public @ResponseBody List<String> getStats(@PathVariable String name) {
+		List<String> categoryList = new ArrayList<>();
+		DistinctIterable<String> distinctIterable = 
+		               mongoTemplate.getCollection("food").distinct("name",String.class);
+		MongoCursor<String> cursor = distinctIterable.iterator();
+		while (cursor.hasNext()) {
+			String category = (String)cursor.next();
+			categoryList.add(category);
+		}
+		return categoryList;
+	}
 
 	@PostMapping(path= "/food",consumes = "application/json")
 	public @ResponseBody String update(@RequestBody Food food) {
