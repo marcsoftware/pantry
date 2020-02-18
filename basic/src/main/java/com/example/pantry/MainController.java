@@ -62,7 +62,7 @@ public class MainController {
 		//------
 		List<String> labelList = new ArrayList<>();
 		Query query6 = new Query();
-		query6.addCriteria(Criteria.where("name").regex("coke", "i").and("ratio_calories").gt(0));
+		query6.addCriteria(Criteria.where("name").regex("coke", "i").and("ratio_calories").ne(null));
 
 		List<Food> userTest6 = mongoTemplate.find(query6, Food.class);
 		System.out.println("query6 - " + query6.toString());
@@ -70,9 +70,11 @@ public class MainController {
 		for (Food food : userTest6) {
 			System.out.println("userTest6 - " + food);
 			String[] item = food.toString().split(",");
-			labelList.add(item[0]);
-			labelList.add(item[1]);
-			labelList.add(item[2]);
+			if(!"null".equals(item[2]) && !"null".equals(item[1]) && !"null".equals(item[0])){ //TODO edit query to ignore nulls
+				labelList.add(item[0]);
+				labelList.add(item[1]);
+				labelList.add(item[2]);
+			}
 		}
 
 		//----------
