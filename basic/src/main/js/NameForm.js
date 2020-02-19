@@ -196,11 +196,13 @@ class NameForm extends React.Component {
 			
 		};
 
+		
+
 	  return (
 		  <>
-		  <table>
-			  <tr>
-				<th>
+		  <table style={style}> 
+			  <tr style={style}>
+				<th style={style}>
 					<form id="create-food-form" style={style}>
 						
 						<label>
@@ -233,7 +235,7 @@ class NameForm extends React.Component {
 					
 					</form>
 				</th>
-				<th>
+				<th style={style}>
 					<RatioTable stats={this.state.stats} />
 				</th>
 			</tr>
