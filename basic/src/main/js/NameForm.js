@@ -190,6 +190,7 @@ class NameForm extends React.Component {
 
 	render() {
 	  return (
+		  <>
 		<form id="create-food-form">
 			<label>
 				Name:
@@ -207,7 +208,7 @@ class NameForm extends React.Component {
 	  <span>{this.state.labels}</span><br/>
 			<label>
 				consumed calories:
-				<input type="text" name="calories" onChange={this.handleChange} /> automatically calculated from ratio<br/>
+				<input type="text" name="calories" onChange={this.handleChange} /> <br/>
 			</label>
 
 			<label>
@@ -218,8 +219,10 @@ class NameForm extends React.Component {
 			</label><br/>
 
 		  <input type="button" value="Submit" onClick={this.handleSubmit} />
-		   
+		   <RatioTable stats={this.state.stats} />
 		</form>
+
+		</>
 	  );
 	}
   }
@@ -238,6 +241,27 @@ class DropDown extends React.Component{
 			<datalist id="suggest">
 				{names}
 			</datalist>
+		
+		)
+	}
+}
+
+class RatioTable extends React.Component{
+
+	render() {
+		const items = []
+
+		for (var x=0;x<this.props.stats.length;x++) {
+			items.push(<li key={x}>{x}</li>)
+		}
+	
+		
+
+		return (
+				
+			<div>
+				{items}
+			</div>
 		
 		)
 	}
