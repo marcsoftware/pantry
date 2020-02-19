@@ -70,7 +70,7 @@ public class MainController {
 		for (Food food : userTest6) {
 			System.out.println("userTest6 - " + food);
 			String[] item = food.toString().split(",");
-			if(!food.toString().contains("null") && !labelList.contains(item[0])){ //TODO edit query to ignore nulls instead of coding
+			if(!food.toString().contains("null") && !labelList.contains(item[0])){ //TODO edit query not get repeats in first place instead of makeing a loop
 				labelList.add(item[0]);
 				labelList.add(item[1]);
 				labelList.add(item[2]);

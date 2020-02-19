@@ -251,8 +251,8 @@ class RatioTable extends React.Component{
 	render() {
 		const items = []
 
-		for (var x=0;x<this.props.stats.length;x++) {
-			items.push(<li key={x}>{x}</li>)
+		for (var x=0;x<this.props.stats.length;x+=3) {
+		items.push(<li >{this.props.stats[x+2]}cals per {this.props.stats[x+1]}{this.props.stats[x]}</li>)
 		}
 	
 		
