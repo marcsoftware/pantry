@@ -189,39 +189,55 @@ class NameForm extends React.Component {
 	  }
 
 	render() {
+		
+		let style = {
+			textAlign:'right',
+			border: 'none'
+			
+		};
+
 	  return (
 		  <>
-		<form id="create-food-form">
-			<label>
-				Name:
-				<input type="text" list="suggest" name="name"  
-				onBlur={this.getStats}
-				onChange={this.handleChange} /><br/>
-			</label>
+		  <table>
+			  <tr>
+				<th>
+					<form id="create-food-form" style={style}>
+						
+						<label>
+							Name:
+							<input type="text" list="suggest" name="name"  
+							onBlur={this.getStats}
+							onChange={this.handleChange} /><br/>
+						</label>
 
-			<DropDown names={this.state.labels}   />
+						<DropDown names={this.state.labels}   />
 
-			<label>
-				consumed amount:
-				<input type="text" name="amount" onChange={this.handleChange} /><br/>
-			</label>
-	  
-			<label>
-				consumed calories:
-				<input type="text" name="calories" onChange={this.handleChange} /> <br/>
-			</label>
+						<label>
+							consumed amount:
+							<input type="text" name="amount" onChange={this.handleChange} /><br/>
+						</label>
+				
+						<label>
+							consumed calories:
+							<input type="text" name="calories" onChange={this.handleChange} /> <br/>
+						</label>
 
-			<label>
-				ratio amount:
-				<input type="text" name="ratio_amount" onChange={this.handleChange} /><br/>
-				ratio calories:
-				<input type="text" name="ratio_calories" onChange={this.handleChange} /><br/>
-			</label><br/>
+						<label>
+							ratio amount:
+							<input type="text" name="ratio_amount" onChange={this.handleChange} /><br/>
+							ratio calories:
+							<input type="text" name="ratio_calories" onChange={this.handleChange} /><br/>
+						</label><br/>
 
-		  <input type="button" value="Submit" onClick={this.handleSubmit} />
-		   <RatioTable stats={this.state.stats} />
-		</form>
-
+					<input type="button" value="save to database"  onClick={this.handleSubmit} />
+					
+					</form>
+				</th>
+				<th>
+					<RatioTable stats={this.state.stats} />
+				</th>
+			</tr>
+		</table>
 		</>
 	  );
 	}
@@ -252,7 +268,7 @@ class RatioTable extends React.Component{
 		const items = []
 
 		for (var x=0;x<this.props.stats.length;x+=3) {
-		items.push(<li key={x}>{this.props.stats[x+1]}{this.props.stats[x]} = {this.props.stats[x+2]}calories </li>)
+			items.push(<li key={x}>{this.props.stats[x+1]}{this.props.stats[x]} = {this.props.stats[x+2]}calories </li>)
 		}
 	
 		let styles = {

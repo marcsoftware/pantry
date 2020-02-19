@@ -145,9 +145,9 @@ class DateNavigation extends React.Component{
 	render() {
 		return (
 			<>
-				 <input type="button" value="<-" onClick={() => this.handleClick(-1)} />
+				 <input type="button" value="⯇" onClick={() => this.handleClick(-1)} />
 				 <input type="button" value="today" onClick={() => this.handleClick(0)} />
-				 <input type="button" value="->"  onClick={() => this.handleClick(1)} />
+				 <input type="button" value="⯈"  onClick={() => this.handleClick(1)} />
 			</>
 		)
 	}
