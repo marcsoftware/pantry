@@ -196,7 +196,16 @@ class NameForm extends React.Component {
 			
 		};
 
-		
+		let buttonStyle = {
+			backgroundColor: "#4CAF50",
+			border: "none",
+			color: "white",
+			textAlign: "center",
+			textDecoration: "none",
+			display: "inline-block",
+			fontSize: "16px"
+			
+		};
 
 	  return (
 		  <>
@@ -231,7 +240,7 @@ class NameForm extends React.Component {
 							<input type="text" name="ratio_calories" onChange={this.handleChange} /><br/>
 						</label><br/>
 
-					<input type="button" value="save to database"  onClick={this.handleSubmit} />
+					<input type="button" value="save to database" style={buttonStyle} onClick={this.handleSubmit} />
 					
 					</form>
 				</th>
