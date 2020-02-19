@@ -205,7 +205,7 @@ class NameForm extends React.Component {
 				consumed amount:
 				<input type="text" name="amount" onChange={this.handleChange} /><br/>
 			</label>
-	  <span>{this.state.labels}</span><br/>
+	  
 			<label>
 				consumed calories:
 				<input type="text" name="calories" onChange={this.handleChange} /> <br/>
@@ -255,12 +255,16 @@ class RatioTable extends React.Component{
 		items.push(<li >{this.props.stats[x+2]}cals per {this.props.stats[x+1]}{this.props.stats[x]}</li>)
 		}
 	
-		
+		let styles = {
+			listStyleType: 'square'
+		  };
 
 		return (
 				
 			<div>
-				{items}
+				<ol style={styles}>
+					{items}
+				</ol>
 			</div>
 		
 		)
