@@ -151,8 +151,8 @@ class NameForm extends React.Component {
 		return food;
 	}
 
-	// accepts a string like "1*5/2"
-	// and returns a float
+	// accepts a string like "2*5/2"
+	// and returns a float like 5.0
 	evaluateMath( expression){
 		
 		return parseFloat(math.evaluate(expression));
@@ -252,7 +252,7 @@ class RatioTable extends React.Component{
 		const items = []
 
 		for (var x=0;x<this.props.stats.length;x+=3) {
-		items.push(<li key={x}>{this.props.stats[x+2]}cals per {this.props.stats[x+1]}{this.props.stats[x]}</li>)
+		items.push(<li key={x}>{this.props.stats[x+1]}{this.props.stats[x]} = {this.props.stats[x+2]}calories </li>)
 		}
 	
 		let styles = {
