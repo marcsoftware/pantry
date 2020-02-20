@@ -26,6 +26,11 @@ public class MainController {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
+	@GetMapping(path = "/test")
+	public @ResponseBody List<Food> getAggregate() {
+		return FoodRepository.findAll();
+	}
+
 	@GetMapping(path = "/food")
 	public @ResponseBody List<Food> getAllMongo() {
 		return FoodRepository.findAll();
