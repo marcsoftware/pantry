@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.MongoCursor;
 
@@ -32,19 +35,32 @@ public class MainController {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
+/*
+	db.getCollection('food').aggregate([
+   		{
+			$group:
+			{
+				_id:0,
+					
+				name:{$addToSet: '$name'},
+				ratio_label: {$addToSet: '$ratio_label'},
+				ratio_unit: {$addToSet: '$ratio_unit'},
+			}
+		}
+	]);
+*/
 	@GetMapping(path = "/test")
-	public @ResponseBody AggregationResults<Food> getAggregate() {
+	public @ResponseBody String getAggregate() {
 		//
-		MatchOperation matchStage = Aggregation.match(new Criteria("name").is("coke"));
-		ProjectionOperation projectStage = Aggregation.project("name", "bar.baz");
-				 
-		Aggregation aggregation 
-		  = Aggregation.newAggregation(matchStage, projectStage);
-		 
-		AggregationResults<Food> output 
-		  = mongoTemplate.aggregate(aggregation, "foobar", Food.class);
+		// {$group : {_id : "$department" , average : {$avg : "$amount"} } } ,
+		DBObject group = new BasicDBObject("$group", new BasicDBObject("_id",0)
+						.append("name", new BasicDBObject("$avg", "$amount"))
+						.append("ratio_label", new BasicDBObject("$avg", "$amount"))
+						.append("ratio_unit", new BasicDBObject("$avg", "$amount"))
+				 );
+		
 		//
-		return output;
+		return "hardcoded";
 	}
 
 	@GetMapping(path = "/food")
