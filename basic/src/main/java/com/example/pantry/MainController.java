@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.GroupOperation;
-import org.springframework.data.mongodb.core.aggregation.MatchOperation;
-import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
-import org.springframework.data.mongodb.core.aggregation.SortOperation;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -20,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+
+
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.MongoCursor;
 
@@ -50,16 +45,11 @@ public class MainController {
 	]);
 */
 	@GetMapping(path = "/test")
-	public @ResponseBody String getAggregate() {
-		//
-		// {$group : {_id : "$department" , average : {$avg : "$amount"} } } ,
-		DBObject group = new BasicDBObject("$group", new BasicDBObject("_id",0)
-						.append("name", new BasicDBObject("$addToSet", "$name"))
-						.append("ratio_label",new BasicDBObject("$addToSet", "$ratio_label"))
-						.append("ratio_unit", new BasicDBObject("$addToSet", "$ratio_unit"))
-				 );
+	public @ResponseBody String getCustom() {
+	
 		
-		//
+	
+
 		return "hardcoded";
 	}
 
