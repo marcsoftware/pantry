@@ -54,9 +54,9 @@ public class MainController {
 		//
 		// {$group : {_id : "$department" , average : {$avg : "$amount"} } } ,
 		DBObject group = new BasicDBObject("$group", new BasicDBObject("_id",0)
-						.append("name", new BasicDBObject("$avg", "$amount"))
-						.append("ratio_label", new BasicDBObject("$avg", "$amount"))
-						.append("ratio_unit", new BasicDBObject("$avg", "$amount"))
+						.append("name", new BasicDBObject("$addToSet", "$name"))
+						.append("ratio_label",new BasicDBObject("$addToSet", "$ratio_label"))
+						.append("ratio_unit", new BasicDBObject("$addToSet", "$ratio_unit"))
 				 );
 		
 		//
