@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -27,8 +33,18 @@ public class MainController {
 	MongoTemplate mongoTemplate;
 
 	@GetMapping(path = "/test")
-	public @ResponseBody List<Food> getAggregate() {
-		return FoodRepository.findAll();
+	public @ResponseBody AggregationResults<Food> getAggregate() {
+		//
+		MatchOperation matchStage = Aggregation.match(new Criteria("name").is("coke"));
+		ProjectionOperation projectStage = Aggregation.project("name", "bar.baz");
+				 
+		Aggregation aggregation 
+		  = Aggregation.newAggregation(matchStage, projectStage);
+		 
+		AggregationResults<Food> output 
+		  = mongoTemplate.aggregate(aggregation, "foobar", Food.class);
+		//
+		return output;
 	}
 
 	@GetMapping(path = "/food")
