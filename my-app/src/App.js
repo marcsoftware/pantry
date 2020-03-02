@@ -55,7 +55,7 @@ class App extends React.Component {
 				return response.json();
 			  })
 			.then(json => {
-				alert(1);
+				
 				this.setState({foods: json});
 				
 			});
@@ -109,22 +109,29 @@ class App extends React.Component {
 class FoodList extends React.Component{
 	
 	render() {
+		let style = {
+			textAlign:'right',
+			padding:'3px',
+			border: '1px solid black'
+			
+		};
+
 		const foods = this.props.foods.map(food =>
 			<Food key={food.id} food={food}/>
 			
 		);
 		return (
-			<table>
+			<table >
 				
 				<tbody>
 					
-					<tr>
-						<th>name</th>
-						<th>amount</th>
-						<th>calories</th>
-						<th>ratio amount</th>
-						<th>ratio calories</th>
-						<th>time</th>
+					<tr style={style}>
+						<th style={style}>name</th>
+						<th style={style}>amount</th>
+						<th style={style}>calories</th>
+						<th style={style}>ratio amount</th>
+						<th style={style}>ratio calories</th>
+						<th style={style}>time</th>
 					</tr>
 					
 					{foods}
