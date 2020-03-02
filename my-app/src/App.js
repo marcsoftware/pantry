@@ -73,7 +73,7 @@ class App extends React.Component {
 		});*/
 		fetch('https://localhost:5000/demo/food')
 		.then(response => {
-			alert(1);
+			
 			this.setState({foods: response.entity});
 			
 		});
