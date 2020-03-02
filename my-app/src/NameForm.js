@@ -132,8 +132,8 @@ class NameForm extends React.Component {
 				this.state.ratio_calories="";
 			}
 
-			const catchLetters = new RegExp(/[^\d\/\\\+\-\*\.\ ]/g); // \w will catch numbers so have to do it long way
-			const catchMath = new RegExp(/[\d\/\\\+\-\*\s\.\ ]/g);
+			const catchLetters = new RegExp(/[^\d/+\-*. ]/g); // \w will catch numbers so have to do it long way
+			const catchMath = new RegExp(/[\d/+\-*. ]/g);
 			//
 			var form_json=({
 				 
