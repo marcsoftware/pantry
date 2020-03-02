@@ -105,7 +105,7 @@ class NameForm extends React.Component {
 					})
 					.then(json => {
 						
-						this.setState({labels:this.filterLabels(json)});
+						this.setState({labels:this.filterLabels(json)}); 
 						
 					});
 
