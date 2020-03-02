@@ -48,14 +48,18 @@ class App extends React.Component {
 			
     });
     */
-
-    fetch("/demo/date/"+today)
-    .then(res => res.json())
-    .then((data) => {
-      alert(data);
-    })
-    .catch(console.log)
-
+//https://localhost:5000/demo/food
+//https://api.github.com/users/marcsoftware
+			fetch('http://localhost:5000/demo/food')
+			.then(response => {
+				return response.json();
+			  })
+			.then(json => {
+				alert(1);
+				this.setState({foods: json});
+				
+			});
+			
 	}
 
 	// when form is submitted update the food-table
@@ -63,11 +67,16 @@ class App extends React.Component {
 		
 		let today = this.getDate(); //todo today should be target_date
 		
-/*		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
+		/*		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
+					this.setState({foods: response.entity});
+					
+		});*/
+		fetch('https://localhost:5000/demo/food')
+		.then(response => {
+			alert(1);
 			this.setState({foods: response.entity});
 			
-    });*/
-    
+		});
 	}
 
 	//called from child
@@ -117,6 +126,7 @@ class FoodList extends React.Component{
 						<th>ratio calories</th>
 						<th>time</th>
 					</tr>
+					
 					{foods}
 				</tbody>
 			</table>
@@ -130,7 +140,7 @@ class Food extends React.Component{
 	render() {
 		return (
 			<>
-			
+			<tbody>
 			<tr>
 				<td>{this.props.food.name}</td>
 				<td>{this.props.food.consumed_unit}{this.props.food.consumed_label}</td>
@@ -139,7 +149,7 @@ class Food extends React.Component{
 				<td>{this.props.food.ratio_calories}</td>
 				<td>{this.props.food.time}</td>
 
-			</tr>
+			</tr></tbody>
 			</>
 		)
 	}

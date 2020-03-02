@@ -40,7 +40,20 @@ class NameForm extends React.Component {
 	// TODO use data to populate dropdown
 	// might need to call on componentDidMount also
 	populateDropdown(){
+		// client
+		/*
+		client({method: 'GET', path: "/demo/list/food"}).done(response => {
+			this.setState({names: response.entity});
+			
+		});
 		
+
+		*/ 
+/*
+	    fetch('https://localhost:5000/demo/list/food')
+      .then(response => response.json())
+	  .then(names => this.setState({ names})  );
+	  */
 	}
 
 	testForLetters(item){
@@ -63,6 +76,23 @@ class NameForm extends React.Component {
 		if (this.state.name===""){ //if null dont waste time calling database
 			return;
 		}
+
+		//client
+		/*
+
+		client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
+			this.setState({stats: response.entity});
+			this.setState({labels:this.filterLabels(response.entity)});
+		});
+
+		*/
+/*
+
+		fetch('https://localhost:5000"/demo/stats/'+this.state.name)
+		.then(response => response.json())
+		.then(stats => this.setState({ stats})  )
+		.then(labels => this.setState({labels:this.filterLabels(labels)} )  );
+*/
 	
 	}
 
@@ -106,7 +136,7 @@ class NameForm extends React.Component {
 	  sendData(form_json) {
 	
 		//save to database
-		fetch('/demo/food', {
+	/*	fetch('/demo/food', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -114,7 +144,7 @@ class NameForm extends React.Component {
 			},
 			body: JSON.stringify(form_json)
 		})
-
+*/
 	  }
 	 
 	handleSubmit(event,name) {

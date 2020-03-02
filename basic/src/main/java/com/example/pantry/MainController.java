@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import com.mongodb.client.MongoCursor;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path = "/demo") // This means URL's start with /demo (after Application path)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
 
 	@Autowired
