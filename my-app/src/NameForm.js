@@ -40,7 +40,7 @@ class NameForm extends React.Component {
 	// TODO use data to populate dropdown
 	// might need to call on componentDidMount also
 	populateDropdown(){
-		// client
+		
 		/*
 			client({method: 'GET', path: "/demo/list/food"}).done(response => {
 				this.setState({names: response.entity});
@@ -53,8 +53,8 @@ class NameForm extends React.Component {
 				return response.json();
 			  })
 			.then(json => {
-				
-				this.setState({foods: json});
+				alert(json);
+				this.setState({names: json});
 				
 			});
 	  
@@ -68,7 +68,7 @@ class NameForm extends React.Component {
 
 	filterLabels(list){
 		if(typeof list === "undefined"){
-			return;
+			return ;
 		}
 		list=list.filter(this.testForLetters);
 		list = list.filter(function(item, index){
@@ -262,7 +262,7 @@ class NameForm extends React.Component {
 							onChange={this.handleChange} /><br/>
 						</label>
 
-						<DropDown names={this.state.labels}   />
+						<DropDown names={this.state.names}   />
 
 						<label>
 							consumed amount:
