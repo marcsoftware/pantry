@@ -5,6 +5,9 @@ target
 bower_components
 node_modules\
 my-app\node_modules\
+
+\node_modules\
+\my-app\node_modules\
 node
 *.log
 asciidoctor.css
