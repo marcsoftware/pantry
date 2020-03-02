@@ -71,12 +71,15 @@ class App extends React.Component {
 					this.setState({foods: response.entity});
 					
 		});*/
-		fetch('https://localhost:5000/demo/food')
-		.then(response => {
-			
-			this.setState({foods: response.entity});
-			
-		});
+		fetch('http://localhost:5000/demo/date/'+today)
+			.then(response => {
+				return response.json();
+			  })
+			.then(json => {
+				
+				this.setState({foods: json});
+				
+			});
 	}
 
 	//called from child

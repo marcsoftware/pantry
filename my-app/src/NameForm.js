@@ -42,18 +42,22 @@ class NameForm extends React.Component {
 	populateDropdown(){
 		// client
 		/*
-		client({method: 'GET', path: "/demo/list/food"}).done(response => {
-			this.setState({names: response.entity});
-			
-		});
-		
-
+			client({method: 'GET', path: "/demo/list/food"}).done(response => {
+				this.setState({names: response.entity});
+				
+			});
 		*/ 
-/*
-	    fetch('https://localhost:5000/demo/list/food')
-      .then(response => response.json())
-	  .then(names => this.setState({ names})  );
-	  */
+
+	    fetch('http://localhost:5000/demo/list/food')
+			.then(response => {
+				return response.json();
+			  })
+			.then(json => {
+				
+				this.setState({foods: json});
+				
+			});
+	  
 	}
 
 	testForLetters(item){
@@ -63,6 +67,9 @@ class NameForm extends React.Component {
 	 
 
 	filterLabels(list){
+		if(typeof list === "undefined"){
+			return;
+		}
 		list=list.filter(this.testForLetters);
 		list = list.filter(function(item, index){
 			return list.indexOf(item) >= index;
@@ -80,19 +87,28 @@ class NameForm extends React.Component {
 		//client
 		/*
 
-		client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
-			this.setState({stats: response.entity});
-			this.setState({labels:this.filterLabels(response.entity)});
-		});
+			client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
+				this.setState({stats: response.entity});
+				this.setState({labels:this.filterLabels(response.entity)});
+			});
 
 		*/
-/*
 
-		fetch('https://localhost:5000"/demo/stats/'+this.state.name)
-		.then(response => response.json())
-		.then(stats => this.setState({ stats})  )
-		.then(labels => this.setState({labels:this.filterLabels(labels)} )  );
-*/
+		fetch('http://localhost:5000/demo/stats/'+this.state.name)
+					.then(response => {
+						return response.json();
+					})
+					.then(json => {
+						
+						this.setState({stats: json});
+						
+					})
+					.then(json => {
+						
+						this.setState({labels:this.filterLabels(json)});
+						
+					});
+
 	
 	}
 
@@ -136,7 +152,8 @@ class NameForm extends React.Component {
 	  sendData(form_json) {
 	
 		//save to database
-	/*	fetch('/demo/food', {
+		//client
+		fetch('http://localhost:5000/demo/food', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -144,7 +161,7 @@ class NameForm extends React.Component {
 			},
 			body: JSON.stringify(form_json)
 		})
-*/
+
 	  }
 	 
 	handleSubmit(event,name) {
