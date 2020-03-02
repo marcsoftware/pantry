@@ -147,7 +147,7 @@ class Food extends React.Component{
 	render() {
 		return (
 			<>
-			<tbody>
+			
 			<tr>
 				<td>{this.props.food.name}</td>
 				<td>{this.props.food.consumed_unit}{this.props.food.consumed_label}</td>
@@ -156,7 +156,7 @@ class Food extends React.Component{
 				<td>{this.props.food.ratio_calories}</td>
 				<td>{this.props.food.time}</td>
 
-			</tr></tbody>
+			</tr>
 			</>
 		)
 	}
