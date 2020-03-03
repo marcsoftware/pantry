@@ -15,8 +15,8 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByDate(String date);
     List<Item> findByName(String name);
     
-    @Query("select u from Item u")
-    List<Item> findAllByCustomQueryAndStream();
+    @Query("select DISTINCT u.name from Item u")
+    List<String> findAllByCustomQueryAndStream();
 
 
 }

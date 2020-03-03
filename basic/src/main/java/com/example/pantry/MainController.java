@@ -63,7 +63,7 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// TODO use mysql for list name
 	@GetMapping(path = "/list")
-	public @ResponseBody List<Item> getFromTemplate() {
+	public @ResponseBody List<String> getFromTemplate() {
 		return itemRepository.findAllByCustomQueryAndStream();
 	}
 
