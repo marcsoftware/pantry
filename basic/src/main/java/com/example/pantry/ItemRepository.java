@@ -16,7 +16,10 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByName(String name);
     
     @Query("select DISTINCT u.name from Item u")
-    List<String> findAllByCustomQueryAndStream();
+    List<String> getDistinctNamesCustomQuery();
+
+    @Query("select  u.ratio_calories from Item u")
+    List<String> getStatsCustomQuery();
 
 
 }

@@ -1,6 +1,4 @@
 package com.example.pantry;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,10 +59,9 @@ public class MainController {
 	// This returns a distinct-list of names.
 	// used to populate the dropdown  on the frontent
 	//----------------------------------------------------------------------
-	// TODO use mysql for list name
 	@GetMapping(path = "/list")
 	public @ResponseBody List<String> getFromTemplate() {
-		return itemRepository.findAllByCustomQueryAndStream();
+		return itemRepository.getDistinctNamesCustomQuery();
 	}
 
 	//----------------------------------------------------------------------
@@ -74,10 +71,7 @@ public class MainController {
 	@GetMapping(path = "/stats/{name}")
 	public @ResponseBody List<String> getStats(@PathVariable String name) {
 		//------
-		List<String> labelList = new ArrayList<>();
-	
-
-		return labelList;
+		return itemRepository.getDistinctNamesCustomQuery();
 	}
 
 	
