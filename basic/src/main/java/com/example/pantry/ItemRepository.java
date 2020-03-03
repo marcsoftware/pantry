@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+
 import com.example.pantry.Item;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
@@ -14,6 +15,8 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByDate(String date);
     List<Item> findByName(String name);
     
-    @Query("SELECT a FROM Item a WHERE a.title=:title and a.category=:category")
-    List<Article> fetchArticles(@Param("title") String title, @Param("category") String category);
+    @Query("select u from Item u")
+    List<Item> findAllByCustomQueryAndStream();
+
+
 }
