@@ -62,7 +62,10 @@ public class MainController {
 		return itemRepository.findByName(name);
 	}
 
-
+	//----------------------------------------------------------------------
+	// This returns a distinct-list of names.
+	// used to populate the dropdown  on the frontent
+	//----------------------------------------------------------------------
 	// TODO use mysql for list name
 	@GetMapping(path = "/list/{name}")
 	public @ResponseBody List<String> getFromTemplate(@PathVariable String name) {
@@ -79,6 +82,9 @@ public class MainController {
 		return categoryList;
 	}
 
+	//----------------------------------------------------------------------
+	// This returns nutritional states for a foodItem with {name}
+	//----------------------------------------------------------------------
 	// TODO use mysql for stats name
 	@GetMapping(path = "/stats/{name}")
 	public @ResponseBody List<String> getStats(@PathVariable String name) {

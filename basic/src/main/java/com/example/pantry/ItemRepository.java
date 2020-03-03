@@ -1,5 +1,6 @@
 package com.example.pantry;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -12,4 +13,7 @@ import com.example.pantry.Item;
 public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByDate(String date);
     List<Item> findByName(String name);
+    
+    @Query("SELECT a FROM Item a WHERE a.title=:title and a.category=:category")
+    List<Article> fetchArticles(@Param("title") String title, @Param("category") String category);
 }
