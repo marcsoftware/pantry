@@ -43,12 +43,7 @@ public class MainController {
 		return "Saved mysql";
 	}
 
-	@PostMapping(path= "/foodOld",consumes = "application/json")
-	public @ResponseBody String update(@RequestBody Food food) {
-		food.setDate();
-		FoodRepository.save(food);
-		return "yes";
-	}
+
 	
 	//
 	@GetMapping(path="/food")
@@ -58,8 +53,8 @@ public class MainController {
 	}
 
 	@GetMapping(path = "/date/{date}")
-	public @ResponseBody List<Food> getAllFromToday(@PathVariable String date) {
-		return FoodRepository.findByDate(date);
+	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date) {
+		return itemRepository.findByDate(date);
 	}
 
 	@GetMapping(path = "/name/{name}")
