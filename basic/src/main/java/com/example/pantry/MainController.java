@@ -36,14 +36,14 @@ public class MainController {
 	MongoTemplate mongoTemplate;
 
 
-	@PostMapping(path="/fooditem") 
+	@PostMapping(path="/food") 
 	public @ResponseBody String addUser(@RequestBody Item item) {
-
+		item.setDate();
 		itemRepository.save(item);
 		return "Saved mysql";
 	}
 
-	@PostMapping(path= "/food",consumes = "application/json")
+	@PostMapping(path= "/foodOld",consumes = "application/json")
 	public @ResponseBody String update(@RequestBody Food food) {
 		food.setDate();
 		FoodRepository.save(food);

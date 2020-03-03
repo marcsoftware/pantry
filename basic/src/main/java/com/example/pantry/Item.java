@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;   
+
 @Entity // This tells Hibernate to make a table out of this class
 public class Item {
 	@Id
@@ -31,5 +34,22 @@ public class Item {
 		this.id = id;
 	}
 
+	public void setDate(){
+		//
+		String[] both=createTimestamp();
+		this.date=(both[0]);
+		this.time=(both[1]);
+	
+	}
+
+	// returns an array that holds the calendar-date AND clock-time
+	private static String[] createTimestamp(){
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+		DateTimeFormatter clock_formater = DateTimeFormatter.ofPattern("HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		String calendarDate=dtf.format(now);
+		String clockTime=clock_formater.format(now);
+		return new String[] { calendarDate, clockTime };
+	}
 
 }
