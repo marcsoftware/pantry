@@ -62,6 +62,8 @@ public class MainController {
 		return itemRepository.findByName(name);
 	}
 
+
+	// TODO use mysql for list name
 	@GetMapping(path = "/list/{name}")
 	public @ResponseBody List<String> getFromTemplate(@PathVariable String name) {
 		List<String> categoryList = new ArrayList<>();
@@ -77,7 +79,7 @@ public class MainController {
 		return categoryList;
 	}
 
-
+	// TODO use mysql for stats name
 	@GetMapping(path = "/stats/{name}")
 	public @ResponseBody List<String> getStats(@PathVariable String name) {
 		//------
@@ -91,7 +93,7 @@ public class MainController {
 		for (Food food : userTest6) {
 			System.out.println("userTest6 - " + food);
 			String[] item = food.toString().split(",");
-			if(!food.toString().contains("null") && !labelList.contains(item[0])){ //TODO edit query not get repeats in first place instead of makeing a loop
+			if(!food.toString().contains("null") && !labelList.contains(item[0])){
 				labelList.add(item[0]);
 				labelList.add(item[1]);
 				labelList.add(item[2]);
