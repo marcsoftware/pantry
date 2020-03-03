@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -26,7 +26,7 @@ import com.mongodb.client.MongoCursor;
 @RequestMapping(path = "/demo") // This means URL's start with /demo (after Application path)
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
-	@Autowired 
+	@Autowired
 	private ItemRepository itemRepository;
 
 	@Autowired
@@ -35,43 +35,26 @@ public class MainController {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
-/*
-	db.getCollection('food').aggregate([
-   		{
-			$group:
-			{
-				_id:0,
-					
-				name:{$addToSet: '$name'},
-				ratio_label: {$addToSet: '$ratio_label'},
-				ratio_unit: {$addToSet: '$ratio_unit'},
-			}
-		}
-	]);
-*/
-@GetMapping(path="/test")
-public @ResponseBody Iterable<Item> getAllUsers() {
-	// This returns a JSON or XML with the users
-	return itemRepository.findAll();
-}
 
-@PostMapping(path="/addUser") // Map ONLY POST Requests
-	public @ResponseBody String addNewUser (@RequestParam String name
-			, @RequestParam String email) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
+	@PostMapping(path="/fooditem") 
+	public @ResponseBody String addUser(@RequestBody Item item) {
 
-		Item n = new Item();
-		n.setName(name);
-		n.setEmail(email);
-		itemRepository.save(n);
+		itemRepository.save(item);
 		return "Saved mysql";
 	}
 
-
-	@GetMapping(path = "/food")
-	public @ResponseBody List<Food> getAllMongo() {
-		return FoodRepository.findAll();
+	@PostMapping(path= "/food",consumes = "application/json")
+	public @ResponseBody String update(@RequestBody Food food) {
+		food.setDate();
+		FoodRepository.save(food);
+		return "yes";
+	}
+	
+	//
+	@GetMapping(path="/food")
+	public @ResponseBody Iterable<Item> getAllUsers() {
+		// This returns a JSON or XML with the users
+		return itemRepository.findAll();
 	}
 
 	@GetMapping(path = "/date/{date}")
@@ -125,12 +108,7 @@ public @ResponseBody Iterable<Item> getAllUsers() {
 		return labelList;
 	}
 
-	@PostMapping(path= "/food",consumes = "application/json")
-	public @ResponseBody String update(@RequestBody Food food) {
-		food.setDate();
-		FoodRepository.save(food);
-		return "yes";
-	}
+	
 
 	
 }

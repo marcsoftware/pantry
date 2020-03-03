@@ -11,9 +11,17 @@ public class Item {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String name;
+	public String name;
+	public String consumed_calories;
+	public String consumed_label;
+	public String consumed_unit;
 
-	private String email;
+	public String ratio_calories;
+	public String ratio_label;
+	public String ratio_unit;
+
+	public String date;
+	public String time;
 
 	public Integer getId() {
 		return id;
@@ -23,19 +31,5 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 }
