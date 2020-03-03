@@ -58,8 +58,8 @@ public class MainController {
 	}
 
 	@GetMapping(path = "/name/{name}")
-	public @ResponseBody List<Food> getAllFromName(@PathVariable String name) {
-		return FoodRepository.findByName(name);
+	public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
+		return itemRepository.findByName(name);
 	}
 
 	@GetMapping(path = "/list/{name}")

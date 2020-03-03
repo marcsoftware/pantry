@@ -11,4 +11,5 @@ import com.example.pantry.Item;
 
 public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByDate(String date);
+    List<Item> findByName(String name);
 }
