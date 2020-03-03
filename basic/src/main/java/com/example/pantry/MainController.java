@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -25,6 +26,8 @@ import com.mongodb.client.MongoCursor;
 @RequestMapping(path = "/demo") // This means URL's start with /demo (after Application path)
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
+	@Autowired 
+	private ItemRepository itemRepository;
 
 	@Autowired
 	private FoodRepository FoodRepository;
@@ -46,14 +49,25 @@ public class MainController {
 		}
 	]);
 */
-	@GetMapping(path = "/test")
-	public @ResponseBody String getCustom() {
-	
-		
-	
+@GetMapping(path="/test")
+public @ResponseBody Iterable<Item> getAllUsers() {
+	// This returns a JSON or XML with the users
+	return itemRepository.findAll();
+}
 
-		return "hardcoded";
+@PostMapping(path="/addUser") // Map ONLY POST Requests
+	public @ResponseBody String addNewUser (@RequestParam String name
+			, @RequestParam String email) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+
+		Item n = new Item();
+		n.setName(name);
+		n.setEmail(email);
+		itemRepository.save(n);
+		return "Saved mysql";
 	}
+
 
 	@GetMapping(path = "/food")
 	public @ResponseBody List<Food> getAllMongo() {
@@ -117,5 +131,7 @@ public class MainController {
 		FoodRepository.save(food);
 		return "yes";
 	}
+
+	
 }
 
