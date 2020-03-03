@@ -18,8 +18,13 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     @Query("select DISTINCT u.name from Item u")
     List<String> getDistinctNamesCustomQuery();
 
-    @Query("select  u.ratio_calories from Item u")
-    List<String> getStatsCustomQuery();
+    //label unit calories
+    @Query("select u.ratio_label,u.ratio_unit, u.ratio_calories from Item u where u.name= ?1")
+    List<String> getStatsCustomQuery(String name);
 
+  /*
+    @Query("select u from User u where u.emailAddress = ?1")
+  User findByEmailAddress(String emailAddress);
+*/
 
 }

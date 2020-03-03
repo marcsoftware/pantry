@@ -41,12 +41,6 @@ class NameForm extends React.Component {
 	// might need to call on componentDidMount also
 	populateDropdown(){
 		
-		/*
-			client({method: 'GET', path: "/demo/list/food"}).done(response => {
-				this.setState({names: response.entity});
-				
-			});
-		*/ 
 
 	    fetch('http://localhost:5000/demo/list/food')
 			.then(response => {
@@ -84,15 +78,8 @@ class NameForm extends React.Component {
 			return;
 		}
 
-		//client
-		/*
+	
 
-			client({method: 'GET', path: "/demo/stats/"+this.state.name}).done(response => {
-				this.setState({stats: response.entity});
-				this.setState({labels:this.filterLabels(response.entity)});
-			});
-
-		*/
 
 		fetch('http://localhost:5000/demo/stats/'+this.state.name)
 					.then(response => {
@@ -213,9 +200,10 @@ class NameForm extends React.Component {
 			//then look up label
 			var index = this.state.stats.indexOf(food.consumed_label);
 			
+			food.ratio_calories=this.state.stats[index+2];	
 			food.ratio_unit=this.state.stats[index+1];
 			food.ratio_label=this.state.stats[index+0];
-			food.ratio_calories=this.state.stats[index+2];		
+				
 		}
 
 		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){

@@ -71,7 +71,7 @@ public class MainController {
 	@GetMapping(path = "/stats/{name}")
 	public @ResponseBody List<String> getStats(@PathVariable String name) {
 		//------
-		return itemRepository.getDistinctNamesCustomQuery();
+		return itemRepository.getStatsCustomQuery(name);
 	}
 
 	
