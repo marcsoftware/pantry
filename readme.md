@@ -1,5 +1,9 @@
 ## How program works and what is the point of it.
 
+[This project is hosted for you here.](http://hostreactapp.s3-website-us-east-1.amazonaws.com)
+
+[http://hostreactapp.s3-website-us-east-1.amazonaws.com/](http://hostreactapp.s3-website-us-east-1.amazonaws.com/)
+
 ###### step 1 : Add amount consumed & any kind of ratio
 
 ![1]
