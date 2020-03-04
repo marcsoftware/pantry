@@ -22,9 +22,6 @@ public class MainController {
 	@Autowired
 	private ItemRepository itemRepository;
 
-	
-	
-
 	@Autowired
 	MongoTemplate mongoTemplate;
 
