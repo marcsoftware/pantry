@@ -59,7 +59,7 @@ class NameForm extends React.Component {
 		
 		
 		
-	    fetch(host+'/demo/list/food')
+	    fetch(host+'/demo/list')
 			.then(response => {
 				return response.json();
 			  })
