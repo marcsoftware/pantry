@@ -24,7 +24,7 @@ class NameForm extends React.Component {
 	}
   
 	handleChange(event) {
-	  //this.setState({value: event.target.value});
+	  //this.setState({value: event.target.value}); 
 	  this.setState({ [event.target.name]: event.target.value });
 	  
 	}
@@ -63,7 +63,7 @@ class NameForm extends React.Component {
 	}
 
 	 
-
+	// 
 	filterLabels(list){
 		if(typeof list === "undefined"){
 			return ;
@@ -81,8 +81,6 @@ class NameForm extends React.Component {
 		if (this.state.name===""){ //if null dont waste time calling database
 			return;
 		}
-
-	
 
 
 		fetch(host+'/demo/stats/'+this.state.name)
@@ -144,7 +142,7 @@ class NameForm extends React.Component {
 	
 		//save to database
 		//client
-		alert(JSON.stringify(form_json));
+		
 		fetch(host+'/demo/food', {
 			method: 'POST',
 			headers: {
