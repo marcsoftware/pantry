@@ -257,7 +257,7 @@ alert(food.ratio_label);
 		};
 
 	  return (
-		  <><span style={small}><a href='https://github.com/marcsoftware/pantry/blob/master/readme.md'>tutorial</a> - labels can be resued and calories will be autocalculated.</span>
+		  <><span style={small}><a href='https://github.com/marcsoftware/pantry/blob/master/readme.md#step-1--add-amount-consumed--any-kind-of-ratio'>tutorial</a> - labels can be resued and calories will be autocalculated.</span>
 		  <table style={style}> 
 			  <tr style={style}>
 				<th style={style}>
