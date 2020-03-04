@@ -43,9 +43,9 @@ class App extends React.Component {
 
 	//get all food items where date is today
 	componentDidMount() {
-		let today = this.getDate(); //todo today should be target_date
+		let target_date = this.getDate(); //todo today should be target_date
 
-			fetch(host+'/demo/food')
+			fetch(host+'/demo/date/'+target_date)
 			.then(response => {
 				return response.json();
 			  })
@@ -147,8 +147,8 @@ class Food extends React.Component{
 				<td>{this.props.food.name}</td>
 				<td>{this.props.food.consumed_unit}{this.props.food.consumed_label}</td>
 				<td>{this.props.food.consumed_calories}</td>
-				<td>{this.props.food.ratio_unit}{this.props.food.ratio_label}</td>
-				<td>{this.props.food.ratio_calories}</td>
+				<td>-{this.props.food.ratio_unit}{this.props.food.ratio_label}</td>
+				<td>-{this.props.food.ratio_calories}</td>
 				<td>{this.props.food.time}</td>
 
 			</tr>
