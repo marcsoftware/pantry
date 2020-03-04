@@ -232,6 +232,13 @@ class NameForm extends React.Component {
 			
 		};
 
+		let small = {
+			textAlign:'lefy',
+			border: 'none',
+			fontSize:'12px'
+			
+		};
+
 		let buttonStyle = {
 			backgroundColor: "#4CAF50",
 			border: "none",
@@ -244,7 +251,7 @@ class NameForm extends React.Component {
 		};
 
 	  return (
-		  <>
+		  <><span style={small}><a href='https://github.com/marcsoftware/pantry/blob/master/readme.md'>tutorial</a> - labels can be resued and calories will be autocalculated.</span>
 		  <table style={style}> 
 			  <tr style={style}>
 				<th style={style}>
