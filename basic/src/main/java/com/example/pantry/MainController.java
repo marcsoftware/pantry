@@ -67,13 +67,22 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// This returns nutritional states for a foodItem with {name}
 	//----------------------------------------------------------------------
-	// TODO use mysql for stats name
+	// 
 	@GetMapping(path = "/stats/{name}")
 	public @ResponseBody List<String> getStats(@PathVariable String name) {
 		//------
 		return itemRepository.getStatsCustomQuery(name);
 	}
 
+	//----------------------------------------------------------------------
+	// trunscates table
+	//----------------------------------------------------------------------
+	// 
+	@GetMapping(path = "/clear")
+	public @ResponseBody String trauncate() {
+		itemRepository.deleteAllWithQuery();
+		return "cleared";
+	}
 	
 
 	

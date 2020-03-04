@@ -1,7 +1,9 @@
 package com.example.pantry;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,9 +24,9 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     @Query("select u.ratio_label,u.ratio_unit, u.ratio_calories from Item u where u.name= ?1")
     List<String> getStatsCustomQuery(String name);
 
-  /*
-    @Query("select u from User u where u.emailAddress = ?1")
-  User findByEmailAddress(String emailAddress);
-*/
+    @Modifying
+    @Transactional
+    @Query("delete from Item m")
+    void deleteAllWithQuery();
 
 }
