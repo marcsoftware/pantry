@@ -1,11 +1,16 @@
+## How program works and what is the point of it.
 
-step 1 : add ratio amount and calories
+###### step 1 : Add amount consumed & any kind of ratio
+
 ![1]
-step 2 : click save to database & see it render
+
+###### step 2 : click save to database & see it render
 ![2]
-step 3 : Now try to use ratio label
+
+###### step 3 : Now try to use ratio label
 ![3]
-step 4 : Click 'save' and look that the calories were automatically calculated
+
+###### step 4 : Click 'save' and look that the calories were automatically calculated
 ![4]
 
 [1]: images/1.png "step one"
