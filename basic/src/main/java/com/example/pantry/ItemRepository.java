@@ -26,7 +26,7 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
 
     @Modifying
     @Transactional
-    @Query("delete from Item m")
+    @Query("delete from Item m") 
     void deleteAllWithQuery();
 
 }
