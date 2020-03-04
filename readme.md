@@ -4,13 +4,13 @@
 
 ![1]
 
-###### step 2 : click save to database & see it render
+###### step 2 : click save to database & see that calories were automatically calculated for you
 ![2]
 
-###### step 3 : Now try to use ratio label
+###### step 3 : Now try to use ratio label again
 ![3]
 
-###### step 4 : Click 'save' and look that the calories were automatically calculated
+###### step 4 : Click 'save' and now calories were automatically calulated using the saved ratio information
 ![4]
 
 [1]: images/1.png "step one"
