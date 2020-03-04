@@ -202,11 +202,14 @@ class NameForm extends React.Component {
 	doAlgebra(food){
 		if(food.ratio_label === "" && food.consumed_label !== ""){
 			//then look up label
-			var index = this.state.stats.indexOf(food.consumed_label);
+			var list = this.state.stats;
+			list = list.join(',').split(',');
 			
-			food.ratio_calories=this.state.stats[index+2];	
-			food.ratio_unit=this.state.stats[index+1];
-			food.ratio_label=this.state.stats[index+0];
+			var index = list.indexOf(food.consumed_label);
+			
+			food.ratio_calories=list[index+2];	
+			food.ratio_unit=list[index+1];
+			food.ratio_label=list[index+0];
 				
 		}
 
