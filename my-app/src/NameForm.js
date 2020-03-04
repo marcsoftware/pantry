@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { create, all } from 'mathjs'
 
+//TODO dont hardcode hostname
+const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+
 
 //TODO put math functions in a different component
-
 const math = create(all);
 class NameForm extends React.Component {
 	constructor(props) {
@@ -41,8 +43,10 @@ class NameForm extends React.Component {
 	// might need to call on componentDidMount also
 	populateDropdown(){
 		
-
-	    fetch('http://localhost:5000/demo/list/food')
+		
+		
+		
+	    fetch(host+'/demo/list/food')
 			.then(response => {
 				return response.json();
 			  })
@@ -81,7 +85,7 @@ class NameForm extends React.Component {
 	
 
 
-		fetch('http://localhost:5000/demo/stats/'+this.state.name)
+		fetch(host+'/demo/stats/'+this.state.name)
 					.then(response => {
 						return response.json();
 					})
@@ -140,7 +144,7 @@ class NameForm extends React.Component {
 	
 		//save to database
 		//client
-		fetch('http://localhost:5000/demo/food', {
+		fetch(host+'/demo/food', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',

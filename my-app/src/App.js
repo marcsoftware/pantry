@@ -10,6 +10,8 @@ import {
 	Link
   } from "react-router-dom";
 
+//TODO dont hardcode hostname
+const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
 
 class App extends React.Component {
 
@@ -42,15 +44,8 @@ class App extends React.Component {
 	//get all food items where date is today
 	componentDidMount() {
 		let today = this.getDate(); //todo today should be target_date
-		
-	/*	client({method: 'GET', path: "/demo/date/"+today}).done(response => {
-			this.setState({foods: response.entity});
-			
-    });
-    */
-//https://localhost:5000/demo/food
-//https://api.github.com/users/marcsoftware
-			fetch('http://localhost:5000/demo/food')
+
+			fetch(host+'/demo/food')
 			.then(response => {
 				return response.json();
 			  })
@@ -67,11 +62,8 @@ class App extends React.Component {
 		
 		let today = this.getDate(); //todo today should be target_date
 		
-		/*		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
-					this.setState({foods: response.entity});
-					
-		});*/
-		fetch('http://localhost:5000/demo/date/'+today)
+	
+		fetch(host+'/demo/date/'+today)
 			.then(response => {
 				return response.json();
 			  })
