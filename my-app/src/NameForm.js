@@ -9,6 +9,10 @@ const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
 //TODO put math functions in a different component
 const math = create(all);
 class NameForm extends React.Component {
+
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	constructor(props) {
 	  super(props);
 	  this.state = {value: '',names: [],stats:[],labels:[]};
@@ -23,12 +27,18 @@ class NameForm extends React.Component {
 	  this.populateDropdown();
 	}
   
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	handleChange(event) {
 	  //this.setState({value: event.target.value});   
 	  this.setState({ [event.target.name]: event.target.value });
 	  
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	checkUndefined(x){
 		if(x === "undefined"){
 			x="";
@@ -39,6 +49,9 @@ class NameForm extends React.Component {
 		}
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	// TODO use data to populate dropdown
 	// might need to call on componentDidMount also
 	populateDropdown(){
@@ -58,12 +71,18 @@ class NameForm extends React.Component {
 	  
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	testForLetters(item){
 		return item.search(/[a-zA-Z]/i)>-1 && item !== "null";
 	}
 
 	 
 	// 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	filterLabels(list){
 		if(typeof list === "undefined"){
 			return ;
@@ -138,6 +157,9 @@ class NameForm extends React.Component {
 			return form_json;
 	  }
   
+	  //-----------------------------------------------------
+	  //
+	  //-----------------------------------------------------
 	  sendData(form_json) {
 	
 		//save to database
@@ -155,12 +177,16 @@ class NameForm extends React.Component {
 			
 	  }
 	 
+
+	  //-----------------------------------------------------
+	  //
+	  //-----------------------------------------------------  
 	handleSubmit(event,name) {
 		// stop form from being clear is name is blank but other fields are not
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
-		this.getStats();//
+		
 		var joined = this.state.names.concat(name);
 		this.setState({ names: joined })
 		this.state.names.push(name); // TODO need to make dropdown re-render
@@ -170,9 +196,12 @@ class NameForm extends React.Component {
 		this.props.myFunc(); // tell parent to update the food-grid componet
 		this.clearForm();
 		this.state = {value: '',names: [],stats:[],labels:[]};
-		event.preventDefault();
+		this.getStats();//
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	evaluateArithmeticExpressions(food){
 
 		food.consumed_calories=this.evaluateMath(food.consumed_calories);
@@ -190,6 +219,9 @@ class NameForm extends React.Component {
 		return parseFloat(math.evaluate(expression));
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	processForm(){ 
 		
 		var	food=this.getFormData();
@@ -199,6 +231,9 @@ class NameForm extends React.Component {
 	}
 
 	// 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	doAlgebra(food){
 		if(food.ratio_label === "" && food.consumed_label !== ""){
 			//then look up label
@@ -226,10 +261,16 @@ class NameForm extends React.Component {
 		return food;
 	}
 	
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	clearForm () { 
 		document.getElementById("create-food-form").reset();
 	  }
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	render() {
 		
 		let style = {
