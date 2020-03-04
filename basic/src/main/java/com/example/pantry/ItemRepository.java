@@ -21,8 +21,8 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<String> getDistinctNamesCustomQuery();
 
     //label unit calories
-    @Query("select u.ratio_label,u.ratio_unit, u.ratio_calories from Item u where u.name= ?1")
-    List<String> getStatsCustomQuery(String name);
+    @Query("select u.ratio_label,u.ratio_unit, u.ratio_calories from Item u where u.name= ?1 and u.ratio_label != 'null' ")
+    List<String> getStatsCustomQuery(String name);    
 
     @Modifying
     @Transactional

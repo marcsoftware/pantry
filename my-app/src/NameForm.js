@@ -51,7 +51,7 @@ class NameForm extends React.Component {
 				return response.json();
 			  })
 			.then(json => {
-				alert(json);
+				
 				this.setState({names: json});
 				
 			});
@@ -144,6 +144,7 @@ class NameForm extends React.Component {
 	
 		//save to database
 		//client
+		alert(JSON.stringify(form_json));
 		fetch(host+'/demo/food', {
 			method: 'POST',
 			headers: {
@@ -153,6 +154,7 @@ class NameForm extends React.Component {
 			body: JSON.stringify(form_json)
 		})
 
+			
 	  }
 	 
 	handleSubmit(event,name) {
