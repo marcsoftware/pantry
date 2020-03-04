@@ -216,7 +216,7 @@ class NameForm extends React.Component {
 		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){
 			food.consumed_calories=food.ratio_calories*(food.consumed_unit/food.ratio_unit);
 		}
-alert(food.ratio_label);
+
 		if( food.ratio_label == undefined){
 			food.ratio_label=food.consumed_label;
 			food.ratio_unit=food.consumed_unit;
