@@ -314,8 +314,9 @@ class RatioTable extends React.Component{
 	render() {
 		const items = []
 
-		for (var x=0;x<this.props.stats.length;x+=3) {
-			items.push(<li key={x}>{this.props.stats[x+1]}{this.props.stats[x]} = {this.props.stats[x+2]}calories </li>)
+		for (var x=0;x<this.props.stats.length;x++) {
+			var list = this.props.stats[x].split(',');
+			items.push(<li key={list[0]}>{list[1]}{list[0]} = {list[2]}calories </li>)
 		}
 	
 		let styles = {
