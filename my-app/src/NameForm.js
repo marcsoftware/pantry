@@ -65,7 +65,7 @@ class NameForm extends React.Component {
 			  })
 			.then(json => {
 				
-				this.setState({names: json});
+				this.setState({names: json}); 
 				
 			});
 	  
