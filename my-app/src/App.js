@@ -58,12 +58,19 @@ class App extends React.Component {
 	}
 
 	// when form is submitted update the food-table
-	handleChildFunc(){
+	handleChildFunc(form_json){
 		
+		
+
 		let today = this.getDate(); //todo today should be target_date
+
+		// TODO pass date from react to the API is instead of API always assuming todays date, so we dont have to do this complicated code here
+		if(this.state.date_offset===0){ // the form always saves todoy even if user is viewing a differnt date 
+			
+			this.setState({foods: this.state.foods.concat(form_json)}); // make recently added item render instead of calling database
+		}
 		
-	
-		fetch(host+'/demo/date/'+today)
+	/*	fetch(host+'/demo/date/'+today)
 			.then(response => {
 				return response.json();
 			  })
@@ -72,6 +79,7 @@ class App extends React.Component {
 				this.setState({foods: json});
 				
 			});
+			*/
 	}
 
 	//called from child
@@ -84,7 +92,7 @@ class App extends React.Component {
 		}else{
 			this.state.date_offset += arg;
 		}
-
+		
 		this.handleChildFunc();
 	}
 	

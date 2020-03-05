@@ -56,9 +56,6 @@ class NameForm extends React.Component {
 	// might need to call on componentDidMount also
 	populateDropdown(){
 		
-		
-		
-		
 	    fetch(host+'/demo/list')
 			.then(response => {
 				return response.json();
@@ -193,12 +190,36 @@ class NameForm extends React.Component {
 		var form_json=this.processForm();
 		
 		this.sendData(form_json);
-		this.props.myFunc(); // tell parent to update the food-grid componet
+		this.props.myFunc(this.removeNull(form_json)); // tell parent to update the food-grid componet
 		this.clearForm();
 		this.state = {value: '',names: [],stats:[],labels:[]};
 		this.getStats();//
 	}
 
+	//-----------------------------------------------------
+	// turn all Nan values in JSON into "" so that they wont be render in table.
+	//-----------------------------------------------------
+	removeNull(form_json){ //TODO might be a better way to do this.
+		
+		form_json.consumed_calories=this.removeOneNull(form_json.consumed_calories);
+		form_json.consumed_unit=this.removeOneNull(form_json.consumed_unit);
+		form_json.consumed_label=this.removeOneNull(form_json.consumed_label);
+		form_json.ratio_unit=this.removeOneNull(form_json.ratio_unit);
+		form_json.ratio_label=this.removeOneNull(form_json.ratio_label);
+		form_json.ratio_calories=this.removeOneNull(form_json.ratio_calories);
+		return form_json;
+	}
+
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
+	removeOneNull(element){
+		if(element.toString()==="NaN"){
+			
+			return element=" ";
+		}
+		
+	}
 	//-----------------------------------------------------
 	//
 	//-----------------------------------------------------
