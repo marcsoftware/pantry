@@ -87,7 +87,7 @@ class App extends React.Component {
 	//if is -1 it subtacts a day , +1 means add a day
 	// if arg==0 means set to today
 	handleDateChange(arg){
-		
+		this.setState({foods:["{id:0}"]});
 		if(arg==0){
 			this.state.date_offset=0;
 		}else{
