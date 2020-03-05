@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { create, all } from 'mathjs'
 
 //TODO dont hardcode hostname
-const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+const host = "http://localhost:5000";
 
 
 //TODO put math functions in a different component

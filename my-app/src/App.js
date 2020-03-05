@@ -11,7 +11,8 @@ import {
   } from "react-router-dom";
 
 //TODO dont hardcode hostname
-const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+const host = "http://localhost:5000";
 
 class App extends React.Component {
 
