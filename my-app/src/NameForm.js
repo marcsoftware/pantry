@@ -218,6 +218,7 @@ class NameForm extends React.Component {
 			
 			return element=" ";
 		}
+		return element;
 		
 	}
 	//-----------------------------------------------------
