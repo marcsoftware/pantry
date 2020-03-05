@@ -71,16 +71,7 @@ class App extends React.Component {
 			this.setState({foods: this.state.foods.concat(form_json)}); // make recently added item render instead of calling database
 		}
 		
-	/*	fetch(host+'/demo/date/'+today)
-			.then(response => {
-				return response.json();
-			  })
-			.then(json => {
-				
-				this.setState({foods: json});
-				
-			});
-			*/
+
 	}
 
 	//called from child
