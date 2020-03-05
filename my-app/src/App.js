@@ -44,6 +44,7 @@ class App extends React.Component {
 
 	//get all food items where date is today
 	componentDidMount() {
+		
 		let target_date = this.getDate(); //todo today should be target_date
 
 			fetch(host+'/demo/date/'+target_date)
@@ -64,7 +65,6 @@ class App extends React.Component {
 		
 
 		let today = this.getDate(); //todo today should be target_date
-
 		// TODO pass date from react to the API is instead of API always assuming todays date, so we dont have to do this complicated code here
 		if(this.state.date_offset===0){ // the form always saves todoy even if user is viewing a differnt date 
 			
@@ -74,18 +74,36 @@ class App extends React.Component {
 
 	}
 
+		// when form is submitted update the food-table
+		updateTheFoodTable(){
+		
+			let target_date = this.getDate(); //todo this is a copy-pasted code snippet that we should get rid of
+
+			fetch(host+'/demo/date/'+target_date)
+			.then(response => {
+				return response.json();
+			  })
+			.then(json => {
+				
+				this.setState({foods: json});
+				
+			});
+	
+		}
+
 	//called from child
 	//if is -1 it subtacts a day , +1 means add a day
 	// if arg==0 means set to today
 	handleDateChange(arg){
-		this.setState({foods:["{id:0}"]});
+		
+		
 		if(arg==0){
 			this.state.date_offset=0;
 		}else{
 			this.state.date_offset += arg;
 		}
 		
-		this.handleChildFunc();
+		this.updateTheFoodTable();
 	}
 	
 
