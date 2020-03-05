@@ -11,8 +11,8 @@ import {
   } from "react-router-dom";
 
 //TODO dont hardcode hostname
-//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
-const host = "http://localhost:5000";
+const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+//const host = "http://localhost:5000";
 
 class App extends React.Component {
 
@@ -24,6 +24,9 @@ class App extends React.Component {
 		this.getDate = this.getDate.bind(this);
 	}
 
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	getDate(){
 		let newDate = new Date();
 		newDate.setDate(newDate.getDate() +(this.state.date_offset));
@@ -42,29 +45,22 @@ class App extends React.Component {
 		return year+'-'+month+'-'+day;
 	}
 
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	//get all food items where date is today
 	componentDidMount() {
 		
-		let target_date = this.getDate(); //todo today should be target_date
-
-			fetch(host+'/demo/date/'+target_date)
-			.then(response => {
-				return response.json();
-			  })
-			.then(json => {
-				
-				this.setState({foods: json});
-				
-			});
+		this.updateTheFoodTable();
 			
 	}
 
+	//-------------------------------------------------
+	// this form is called by NameForm component
+	//-------------------------------------------------
 	// when form is submitted update the food-table
 	handleChildFunc(form_json){
 		
-		
-
-		let today = this.getDate(); //todo today should be target_date
 		// TODO pass date from react to the API is instead of API always assuming todays date, so we dont have to do this complicated code here
 		if(this.state.date_offset===0){ // the form always saves todoy even if user is viewing a differnt date 
 			
@@ -73,6 +69,10 @@ class App extends React.Component {
 		
 
 	}
+
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 
 		// when form is submitted update the food-table
 		updateTheFoodTable(){
@@ -91,6 +91,10 @@ class App extends React.Component {
 	
 		}
 
+	
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	//called from child
 	//if is -1 it subtacts a day , +1 means add a day
 	// if arg==0 means set to today
@@ -106,7 +110,9 @@ class App extends React.Component {
 		this.updateTheFoodTable();
 	}
 	
-
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	render() {
 		return (
 			<>
@@ -121,6 +127,9 @@ class App extends React.Component {
 
 class FoodList extends React.Component{
 	
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	render() {
 		let style = {
 			textAlign:'right',
