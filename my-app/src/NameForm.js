@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { create, all } from 'mathjs'
 
 //TODO dont hardcode hostname
-const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
-//const host = "http://localhost:5000";
+//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+const host = "http://localhost:5000";
 
 
 //TODO put math functions in a different component
@@ -181,12 +181,13 @@ class NameForm extends React.Component {
 	  //
 	  //-----------------------------------------------------  
 	handleSubmit(event,name) {
-		alert(this.props.target_date);
+		
 		// stop form from being clear is name is blank but other fields are not
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
 		
+		// populate the dropdown with the brand new name instead of calling api
 		var joined = this.state.names.concat(name);
 		this.setState({ names: joined })
 		this.state.names.push(name); // TODO need to make dropdown re-render
@@ -250,6 +251,7 @@ class NameForm extends React.Component {
 	processForm(){ 
 		
 		var	food=this.getFormData();
+		food.date=(this.props.target_date);
 		food=this.evaluateArithmeticExpressions(food);
 		food=this.doAlgebra(food);
 		return food;

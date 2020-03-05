@@ -10,9 +10,9 @@ import {
 	Link
   } from "react-router-dom";
 
-//TODO dont hardcode hostname
-const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
-//const host = "http://localhost:5000";
+//TODO put this in a file and import it
+//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+const host = "http://localhost:5000";
 
 class App extends React.Component {
 
@@ -60,15 +60,8 @@ class App extends React.Component {
 	// this form is called by NameForm component
 	//-------------------------------------------------
 	// when form is submitted update the food-table
-	handleChildFunc(form_json){
-		
-		// TODO pass date from react to the API is instead of API always assuming todays date, so we dont have to do this complicated code here
-		if(this.state.date_offset===0){ // the form always saves todoy even if user is viewing a differnt date 
-			
+	handleChildFunc(form_json){	
 			this.setState({foods: this.state.foods.concat(form_json)}); // make recently added item render instead of calling database
-		}
-		
-
 	}
 
 	//-------------------------------------------------
