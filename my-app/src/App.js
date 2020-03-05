@@ -18,7 +18,7 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {foods: [],date_offset:0}; 
+		this.state = {foods: [],date_offset:0,the_date:''}; 
 		this.handleChildFunc = this.handleChildFunc.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
 		this.getDate = this.getDate.bind(this);
@@ -42,6 +42,7 @@ class App extends React.Component {
 			month="0"+month; // pad with a zero
 		}
 
+		this.setState({the_date:year+'-'+month+'-'+day});
 		return year+'-'+month+'-'+day;
 	}
 
@@ -116,7 +117,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-				<NameForm myFunc={this.handleChildFunc}  />
+				<NameForm myFunc={this.handleChildFunc}  target_date={this.state.the_date}/>
 				<DateNavigation changeDate={this.handleDateChange} />
 				<FoodList foods={this.state.foods}   />
 			</>

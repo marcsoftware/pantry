@@ -155,6 +155,7 @@ class NameForm extends React.Component {
 			return form_json;
 	  }
   
+	  
 	  //-----------------------------------------------------
 	  //
 	  //-----------------------------------------------------
@@ -180,6 +181,7 @@ class NameForm extends React.Component {
 	  //
 	  //-----------------------------------------------------  
 	handleSubmit(event,name) {
+		alert(this.props.target_date);
 		// stop form from being clear is name is blank but other fields are not
 		if(typeof this.state.name == 'undefined'){
 			return;
