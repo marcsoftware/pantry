@@ -28,7 +28,7 @@ public class MainController {
 
 	@PostMapping(path="/food") 
 	public @ResponseBody String addUser(@RequestBody Item item) {
-		item.setDate();
+		
 		itemRepository.save(item);
 		return "Saved mysql";
 	}

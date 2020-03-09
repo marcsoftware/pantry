@@ -34,12 +34,9 @@ public class Item {
 		this.id = id;
 	}
 
-	public void setDate(){
-		//
-		String[] both=createTimestamp();
-		this.date=(both[0]);
-		this.time=(both[1]);
-	
+	public void setDate(String date){
+
+		this.date=date;
 	}
 
 	// returns an array that holds the calendar-date AND clock-time
