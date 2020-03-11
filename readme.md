@@ -1,5 +1,5 @@
 #### Description
-This a calorie counting app that has a efficient interface than any other app.  The user can add a food along with its nutritional facts and custom labels all from one form.
+This a calorie counting app that has an efficient interface than any other app.  The user can add a food along with its nutritional facts and custom labels all from one form.
 All other calories counting app(example: myfitnesspal.com) require the user to visit multiple pages to accomplish the same things. Also my app automatically evaluates mathematical expressions like (3.5*110) so the user does not need a calculator. 
 
 
