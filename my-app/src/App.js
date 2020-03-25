@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import NameForm from './NameForm';
+import Login from './Login';
 
 import {
 	BrowserRouter as Router,
@@ -100,6 +101,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
+				<Login   />
 				<NameForm myFunc={this.handleChildFunc}  />
 				<DateNavigation changeDate={this.handleDateChange} />
 				<FoodList foods={this.state.foods}   />
