@@ -2,11 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { create, all } from 'mathjs'
 
+//TODO dont hardcode hostname
+//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+const host = "http://localhost:5000";
+
 
 //TODO put math functions in a different component
-
 const math = create(all);
 class NameForm extends React.Component {
+
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	constructor(props) {
 	  super(props);
 	  this.state = {value: '',names: [],stats:[],labels:[]};
@@ -21,12 +28,18 @@ class NameForm extends React.Component {
 	  this.populateDropdown();
 	}
   
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	handleChange(event) {
-	  //this.setState({value: event.target.value});
+	  //this.setState({value: event.target.value});   
 	  this.setState({ [event.target.name]: event.target.value });
 	  
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	checkUndefined(x){
 		if(x === "undefined"){
 			x="";
@@ -37,29 +50,37 @@ class NameForm extends React.Component {
 		}
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	// TODO use data to populate dropdown
 	// might need to call on componentDidMount also
 	populateDropdown(){
 		
-
-	    fetch('http://localhost:5000/demo/list/food')
+	    fetch(host+'/demo/list')
 			.then(response => {
 				return response.json();
 			  })
 			.then(json => {
-				alert(json);
-				this.setState({names: json});
+				
+				this.setState({names: json}); 
 				
 			});
 	  
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	testForLetters(item){
 		return item.search(/[a-zA-Z]/i)>-1 && item !== "null";
 	}
 
 	 
-
+	// 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	filterLabels(list){
 		if(typeof list === "undefined"){
 			return ;
@@ -78,10 +99,8 @@ class NameForm extends React.Component {
 			return;
 		}
 
-	
 
-
-		fetch('http://localhost:5000/demo/stats/'+this.state.name)
+		fetch(host+'/demo/stats/'+this.state.name)
 					.then(response => {
 						return response.json();
 					})
@@ -136,11 +155,16 @@ class NameForm extends React.Component {
 			return form_json;
 	  }
   
+	  
+	  //-----------------------------------------------------
+	  //
+	  //-----------------------------------------------------
 	  sendData(form_json) {
 	
 		//save to database
 		//client
-		fetch('http://localhost:5000/demo/food', {
+		
+		fetch(host+'/demo/food', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -149,26 +173,61 @@ class NameForm extends React.Component {
 			body: JSON.stringify(form_json)
 		})
 
+			
 	  }
 	 
+
+	  //-----------------------------------------------------
+	  //
+	  //-----------------------------------------------------  
 	handleSubmit(event,name) {
+		
 		// stop form from being clear is name is blank but other fields are not
 		if(typeof this.state.name == 'undefined'){
 			return;
 		}
-		this.getStats();//
+		
+		// populate the dropdown with the brand new name instead of calling api
 		var joined = this.state.names.concat(name);
 		this.setState({ names: joined })
 		this.state.names.push(name); // TODO need to make dropdown re-render
 		var form_json=this.processForm();
 		
 		this.sendData(form_json);
-		this.props.myFunc(); // tell parent to update the food-grid componet
+		this.props.myFunc(this.removeNull(form_json)); // tell parent to update the food-grid componet
 		this.clearForm();
 		this.state = {value: '',names: [],stats:[],labels:[]};
-		event.preventDefault();
+		this.getStats();//
 	}
 
+	//-----------------------------------------------------
+	// turn all Nan values in JSON into "" so that they wont be render in table.
+	//-----------------------------------------------------
+	removeNull(form_json){ //TODO might be a better way to do this.
+		
+		form_json.consumed_calories=this.removeOneNull(form_json.consumed_calories);
+		form_json.consumed_unit=this.removeOneNull(form_json.consumed_unit);
+		form_json.consumed_label=this.removeOneNull(form_json.consumed_label);
+		form_json.ratio_unit=this.removeOneNull(form_json.ratio_unit);
+		form_json.ratio_label=this.removeOneNull(form_json.ratio_label);
+		form_json.ratio_calories=this.removeOneNull(form_json.ratio_calories);
+		return form_json;
+	}
+
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
+	removeOneNull(element){
+		if(element.toString()==="NaN"){
+			
+			return element=" ";
+		}
+		return element;
+		
+	}
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	evaluateArithmeticExpressions(food){
 
 		food.consumed_calories=this.evaluateMath(food.consumed_calories);
@@ -186,42 +245,71 @@ class NameForm extends React.Component {
 		return parseFloat(math.evaluate(expression));
 	}
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	processForm(){ 
 		
 		var	food=this.getFormData();
+		food.date=(this.props.target_date);
 		food=this.evaluateArithmeticExpressions(food);
 		food=this.doAlgebra(food);
 		return food;
 	}
 
 	// 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	doAlgebra(food){
 		if(food.ratio_label === "" && food.consumed_label !== ""){
 			//then look up label
-			var index = this.state.stats.indexOf(food.consumed_label);
+			var list = this.state.stats;
+			list = list.join(',').split(',');
 			
-			food.ratio_calories=this.state.stats[index+2];	
-			food.ratio_unit=this.state.stats[index+1];
-			food.ratio_label=this.state.stats[index+0];
+			var index = list.indexOf(food.consumed_label);
+			
+			food.ratio_calories=list[index+2];	
+			food.ratio_unit=list[index+1];
+			food.ratio_label=list[index+0];
 				
 		}
 
 		if(food.ratio_label===food.consumed_label && Number.isNaN(food.consumed_calories)){
 			food.consumed_calories=food.ratio_calories*(food.consumed_unit/food.ratio_unit);
 		}
+
+		if( food.ratio_label == undefined){
+			food.ratio_label=food.consumed_label;
+			food.ratio_unit=food.consumed_unit;
+			food.ratio_calories=food.consumed_calories;
+		}
 		
 		return food;
 	}
 	
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	clearForm () { 
 		document.getElementById("create-food-form").reset();
 	  }
 
+	//-----------------------------------------------------
+	//
+	//-----------------------------------------------------
 	render() {
 		
 		let style = {
 			textAlign:'right',
 			border: 'none'
+			
+		};
+
+		let small = {
+			textAlign:'lefy',
+			border: 'none',
+			fontSize:'12px'
 			
 		};
 
@@ -237,7 +325,7 @@ class NameForm extends React.Component {
 		};
 
 	  return (
-		  <>
+		  <><span style={small}><a href='https://github.com/marcsoftware/pantry/blob/master/readme.md#step-1--add-amount-consumed--any-kind-of-ratio'>tutorial</a> - labels can be resued and calories will be autocalculated.</span>
 		  <table style={style}> 
 			  <tr style={style}>
 				<th style={style}>
@@ -307,8 +395,9 @@ class RatioTable extends React.Component{
 	render() {
 		const items = []
 
-		for (var x=0;x<this.props.stats.length;x+=3) {
-			items.push(<li key={x}>{this.props.stats[x+1]}{this.props.stats[x]} = {this.props.stats[x+2]}calories </li>)
+		for (var x=0;x<this.props.stats.length;x++) {
+			var list = this.props.stats[x].split(',');
+			items.push(<li key={list[0]}>{list[1]}{list[0]} = {list[2]}calories </li>)
 		}
 	
 		let styles = {

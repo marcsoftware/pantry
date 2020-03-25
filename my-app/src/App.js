@@ -11,17 +11,23 @@ import {
 	Link
   } from "react-router-dom";
 
+//TODO put this in a file and import it
+//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
+const host = "http://localhost:5000";
 
 class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {foods: [],date_offset:0}; 
+		this.state = {foods: [],date_offset:0,the_date:''}; 
 		this.handleChildFunc = this.handleChildFunc.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
 		this.getDate = this.getDate.bind(this);
 	}
 
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	getDate(){
 		let newDate = new Date();
 		newDate.setDate(newDate.getDate() +(this.state.date_offset));
@@ -37,42 +43,38 @@ class App extends React.Component {
 			month="0"+month; // pad with a zero
 		}
 
+		this.setState({the_date:year+'-'+month+'-'+day});
 		return year+'-'+month+'-'+day;
 	}
 
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	//get all food items where date is today
 	componentDidMount() {
-		let today = this.getDate(); //todo today should be target_date
 		
-	/*	client({method: 'GET', path: "/demo/date/"+today}).done(response => {
-			this.setState({foods: response.entity});
-			
-    });
-    */
-//https://localhost:5000/demo/food
-//https://api.github.com/users/marcsoftware
-			fetch('http://localhost:5000/demo/food')
-			.then(response => {
-				return response.json();
-			  })
-			.then(json => {
-				
-				this.setState({foods: json});
-				
-			});
+		this.updateTheFoodTable();
 			
 	}
 
+	//-------------------------------------------------
+	// this form is called by NameForm component
+	//-------------------------------------------------
 	// when form is submitted update the food-table
-	handleChildFunc(){
+	handleChildFunc(form_json){	
+			this.setState({foods: this.state.foods.concat(form_json)}); // make recently added item render instead of calling database
+	}
+
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
+
+		// when form is submitted update the food-table
+		updateTheFoodTable(){
 		
-		let today = this.getDate(); //todo today should be target_date
-		
-		/*		client({method: 'GET', path: "/demo/date/"+today}).done(response => {
-					this.setState({foods: response.entity});
-					
-		});*/
-		fetch('http://localhost:5000/demo/date/'+today)
+			let target_date = this.getDate(); //todo this is a copy-pasted code snippet that we should get rid of
+
+			fetch(host+'/demo/date/'+target_date)
 			.then(response => {
 				return response.json();
 			  })
@@ -81,28 +83,40 @@ class App extends React.Component {
 				this.setState({foods: json});
 				
 			});
-	}
+	
+		}
 
+	
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	//called from child
 	//if is -1 it subtacts a day , +1 means add a day
 	// if arg==0 means set to today
 	handleDateChange(arg){
+		
 		
 		if(arg==0){
 			this.state.date_offset=0;
 		}else{
 			this.state.date_offset += arg;
 		}
-
-		this.handleChildFunc();
+		
+		this.updateTheFoodTable();
 	}
 	
-
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	render() {
 		return (
 			<>
+<<<<<<< HEAD
 				<Login   />
 				<NameForm myFunc={this.handleChildFunc}  />
+=======
+				<NameForm myFunc={this.handleChildFunc}  target_date={this.state.the_date}/>
+>>>>>>> 518ce593256ea8d11b410fb9c9c213bfba367060
 				<DateNavigation changeDate={this.handleDateChange} />
 				<FoodList foods={this.state.foods}   />
 			</>
@@ -113,6 +127,9 @@ class App extends React.Component {
 
 class FoodList extends React.Component{
 	
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
 	render() {
 		let style = {
 			textAlign:'right',
@@ -157,8 +174,8 @@ class Food extends React.Component{
 				<td>{this.props.food.name}</td>
 				<td>{this.props.food.consumed_unit}{this.props.food.consumed_label}</td>
 				<td>{this.props.food.consumed_calories}</td>
-				<td>{this.props.food.ratio_unit}{this.props.food.ratio_label}</td>
-				<td>{this.props.food.ratio_calories}</td>
+				<td>-{this.props.food.ratio_unit}{this.props.food.ratio_label}</td>
+				<td>-{this.props.food.ratio_calories}</td>
 				<td>{this.props.food.time}</td>
 
 			</tr>
