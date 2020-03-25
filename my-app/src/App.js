@@ -111,12 +111,10 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-<<<<<<< HEAD
+
 				<Login   />
 				<NameForm myFunc={this.handleChildFunc}  />
-=======
-				<NameForm myFunc={this.handleChildFunc}  target_date={this.state.the_date}/>
->>>>>>> 518ce593256ea8d11b410fb9c9c213bfba367060
+
 				<DateNavigation changeDate={this.handleDateChange} />
 				<FoodList foods={this.state.foods}   />
 			</>
