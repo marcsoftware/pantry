@@ -42,9 +42,9 @@ function Login() {
               onFailure={responseGoogle}
               cookiePolicy={'single_host_origin'}
           />
-          <h1>{name}</h1>
-  <h1>{email}</h1>
-  <img src={url} alt={name}/>
+          <span>{name}</span>
+  
+  
         </header>
       </div>
     );
