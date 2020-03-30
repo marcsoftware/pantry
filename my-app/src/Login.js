@@ -15,8 +15,8 @@ function Login() {
   
     const responseGoogle  = (response) => {
        if(typeof response.profileObj  == 'undefined'){
-        setName("iamlocal");
-        setEmail("iamlocal@gmail.com");
+        setName("hardcoded");
+        setEmail("hardcoded@gmail.com");
         setUrl(""); // url for pic
 
          return;
