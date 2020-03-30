@@ -14,7 +14,9 @@ function Login() {
     const [url,setUrl] = useState("");
   
     const responseGoogle  = (response) => {
-      console.log(response);
+       if(typeof response.profileObj  == 'undefined'){
+         return;
+       }
         setName(response.profileObj.name);
         setEmail(response.profileObj.email);
         setUrl(response.profileObj.imageUrl); // url for pic
