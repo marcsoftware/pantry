@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import NameForm from './NameForm';
 import Login from './Login';
-
+import {host} from './config.js';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -11,9 +11,9 @@ import {
 	Link
   } from "react-router-dom";
 
-//TODO put this in a file and import it
-//const host = "http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
-const host = "http://localhost:5000";
+
+
+
 
 class App extends React.Component {
 
