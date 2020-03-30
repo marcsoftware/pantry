@@ -15,6 +15,10 @@ function Login() {
   
     const responseGoogle  = (response) => {
        if(typeof response.profileObj  == 'undefined'){
+        setName("iamlocal");
+        setEmail("iamlocal@gmail.com");
+        setUrl(""); // url for pic
+
          return;
        }
         setName(response.profileObj.name);
