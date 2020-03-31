@@ -38,7 +38,7 @@ public class MainController {
 	//
 	@GetMapping(path="/food")
 	public @ResponseBody Iterable<Item> getAllUsers() {
-		// This returns a JSON or XML with the users
+		
 		return itemRepository.findAll();
 	}
 
