@@ -57,6 +57,7 @@ class App extends React.Component {
 			
 	}
 
+
 	//-------------------------------------------------
 	// this form is called by NameForm component
 	//-------------------------------------------------
@@ -105,15 +106,25 @@ class App extends React.Component {
 		this.updateTheFoodTable();
 	}
 	
+
+	//-------------------------------------------------
+	// 
+	//-------------------------------------------------
+	handleLogin(evt) {
+		alert(evt.target.value);
+	}
+
 	//-------------------------------------------------
 	// 
 	//-------------------------------------------------
 	render() {
+
+
 		return (
 			<>
 
 				<Login   />
-				<NameForm myFunc={this.handleChildFunc}  />
+				<NameForm myFunc={this.handleChildFunc} onLogin={this.handleLogin} />
 
 				<DateNavigation changeDate={this.handleDateChange} />
 				<FoodList foods={this.state.foods}   />

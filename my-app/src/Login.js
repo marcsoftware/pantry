@@ -7,7 +7,7 @@ import GoogleLogin from 'react-google-login';
 
 
 
-function Login() {
+function Login(props) {
 
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
@@ -15,13 +15,14 @@ function Login() {
   
     const responseGoogle  = (response) => {
        if(typeof response.profileObj  == 'undefined'){
-        setName("hardcoded");
-        setEmail("hardcoded@gmail.com");
+        setName("hardcodedinreact");
+        setEmail("hardcodedinreact@gmail.com");
         setUrl(""); // url for pic
 
          return;
        }
         setName(response.profileObj.name);
+        
         setEmail(response.profileObj.email);
         setUrl(response.profileObj.imageUrl); // url for pic
     }
@@ -42,7 +43,7 @@ function Login() {
               onFailure={responseGoogle}
               cookiePolicy={'single_host_origin'}
           />
-          <span>{name}</span>
+          <span onChange={props.onLogin} >{name}</span>
   
   
         </header>
