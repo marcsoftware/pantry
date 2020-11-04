@@ -33,6 +33,12 @@ public class MainController {
 		return "Saved mysql";
 	}
 
+	//
+	@GetMapping(path="/test")
+	public String  test() {
+		
+		return "Hello from API";
+	}
 
 	
 	//
