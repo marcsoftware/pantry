@@ -70,5 +70,11 @@ public class TodoJpaResource {
 		
 		return ResponseEntity.created(uri).build();
 	}
+
+
+	@GetMapping(path = "/hello")
+	public String helloWorld() {
+		return "Hello World";
+	}
 		
 }
