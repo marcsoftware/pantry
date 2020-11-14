@@ -3,7 +3,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,8 +22,7 @@ public class MainController {
 	@Autowired
 	private ItemRepository itemRepository;
 
-	@Autowired
-	MongoTemplate mongoTemplate;
+
 
 
 	@PostMapping(path="/food") 
