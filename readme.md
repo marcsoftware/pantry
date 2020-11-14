@@ -29,3 +29,9 @@ All other calories counting app(example: myfitnesspal.com) require the user to v
 [2]: images/2.png "step two"
 [3]: images/3.png "step three"
 [4]: images/4.png "step four"
+
+------
+
+elastic beanstalk :
+
+Java 8 running on 64bit Amazon Linux/2.11.0
