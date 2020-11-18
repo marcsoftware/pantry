@@ -88,6 +88,18 @@ public class MainController {
 		return "cleared";
 	}
 	
+	//----------------------------------------------------------------------
+	// athenticate user using google login
+	//----------------------------------------------------------------------
+	// 
+	@GetMapping(path="/auth")
+	public @ResponseBody String authenticateUser(@RequestBody Item item) {
+		
+		return item.name;
+
+	}
+
+	
 
 	
 }
