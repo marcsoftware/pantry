@@ -71,9 +71,11 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// 
 	@GetMapping(path = "/stats/{name}")
-	public @ResponseBody List<String> getStats(@PathVariable String name) {
-		//------
+	public @ResponseBody List<Item> getStats(@PathVariable String name) {	
+		
 		return itemRepository.getStatsCustomQuery(name);
+        
+		
 	}
 
 	//----------------------------------------------------------------------
@@ -89,4 +91,5 @@ public class MainController {
 
 	
 }
+
 
