@@ -22,6 +22,8 @@ public class MainController {
 	@Autowired
 	private ItemRepository itemRepository;
 
+	@Autowired
+	private UserRepository UserRepository;
 
 
 
@@ -93,9 +95,9 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// 
 	@GetMapping(path="/auth")
-	public @ResponseBody String authenticateUser(@RequestBody Item item) {
+	public @ResponseBody String authenticateUser(@RequestBody User user) {
 		
-		return item.name;
+		return user.name;
 
 	}
 

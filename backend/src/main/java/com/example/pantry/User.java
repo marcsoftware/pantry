@@ -9,11 +9,11 @@ import javax.persistence.Id;
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	public Integer id;
 
-	private String name;
+	public String name;
 
-	private String email;
+	public String email;
 
 	public Integer getId() {
 		return id;
