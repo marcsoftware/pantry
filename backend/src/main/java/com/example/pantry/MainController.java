@@ -3,12 +3,17 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 
 
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.sun.org.apache.xpath.internal.operations.Plus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -98,32 +103,30 @@ public class MainController {
 	}
 	
 	//----------------------------------------------------------------------
-	// athenticate user using google login
+	// authenticate user using google login
 	//----------------------------------------------------------------------
 	// 
 	@GetMapping(path="/auth")
 	public @ResponseBody String authenticateUser(@RequestBody User user) throws GeneralSecurityException, IOException {
-		//TODO put this in another file instead of hardcoding?
+
+
+		  final JacksonFactory jsonFactory = new JacksonFactory();
 		String CLIENT_ID="576524152999-o3rgla4utep5t9dde2hutd1cc6d08989.apps.googleusercontent.com";
 		String idTokenString=user.idTokenString;
 
-		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), jsonFactory)
 				// Specify the CLIENT_ID of the app that accesses the backend:
 				.setAudience(Collections.singletonList(CLIENT_ID))
 				// Or, if multiple clients access the backend:
 				//.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
 				.build();
 
-		// (Receive idTokenString by HTTPS POST)
+
+
+
 
 		GoogleIdToken idToken = verifier.verify(idTokenString);
-		if (idToken != null) {
-			Payload payload = idToken.getPayload();
-		} else{
-			// not authenticated
-
-		}
-		return user.name;
+		return "here 120";
 
 	}
 
