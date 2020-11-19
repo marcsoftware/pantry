@@ -15,6 +15,8 @@ public class User {
 
 	public String email;
 
+ 	public String idTokenString;
+
 	public Integer getId() {
 		return id;
 	}
@@ -37,5 +39,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getIdTokenString() {
+		return idTokenString;
+	}
+
+	public void setIdTokenString(String idTokenString) {
+
+		this.idTokenString = idTokenString;
 	}
 }
