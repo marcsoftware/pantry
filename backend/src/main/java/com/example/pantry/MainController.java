@@ -77,8 +77,8 @@ public class MainController {
 	// used to populate the dropdown  on the frontent
 	//----------------------------------------------------------------------
 	@GetMapping(path = "/list")
-	public @ResponseBody List<String> getFromTemplate() {
-		return itemRepository.getDistinctNamesCustomQuery();
+	public @ResponseBody List<String> getFromTemplate(@RequestBody User user) {
+		return itemRepository.getDistinctNamesCustomQuery(user.name); //------------------
 	}
 
 	//----------------------------------------------------------------------
@@ -86,9 +86,9 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// 
 	@GetMapping(path = "/stats/{name}")
-	public @ResponseBody List<Item> getStats(@PathVariable String name) {	
+	public @ResponseBody List<Item> getStats(@PathVariable String name,@RequestBody User user) {	
 		
-		return itemRepository.getStatsCustomQuery(name);
+		return itemRepository.getStatsCustomQuery(name,user.name); //----------------------
         
 		
 	}
