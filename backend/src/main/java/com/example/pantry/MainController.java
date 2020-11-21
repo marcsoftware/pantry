@@ -64,7 +64,7 @@ public class MainController {
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
 		
-		return itemRepository.testingThis(date,"marc");
+		return itemRepository.testingThis(date,user.name);
 	}
 
 	@GetMapping(path = "/name/{name}")
