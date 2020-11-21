@@ -40,7 +40,7 @@ public class MainController {
 
 
 	@PostMapping(path="/food") 
-	public @ResponseBody String addUser(@RequestBody Item item) {
+	public @ResponseBody String addFood(@RequestBody Item item) {
 		
 		itemRepository.save(item);
 		return "Saved mysql";
@@ -56,14 +56,15 @@ public class MainController {
 	
 	//
 	@GetMapping(path="/food")
-	public @ResponseBody Iterable<Item> getAllUsers() {
+	public @ResponseBody Iterable<Item> getAllFood() {
 		
 		return itemRepository.findAll();
 	}
 
 	@GetMapping(path = "/date/{date}")
-	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date) {
-		return itemRepository.findByDate(date);
+	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
+		
+		return itemRepository.testingThis(date,"marc");
 	}
 
 	@GetMapping(path = "/name/{name}")

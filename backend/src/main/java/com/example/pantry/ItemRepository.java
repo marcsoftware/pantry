@@ -16,6 +16,11 @@ import com.example.pantry.Item;
 public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByDate(String date);
     List<Item> findByName(String name);
+
+
+    @Query("select u from Item u where u.date= ?1  and u.userName= ?2 ")
+    List<Item> testingThis(String date,String name); 
+
     
     @Query("select DISTINCT u.name from Item u")
     List<String> getDistinctNamesCustomQuery();
