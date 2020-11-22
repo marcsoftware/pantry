@@ -611,16 +611,16 @@ function getAllFoodOnDate(){
 //---------------------------------------------------------------------
 */
 // 
-function testUser(){
-        getCookie();
+function testGet(){
+    getCookie();
         
         console.log('test user');
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
         //var theUrl = database_url+"/date/11-22-2020";
-        var theUrl = database_url+"/testUser";
+        var theUrl = database_url+"/other/"+getDate();
         //var theUrl = database_url+"/testUser";
-        xmlhttp.open("POST", theUrl,flag);
+        xmlhttp.open("GET", theUrl,flag);
         
  
        
@@ -940,7 +940,7 @@ function convert(){
 <title>food log</title>
 </head>
 <body>
- <button onclick="testUser()">user</button>
+ <button onclick="testGet()">user</button>
  <button onclick="testDate()">date</button>
 <div id='header'></div>
 <h2>food log</h2>

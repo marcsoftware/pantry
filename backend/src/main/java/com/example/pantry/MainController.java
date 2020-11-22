@@ -59,13 +59,13 @@ public class MainController {
 	}
 
 
-
-	@PostMapping(path="/testUser") 
-	public @ResponseBody List<Item>  testUser(@RequestBody User user) {
+@GetMapping(path="/other/{date}") 
+	public @ResponseBody List<Item>  testGet(@PathVariable String date,@RequestBody User user) {
 		
 		
-		return itemRepository.testingThis("11-22-2020",user.name);
+		return itemRepository.testingThis(date,user.name);
 	}
+
 
 	@PostMapping(path="/other/{date}") 
 	public @ResponseBody List<Item>  testUser(@PathVariable String date,@RequestBody User user) {
