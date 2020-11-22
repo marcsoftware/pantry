@@ -67,6 +67,13 @@ public class MainController {
 		return itemRepository.testingThis("11-22-2020",user.name);
 	}
 
+	@PostMapping(path="/other/{date}") 
+	public @ResponseBody List<Item>  testUser(@PathVariable String date,@RequestBody User user) {
+		
+		
+		return itemRepository.testingThis("11-22-2020",user.name);
+	}
+
 	//
 	@GetMapping(path="/hello")
 	public String  hello() {
