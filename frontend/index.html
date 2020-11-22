@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+<html>
+
+<meta charset="UTF-8">
+
+<head>
+    <script src="constants.js"></script>
+    <style>
+
+      #total{
+        color:grey;
+      }
+      .block{
+        background-color: blue;
+        color:white;
+        display: inline-block;
+        margin-bottom : 1px;
+        margin-right: 1px;
+      }
+      #graph{
+        float:right;
+        width: 100%;
+      }
+
+        #rightside{
+            float:left;
+            width:20%;
+            padding: 0px;
+        }
+
+        .nav{
+          padding: 0px;
+          margin:0px;
+          cursor:pointer;
+        }
+
+
+        #date_container{
+          padding: 0px;
+          margin:0px;
+          color:grey;
+          float:left;
+          width: 50%;
+          cursor:pointer;
+        }
+
+        #average7today{
+          float:right;
+          width: 100%;
+        }
+
+        #average7{
+          float:right;
+          width: 100%;
+          color:blue;
+        }
+
+         #average30{
+          float:right;
+          width: 100%;
+          color:green;
+        }
+
+        #count{
+          padding: 0px;
+          margin:0px;
+          color:white;
+          background-color:red;
+          font-family: consolas;
+          float:right;
+          text-align: right;
+          width: 50%;
+        }
+        #form{
+            float:left;
+            width:20%;
+        }
+        #array{
+          color: red;
+        }
+
+        table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+    </style>
+
+
+<script>
+
+flag=true;
+
+/*
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  @GetMapping(path = "/name/{name}")
+  public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
+    return itemRepository.findByName(name);
+  }
+
+  //----------------------------------------------------------------------
+  // This returns a distinct-list of names.
+  // used to populate the dropdown  on the frontent
+  //----------------------------------------------------------------------
+  @GetMapping(path = "/list")
+  public @ResponseBody List<String> getFromTemplate() {
+    return itemRepository.getDistinctNamesCustomQuery();
+  }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
+
+
+window.onload=init;
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function init(){
+
+    drawHeader();
+    getAllFoodOnDate();
+    
+    getAllNames();
+    getWeekCalories();
+    //drawGraph();
+    getCookie();
+
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var global_name='';
+function getCookie() {
+  var cname="name";
+  console.log(document.cookie);
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      var result = c.substring(name.length, c.length);
+      global_name=result;
+      document.getElementById('cookie').innerHTML=result;
+      return result;
+    }
+  }
+  return "";
+}
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var ONE_POUND_FAT=3500; // 1 pound of fat is 3500 calories
+
+function drawGraph(){
+    var handle = document.getElementById('graph');
+    var total=0;
+    for(var i =0;i<avg_array.length;i++){
+      var date = getDateFormat(0-i);
+      var width=avg_array[i]/8;
+      var number =avg_array[i];
+      total+=parseInt(number);
+      handle.innerHTML+=date+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
+
+    }
+
+    var metabolism=2000; // calorie burn perday;
+    var total_metabolism = metabolism*avg_array.length;
+    var burned = total_metabolism-total;
+    var text = ['gained','burned'];
+    var isPositive=1;
+    if(burned <=0){
+        isPositive=0;
+    }
+    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
+
+}
+
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// TODO get rid of other date functions REFACTOR
+function getWeekCalories(){
+
+    getCalorieArray();
+    var days;
+    // get last 7 days not including today
+    days = avg_array.slice(1,6);
+
+    document.getElementById('average7').innerHTML=getAverage(days);
+       
+    days = avg_array.slice(1,30);
+    document.getElementById('average30').innerHTML=getAverage(days);   
+  
+    days = avg_array.slice(0,6);
+    
+    document.getElementById('average7today').innerHTML=getAverage(days); 
+    
+}
+
+/**
+//---------------------------------------------------------------------
+// put day calories totals from the last 30 days.
+//---------------------------------------------------------------------
+*/
+function getCalorieArray(){
+    for(var i =0;i<=30;i++){
+        
+    
+        var target_date = getDateFormat(0-i);
+        getTotalSmart(target_date);
+       
+
+    }
+}
+
+
+/**
+//---------------------------------------------------------------------
+//   TODO stores total from date in an array-element
+//    index 0 is the lastest date
+//---------------------------------------------------------------------
+*/
+ 
+var calorie_array=[];
+var avg_array=[];
+window.calorie_array=[];
+function getTotalSmart(target_date) {
+  return; // TODO temperary remove
+  getCookie();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+
+      var result=this.responseText;
+      var obj = JSON.parse(result); 
+      var sum = getSum(obj);
+      calorie_array.push(sum);
+      var clone =calorie_array.slice();
+
+      avg_array.push(sum);
+      //document.getElementById('array').innerHTML=avg_array;
+
+    }
+  };
+  xhttp.open("GET", database_url+"/date/"+target_date, flag);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
+  xhttp.send();
+}
+
+
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getDateFormat(offset){
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate()+offset);
+
+    var dd = String(target_date.getDate()).padStart(2, '0');
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    target_date = mm + '-' + dd + '-' + yyyy;
+    return target_date;
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getAverage(some_array){
+  
+   var grades = some_array;
+  
+    var total = 0;
+    for(var i = 0; i < grades.length; i++) {
+      var number = parseFloat(grades[i]);
+         total +=  number;
+    }
+    var avg = total / grades.length;
+    
+    return avg.toFixed(2);
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+
+var stats;
+function getStats(){
+  getCookie();
+    name=document.getElementById('name').value;
+    if(name===''){
+      return;
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        
+        var result=this.responseText;
+        stats = result.replace(/[\[\]\"]+/g,'');
+        document.getElementById('stats').innerHTML=stats;
+        stats = stats.split(',');
+
+
+        }
+      };
+    xhttp.open("GET", database_url+"/stats/"+name, flag);
+     xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
+    xhttp.send();
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function printJSON(obj){
+    
+    for(var i =0;i<obj.length;i++){
+        print(obj[i]);
+    }
+}
+
+
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function print(data){
+  totalCal(data.consumed_calories);
+   
+    document.getElementById("log").innerHTML +=`
+     <tr>
+    <td>${data.name}</td>
+    <td>${parseFloat(data.consumed_calories).toFixed(2)}</td>
+    <td>${data.consumed_unit+data.consumed_label}</td>
+    <td>${data.ratio_calories}</td>
+    <td>${data.ratio_unit+data.ratio_label}</td>
+    <td>${data.time}</td>
+  </tr>
+
+    `;
+}
+
+
+/**
+//---------------------------------------------------------------------
+//   CALCULATE TOTAL CALORIES FOR THE DAY
+//---------------------------------------------------------------------
+*/
+var total_cal_today=0.0; 
+function totalCal(number){
+  number=parseFloat(number);
+    total_cal_today+=number;
+    document.getElementById('count').innerHTML=total_cal_today.toFixed(2);
+    document.title='foodlog: '+(total_cal_today.toFixed(0));
+}
+
+/**
+//---------------------------------------------------------------------
+//  
+//---------------------------------------------------------------------
+*/
+ // get all food items from database   
+function getAllFood() {
+  getCookie();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var result=this.responseText;
+        var obj = JSON.parse(result); 
+        printJSON(obj);
+      
+      
+    }
+  };
+  xhttp.open("GET", database_url+"/food", flag);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
+  xhttp.send();
+}
+
+
+
+
+
+
+
+// TODO move this variables ?
+var day_totals=[];
+window.global_totals=[];
+
+
+
+/**
+//---------------------------------------------------------------------
+// helper function for getting total calories on date
+//---------------------------------------------------------------------
+*/
+function getSum(obj){
+    var sum=0.0;
+    for(var i =0;i<obj.length;i++){
+       sum+=parseFloat(obj[i].consumed_calories);
+    }
+
+    return sum.toFixed(2);
+}
+
+
+/**
+//---------------------------------------------------------------------
+// get names of all food to opulate the dropdown menu   @GetMapping(path = "/list")
+//---------------------------------------------------------------------
+*/
+ // get all food items from database   
+function getAllNames() {
+  getCookie();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+        
+        var result=this.responseText.replace(/[\[\]\"]/g,'').split(',');
+        
+        result=result.map(function (element) {
+          return `<option value='${element}'>`;
+        });
+          
+        document.getElementById('listAll').innerHTML=result.join('');
+        
+      
+      
+    }
+  };
+  xhttp.open("GET", database_url+"/list", flag);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
+  xhttp.send();
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// save form to database
+function save(){
+        getCookie();
+        getFormData();
+        convert();
+        doAlgebra();
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        var theUrl = database_url+"/food";
+
+        xmlhttp.open("POST", theUrl);
+        
+
+       
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                 document.getElementById('log').innerHTML='';
+                 getAllFoodOnDate();
+                 clearFormData();
+                 
+
+            }
+        };
+
+
+
+        if(ratio_cal == ''){
+            ratio_cal='0';
+        }  
+
+        if(total_cal == ''){
+            total_cal='0';
+        }  
+
+        var body = `
+                        {
+
+                            "name": "${name}",
+                            "consumed_calories": ${total_cal},
+                            "consumed_label": "${total_amount_label}",
+                            "consumed_unit": ${total_amount_unit},
+                            "ratio_calories": ${ratio_cal},
+                            "ratio_label": "${ratio_amount_label}",
+                            "ratio_unit": ${ratio_amount_unit},
+                            "date": "${getDate()}",
+                            "time": "${getTime()}",
+                            "userName":"${global_name}"
+                        }`;
+ xmlhttp.setRequestHeader('Content-Type','application/json');
+  xmlhttp.setRequestHeader('Accept','application/json');
+        xmlhttp.send(body);
+        
+}
+
+
+
+
+
+/**
+//---------------------------------------------------------------------
+
+//---------------------------------------------------------------------
+*/
+// 
+function getAllFoodOnDate(){
+        getCookie();
+        
+        
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        //var theUrl = database_url+"/date/11-22-2020";
+        var theUrl = database_url+"/testUser/11-22-2020";
+        //var theUrl = database_url+"/testUser";
+        xmlhttp.open("GET", theUrl,flag);
+        
+ 
+       
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                total_cal_today=0.0;
+                document.getElementById('log').innerHTML='';
+                var result=this.responseText;
+                var obj = JSON.parse(result); 
+                printJSON(obj);
+                 
+
+            }else if(this.readyState == 4 && this.status == 400){
+                 document.getElementById('log').innerHTML='';
+                 
+                 
+                 
+
+            }
+            
+        };
+
+
+
+   
+      
+           var body = ` {
+
+                            "name": "fakelogin",
+                            "email": 200,
+                            "idToken": "box"
+ 
+                        }`;
+ xmlhttp.setRequestHeader('Content-Type','application/json');
+  xmlhttp.setRequestHeader('Accept','application/json');
+        xmlhttp.send(body);
+        
+}
+
+
+
+
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getDate(){
+
+ 
+
+    var today = new Date();
+
+    today.setDate(today.getDate()+date_offset);
+
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '-' + dd + '-' + yyyy;
+document.getElementById('date').innerHTML=today;
+    return today;
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var date_offset=0;
+function changeDate(number){
+
+   if(number===0){
+    date_offset=0;
+   }
+  date_offset+=number;
+  
+  getDate();
+  getAllFoodOnDate();
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function getTime(){
+    var today = new Date();
+
+
+var hh = today.getHours();   
+if (hh>12){
+  hh=hh-12;
+}
+
+ hh = String(hh).padStart(2, '0');
+
+var mm = String(today.getMinutes() + 1).padStart(2, '0'); //January is 0!
+var ss = String(today.getSeconds() + 1).padStart(2, '0'); //January is 0!
+
+today = hh + ':' + mm + ':' + ss;
+    return today;
+}
+
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var name, total_amount,total_cal,ratio_amount,ratio_cal;
+var total_amount_unit, total_amount_label;
+var ratio_amount_unit, ratio_amount_label;
+// get datafrom form
+function getFormData(){
+     name= document.getElementById('name').value;
+     total_amount= removeLabel(document.getElementById('total_amount').value);
+     total_amount_label=total_amount[1];
+     total_amount_unit=total_amount[0];
+     total_cal= document.getElementById('total_cal').value;
+    
+     ratio_amount= removeLabel(document.getElementById('ratio_amount').value);
+     ratio_amount_label=ratio_amount[1];
+     ratio_amount_unit=ratio_amount[0];
+     ratio_cal= document.getElementById('ratio_cal').value;
+
+    
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+// clear datafrom form
+function clearFormData(){
+    document.getElementById('name').value='';
+    document.getElementById('total_amount').value='';
+    document.getElementById('total_cal').value='';
+
+    document.getElementById('ratio_amount').value='';
+    document.getElementById('ratio_cal').value='';
+
+    
+}
+
+
+/**
+//---------------------------------------------------------------------
+// convert between g and oz
+//---------------------------------------------------------------------
+*/
+function convert(){
+    if(total_amount_label === 'oz' && ratio_amount_label==='g'){
+        ratio_amount_label='oz';
+        ratio_amount_unit *= 0.035274;
+        
+    }
+}
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+        //arg: item is an object that represents a food
+        // if solves all varibles that can be solved for.   
+        // total_cal = cal_per_serv / amount_per_serv * total_amount
+        // pre-condition: should call doUnitConversion(item) before this one to make sure units match
+        function doAlgebra(){
+            var index;
+
+              if(stats == null){
+                  console.log('doAlgebra() stats is undefined');
+                  return;
+
+              }
+             if(stats.indexOf('g')>=0 && ratio_amount_label ==='null' && total_amount_label==='oz'){
+                    index=stats.indexOf('g'); //TODO refactor this
+                    
+                   ratio_amount_label='g';
+                    ratio_amount_label=stats[index];
+                  ratio_amount_unit=stats[index+1];
+                  ratio_cal=stats[index+2];
+                   
+                  convert();
+
+
+                }
+
+           if(total_amount_label !== 'null' && total_cal === '' && ratio_amount_label === 'null' && ratio_cal ===''){
+                 index = (stats.indexOf(total_amount_label)); 
+               
+                if (index >=0){
+                  ratio_amount_label=stats[index];
+                  ratio_amount_unit=stats[index+1];
+                  ratio_cal=stats[index+2];
+                   
+                  convert();
+                }
+
+            }
+
+
+
+            if(ratio_amount_label===total_amount_label && total_amount_label !== 'null'){
+
+                if(total_cal === '' && ratio_cal !== ''){
+                    total_cal=(ratio_cal/ratio_amount_unit)*total_amount_unit;
+
+                }
+            }else if(total_amount_label !== 'null' && total_cal !== '' && ratio_amount_label==='null'){
+                ratio_amount_label=total_amount_label;
+                ratio_amount_unit=total_amount_unit;
+                ratio_cal=total_cal;
+            }
+
+           
+
+        }
+
+
+
+        /**
+        //---------------------------------------------------------------------
+        //
+        //---------------------------------------------------------------------
+        */
+        function removeLabel(ref){
+             console.log( ref);
+           if((ref) == ""){
+                return [0,'null'];
+                
+            }
+              var x = ref.slice();
+                var label = '';
+                var number = '';
+
+                try{
+                    label = x.match(/[a-zA-Z]+/g).join('').trim();
+                                    
+                    number = x.match(/[\d\.]+/g);
+
+                }catch(e){
+                    console.log('ERROR in removeLabel(): the arg x was probably undefined');
+                    label='';
+                    number=0;
+                }
+                
+                number = parseFloat(number);
+
+                if(label === null){
+                        label=' ';
+                    }
+                      
+
+                return [number,label];
+        }
+</script>
+<title>food log</title>
+</head>
+<body>
+ <button onclick="testUser()">Try it</button>
+<div id='header'></div>
+<h2>food log</h2>
+
+
+
+
+
+
+
+    <div id="form">
+         <label for="fname">name:</label><br>
+          <input type="text" id="name" list="listAll" name="fname" onblur="getStats()" value=""><br>
+
+
+
+
+
+
+  <datalist id="listAll">
+    <option value="Edge">
+    <option value="Firefox">
+    <option value="Chrome">
+    <option value="Opera">
+    <option value="Safari">
+  </datalist>
+
+
+
+          <label for="lname">total amount:</label><br>
+          <input type="text" id="total_amount" name="lname" value=""><br>
+          <label for="lname">total cal:</label><br>
+          <input type="text" id="total_cal" name="lname" value=""><br>
+          <label for="lname">ratio amount:</label><br>
+          <input type="text" id="ratio_amount" name="lname" value=""><br>
+          <label for="lname">ratio cal:</label><br>
+          <input type="text" id="ratio_cal" name="lname" value=""><br>
+           <button type="button" onclick='save()'>save</button> 
+           <p id='stats'></p>
+           <div id='average30'>average30</div>  
+           <div id='average7'>history</div>
+           <div id='average7today'>average</div> 
+           <div >---</div>
+           <div id='total'>total</div>
+ 
+<div id='debug'></div>  
+
+    </div>
+
+<div id='rightside'>
+  <p id='date_container'>
+    <button class='nav' type="button" onclick='changeDate(-1)'>◀</button> 
+    <span id='date' onclick='changeDate(0)'></span>
+     <button class='nav' type="button" onclick='changeDate(1)'>▶</button> 
+  </p>
+  <p id='count'>count</p>
+    <table id="log"></table>
+</div>
+<br/>
+<div id='graph'></div>
+
+</body>
+</html>

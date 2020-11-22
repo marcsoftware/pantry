@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+<html>
+<script src="constants.js"></script>
+<meta charset="UTF-8">
+
+<head>
+    
+    <style>
+
+
+    hr{
+      border-top: dashed 1px;
+      
+      float:left;
+
+    }
+
+      object{
+        margin: 0px;
+        background-color: red;
+        height: 460px;
+      }
+
+     
+      #total_percent{
+        text-align: center;
+        width: 100%;
+      }
+      #master{
+        color:green;
+      }
+   .block{
+        background-color: lightblue;
+        color:black;
+        display: inline-block;
+        margin-bottom : 1px;
+        margin-right: 1px;
+        margin-top:0px;
+        white-space: nowrap;
+        padding-left: 5px;
+        
+
+      }
+
+
+#bar{
+  border-style: groove;
+  
+  
+  text-align: left;
+
+}
+      .bar{
+          display: inline-block;
+          color:white;
+          white-space: nowrap;
+          text-align: center;
+          color:skyblue;
+      }
+
+      p{
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+      }
+
+
+      span{
+        
+        
+        padding: 0px;
+        margin: 0px;
+        font-size: 75%;
+        padding-left: 10px;
+        font-family: "Lucida Console", Courier, monospace;
+      }
+
+      #past{
+            border:none;
+            background-color: DarkSlateBlue;
+            color:CornflowerBlue;
+      }
+
+      #today{
+        border:none;
+            background-color: CornflowerBlue;
+            color:DarkSlateBlue;
+      }
+
+
+      .right{
+        background-color: red;
+        float:right;
+      }
+    
+      #burned{
+        color:red;
+      }
+
+      #total{
+        color:grey;
+      }
+      .block2{
+        background-color: blue;
+        color:white;
+        display: inline-block;
+        margin-bottom : 1px;
+        margin-right: 1px;
+      }
+      #graph{
+        float:right;
+        width: 100%;
+      }
+
+        #rightside{
+            float:left;
+            width:20%;
+            padding: 0px;
+        }
+
+        .nav{
+          padding: 0px;
+          margin:0px;
+          cursor:pointer;
+        }
+
+
+        #date_container{
+          padding: 0px;
+          margin:0px;
+          color:grey;
+          float:left;
+          width: 50%;
+          cursor:pointer;
+        }
+
+        #average7today{
+          float:right;
+          width: 100%;
+        }
+
+        #average7{
+          float:right;
+          width: 100%;
+          color:blue;
+        }
+
+         #average30{
+          float:right;
+          width: 100%;
+          color:green;
+        }
+
+        #count{
+          padding: 0px;
+          margin:0px;
+          color:white;
+          background-color:red;
+          font-family: consolas;
+          float:right;
+          text-align: right;
+          width: 50%;
+        }
+        #form{
+            float:left;
+            width:20%;
+        }
+        #array{
+          color: red;
+        }
+
+        table {
+          padding: 0px;
+          color:black;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 0px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+
+}
+
+th{
+  padding: 0px;
+   border-style: solid;
+  border-width: thin;
+  width: 25%;
+
+}
+
+.date{
+   border-style: none;
+  
+  
+  width: 1%;
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+    </style>
+
+
+<script>
+
+
+
+
+
+window.onload=init;
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+function init(){
+  drawHeader();
+    
+    DATE_FILTER=getUrlArgs();
+    test();
+
+     
+
+}
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+function getMonth(){
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate());
+
+    var dd = '01';
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    //target_date = mm + '-' + dd+ '-' +yyyy  ;
+    //target_date = yyyy + '-' + mm + '-' + dd;
+    target_date = yyyy + '-' + mm + '-' + dd;
+    return target_date;
+
+   
+}
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+function getUrlArgs(){
+     
+
+     var pageURL = window.location.toString();
+     
+    
+    if(pageURL.includes('goal')){
+           
+
+           var x=( pageURL.match(/goal=\d+/));
+           x = x[0].match(/\d+/);
+           POUND_GOAL=x;
+
+     }
+
+          
+
+     if(pageURL.includes('start')){
+           
+
+           return pageURL.match(/\d\d\d\d-\d\d-\d\d/);
+
+     }else{
+           return  getMonth();
+     }
+
+
+     document.getElementById('hyperlink').href=getUrl();
+
+}
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+// TODO there is a better way to do this.
+function wait(){
+  
+    parse();
+    
+    getWeekCalories();
+    drawGraph();
+
+
+    combineData();
+   
+
+  
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+function test(){
+    var authcode= localStorage.getItem("authcode");
+    
+    getHeartToday(authcode);
+    getScale(authcode);
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+    function getHeartToday(token){
+
+      
+      
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var object =  JSON.parse(this.responseText);
+            
+            document.getElementById("json").value = this.responseText;
+            wait();
+          
+        }else{
+          console.log( this.responseText);
+        }
+      };
+
+      var end_date = getDateFormat(-30);
+//https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`, true);
+      xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+
+
+      xhttp.send();
+
+
+    }
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+    function getScale(token){
+
+      
+      
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var object =  JSON.parse(this.responseText);
+            
+            var list=[];
+            var last_key;
+            for(var key in object['weight']){
+                var kg = object['weight'][key]['weight'];
+
+                var num=kg;
+                //num = num.slice(0, (num.indexOf("."))+2);
+
+                list.push(num);
+                last_key=key;
+
+            }
+            var first= list[0];
+            var min = Math.min(...list);
+            var last= list[last_key];
+            document.getElementById('scale').innerHTML=`${first} - ${min} -  ${last}`;
+            
+            
+          
+        }else{
+          console.log( this.responseText);
+        }
+      };
+
+      var end_date = getDateFormat(-30);
+      var today = getDateFormat(-5);
+
+
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/${DATE_FILTER}/${today}.json`, true);
+      
+      //https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/2020-09-10.json
+      //https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/2020-09-01.json
+
+
+//      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/2020-08-01/2020-09-01.json`, true);
+      xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+      xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
+
+
+      xhttp.send();
+
+
+    }
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+var ONE_POUND_FAT=3500; // 1 pound of fat is 3500 calories
+var VIEW_WIDTH=3000;
+var BASE_CALORIES=2000; // calories burned per day by user
+var DATE_FILTER;
+var TODAY_DIET=0;
+function combineData(){
+  var table_rows=[];
+  var calorie_total=0;
+  var hand= document.getElementById('master');
+  let properties = Object.keys(foodlog_master).reverse();
+  
+    //for(var i in foodlog_master){
+      for(var j =0;j<properties.length;j++){
+     i=properties[j];
+      var row='<tr>';
+      //table_rows+=foodlog_master[i]['calories'];
+      if(fitbit_master[i] === undefined){
+
+        fitbit_master[i] ={"minutes":0 , "calories":0} ;
+      }
+
+      if(DATE_FILTER !== '' &&  i< DATE_FILTER){
+        continue;
+      }
+      var shrink=VIEW_WIDTH;
+      var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]['calories']);
+      var fitbit_burn=parseInt(fitbit_master[i]['calories']);
+      var fibit_minutes=(fitbit_master[i]['minutes']);
+      var fitbit_average=(fitbit_burn/fibit_minutes).toFixed(1);
+      var total_burn=parseInt(food_burn+0+fitbit_burn);
+      calorie_total+=parseInt(total_burn);
+      var x_css='';
+      var y_css='';
+      var z_css='';
+
+      if(food_burn < 0){
+          x_css=' right ';
+      }
+
+      if(fitbit_burn < 0){
+          y_css=' right ';
+      }
+      if(total_burn < 0){
+          z_css=' right ';
+      }
+      var x= food_burn;
+      var y=fitbit_burn;
+      var z= total_burn;
+      row+=`<th class='date'>${i} </th>
+                   <th> <div class="block ${x_css}" style="width:${Math.abs((x)/shrink*100)}%" >  ${x}</div>  </th>
+                   <th> <div class="block ${y_css}" style="width:${Math.abs((y)/shrink*100)}%" >   ${y} ○  ${fibit_minutes} ○ ${fitbit_average} </div> </th>
+                    <th> <div class="block ${z_css}" style="width:${Math.abs((z)/shrink*100)}%" >   ${z} </div> </th>`;
+                   
+     row+='</tr>';
+     TODAY_DIET=food_burn;
+     table_rows.push(row);
+     drawRunningTally(i,fitbit_burn,food_burn);
+      
+
+    }
+   
+    
+    reverseElements();
+    document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${(calorie_total/ONE_POUND_FAT).toFixed(2)}pounds`;
+    hand.innerHTML='<table>'+table_rows.reverse().join('')+'</table>' ;
+
+}
+  
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    // drawy running tally in reverse order after rendering 
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function reverseElements(){
+          var list = document.getElementById('runningTally').innerHTML;
+          list = list.split('<br>');
+          list = list.reverse();
+          document.getElementById('runningTally').innerHTML=list.join('<br>');
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    var runningTally=0;
+    var today=0;
+    var past=0;
+
+    function drawRunningTally(date,fitbit_burn,food_burn){
+      past+=today;
+      today=fitbit_burn+food_burn;
+
+      runningTally+=today;
+      var x =`${date}<div class="block " style="width:${runningTally/40}px" >   ${(runningTally/ONE_POUND_FAT).toFixed(2)} lbs ${((runningTally/(ONE_POUND_FAT*POUND_GOAL))*100).toFixed(2)}% </div><br> `
+      document.getElementById('runningTally').innerHTML+=x;
+
+      drawProgressBar(food_burn);
+    }
+
+
+
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    var POUND_GOAL=5;
+    var ONE_POUND_FAT=3500;
+    var GOAL = POUND_GOAL *ONE_POUND_FAT;
+    function drawProgressBar(food_burn){
+      
+      
+      var goal = (POUND_GOAL*ONE_POUND_FAT);
+
+      
+    
+  
+      var real_today=today; // TODO remove this varible
+        
+      var excercise = (((today-food_burn)/goal)*100).toFixed(2);  
+        
+       document.title='report: '+(real_today-food_burn);
+
+        
+        var past_percent= (past/goal)*100;
+        var today_percent= (real_today/goal)*100;
+        var total_percent = parseFloat(past_percent)+parseFloat(today_percent);
+
+        document.getElementById('past').innerHTML=`${(past_percent).toFixed(2)}%<span> ${(past/ONE_POUND_FAT).toFixed(2)}lbs  </span>`;;
+        document.getElementById('today').innerHTML=`${(today_percent).toFixed(2)}% <span> ${(real_today/ONE_POUND_FAT).toFixed(2)}lbs </span>`;
+        document.getElementById('total_percent').innerHTML=
+                  `${(past_percent).toFixed(2)}% 🢂 ${(today_percent).toFixed(2)}% ▪️ ${excercise}% 🢂 ${total_percent.toFixed(2)}%`;
+        
+        document.getElementById('past').style.width=`${past_percent}%`;
+        document.getElementById('today').style.width=`${today_percent}%`;
+
+          
+
+ 
+        // monthBar
+        var date = new Date(), year = date.getFullYear(), month = date.getMonth();
+
+        var lastDay = new Date(year, month + 1, 0);
+    
+      
+        var today_number = date.getDate();
+        lastDay=(lastDay.getDate());
+        document.getElementById('monthBar').style.width=`${(today_number/lastDay)*100}%`;  
+        document.getElementById('monthHalfBar').style.width=`${((today_number/lastDay)*100)/2}%`;  
+        
+
+        //
+         if( ((today-food_burn)+past)>=goal){
+          
+
+          document.getElementById('bar').style.backgroundColor='gold';
+          //document.getElementById('bar').innerHTML='<p>MISSION ACCOMPLISHED</p>';
+
+         
+            document.getElementById('past').style.backgroundColor=`gold`;
+            document.getElementById('today').style.backgroundColor=`gold`;
+
+            document.getElementById('past').style.width=`50%`;
+            document.getElementById('today').style.width=`50%`;
+          return;
+          
+          
+
+        }
+
+
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    var fitbit_master = {};
+    var BASE_CALORIE_PER_MINUTE=1; // amount of calories user burns while sitting down
+    function getMinutes(id){
+        var json=document.getElementById('json').value;
+        json= JSON.parse(json);
+
+        try{
+          var date = json['activities-heart'][id]['dateTime'];
+          //var customZone = json['activities-heart'][id]['value']['customHeartRateZones'][1];
+          
+
+          
+          var customZone=json['activities-heart'][id]['value']['customHeartRateZones'][1];
+
+          
+          var aboveCustomZone=json['activities-heart'][id]['value']['customHeartRateZones'][2];
+          if(customZone){ // the user might not have setup a customZone
+           
+
+            minutesCustom= parseInt(customZone['minutes']);
+            minutesAbove= parseInt(aboveCustomZone['minutes']);
+            
+            customZoneCal=parseInt(customZone['caloriesOut']);//TODO don't overwrite customZone json info
+
+            aboveCustomZoneCal=parseInt(aboveCustomZone['caloriesOut']);
+
+            // subtracting minutes - assuming user burns 1 calorie per minute while sitting down
+            customZoneCal=customZoneCal-(minutesCustom*BASE_CALORIE_PER_MINUTE);  
+            aboveCustomZoneCal=aboveCustomZoneCal-(minutesAbove*BASE_CALORIE_PER_MINUTE);
+
+
+          }else{
+            customZoneCal=0;
+            aboveCustomZoneCal=0;
+          }
+          var fatburnZone = json['activities-heart'][id]['value']['heartRateZones'][1];
+          var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
+          var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
+        }catch(e){
+            return [0,0,0];
+        }
+        var fieldName = 'caloriesOut';
+        var totalCalories=parseInt(fatburnZone[fieldName])+
+                          parseInt(cardioZone[fieldName])+
+                          parseInt(peakZone[fieldName]);                        
+        
+        var totalMinutes=0;            
+        if(customZoneCal+aboveCustomZoneCal){
+            totalCalories=customZoneCal+aboveCustomZoneCal;
+            totalMinutes=minutesCustom+minutesAbove;
+            console.log('----------Custom>'+minutesCustom+'||||'+minutesAbove);
+        }                    
+        totalCalories=totalCalories|| 0;
+        fieldName = 'minutes';
+
+        if(totalMinutes<=1){
+          totalMinutes=parseInt(fatburnZone[fieldName])+parseInt(cardioZone[fieldName])+parseInt(peakZone[fieldName])+parseInt(0);
+          totalMinutes=totalMinutes|| 0;
+        }
+
+        var record =  {"minutes":totalMinutes , "calories":totalCalories}  ;
+        
+        fitbit_master[date]=record;
+        
+        return [date,totalMinutes,totalCalories]
+     
+    }
+
+     //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function output(x){
+        //document.getElementById('total2').innerHTML+=x;
+    }
+
+
+
+  //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    
+    function parse(){
+      //setCookie('raw',document.getElementById('json').value);
+        localStorage.setItem("raw", document.getElementById('json').value);
+        //document.getElementById('total2').innerHTML='';
+       var totalCal=0;
+       var totalMinutes=0;
+       var new_json= JSON.parse(document.getElementById('json').value)['activities-heart'];
+      var container=[];
+      for(let i in new_json){
+          
+          var list = getMinutes(i);
+          totalCal+=parseInt(list[2]);
+          totalMinutes+=parseInt(list[1]);
+          container.push(`${list[0]} <p class='block' style='width:${list[2]/2}px'>${list[2]} | ${list[1]} ( ${Math.round(list[2]/list[1])})</p><br/>`);
+          
+          
+      }
+
+      output(container.reverse().join(''));
+      var totalHours = Math.floor(totalMinutes/60);
+      var remainder = totalMinutes%60;
+      //document.getElementById('burned').innerHTML=totalHours+'h '+remainder+'m ';
+      //document.getElementById('burned').innerHTML+=totalCal+'calories ';
+      //document.getElementById('burned').innerHTML+=Math.round(totalCal/ONE_POUND_FAT).toFixed(2)+'pounds ';
+    }
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+var foodlog_master= {};
+function drawGraph(){
+    var handle = document.getElementById('graph');
+    var total=0;
+    for(var i =0;i<avg_array.length;i++){
+      var date = getDateFormat2(0-i);
+      var date_format = getDateFormat(0-i);
+      var width=avg_array[i]/8;
+      var number =avg_array[i];
+      total+=parseInt(number);
+     // handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
+      foodlog_master[date_format]= { "calories":number } ;
+
+    }
+
+    var metabolism=2000; // calorie burn perday;
+    var total_metabolism = metabolism*avg_array.length;
+    var burned = total_metabolism-total;
+    var text = ['gained','burned'];
+    var isPositive=1;
+    if(burned <=0){
+        isPositive=0;
+    }
+   // document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
+
+}
+
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+// TODO get rid of other date functions REFACTOR
+function getWeekCalories(){
+
+    getCalorieArray();
+    var days;
+    // get last 7 days not including today
+    days = avg_array.slice(1,6);
+
+    //document.getElementById('average7').innerHTML=getAverage(days);
+       
+    days = avg_array.slice(1,30);
+    //document.getElementById('average30').innerHTML=getAverage(days);   
+  
+    days = avg_array.slice(0,6);
+    
+    //document.getElementById('average7today').innerHTML=getAverage(days); 
+    
+}
+
+
+//---------------------------------------------------------------------
+// put day calories totals from the last 30 days.
+//---------------------------------------------------------------------
+
+function getCalorieArray(){
+    for(var i =0;i<=30;i++){
+        
+    
+        var target_date = getDateFormat2(0-i);
+        getTotalSmart(target_date);
+       
+
+    }
+}
+
+
+
+
+// something breaks after here //////////////////////////////////////////////////////////////////////
+
+
+//---------------------------------------------------------------------
+//   TODO stores total from date in an array-element
+//    index 0 is the lastest date
+//---------------------------------------------------------------------
+
+ 
+var calorie_array=[];
+var avg_array=[];
+window.calorie_array=[];
+function getTotalSmart(target_date) {
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+
+      var result=this.responseText;
+      var obj = JSON.parse(result); 
+      var sum = getSum(obj);
+      calorie_array.push(sum);
+      var clone =calorie_array.slice();
+
+      avg_array.push(sum);
+      //document.getElementById('array').innerHTML=avg_array;
+
+    }
+  };
+  xhttp.open("GET", database_url+"/date/"+target_date, false);
+  xhttp.send();
+}
+
+
+
+
+
+//---------------------------------------------------------------------
+// 
+//---------------------------------------------------------------------
+
+function getDateFormat(offset){
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate()+offset);
+
+    var dd = String(target_date.getDate()).padStart(2, '0');
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    //target_date = mm + '-' + dd+ '-' +yyyy  ;
+    //target_date = yyyy + '-' + mm + '-' + dd;
+    target_date = yyyy + '-' + mm + '-' + dd;
+    return target_date;
+}
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+function getDateFormat2(offset){
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate()+offset);
+
+    var dd = String(target_date.getDate()).padStart(2, '0');
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    target_date = mm + '-' + dd+ '-' +yyyy  ;
+    //target_date = yyyy + '-' + mm + '-' + dd;
+    //target_date =  yyyy+ '-' +mm + '-' + dd ;
+    return target_date;
+}
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+function getAverage(some_array){
+  
+   var grades = some_array;
+  
+    var total = 0;
+    for(var i = 0; i < grades.length; i++) {
+      var number = parseFloat(grades[i]);
+         total +=  number;
+    }
+    var avg = total / grades.length;
+    
+    return avg.toFixed(2);
+}
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+
+var stats;
+function getStats(){
+    name=document.getElementById('name').value;
+    if(name===''){
+      return;
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        
+        var result=this.responseText;
+        stats = result.replace(/[\[\]\"]+/g,'');
+        document.getElementById('stats').innerHTML=stats;
+        stats = stats.split(',');
+
+
+        }
+      };
+    xhttp.open("GET", database_url+"/stats/"+name, true);
+    xhttp.send();
+}
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+function printJSON(obj){
+    
+    for(var i =0;i<obj.length;i++){
+        print(obj[i]);
+    }
+}
+
+
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+function print(data){
+
+}
+
+
+
+
+//---------------------------------------------------------------------
+//  
+//---------------------------------------------------------------------
+
+ // get all food items from database   
+function getAllFood() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var result=this.responseText;
+        var obj = JSON.parse(result); 
+        printJSON(obj);
+      
+      
+    }
+  };
+  xhttp.open("GET", database_url+"/food", true);
+  xhttp.send();
+}
+
+
+// TODO move this variables ?
+var day_totals=[];
+window.global_totals=[];
+
+
+
+
+
+
+//---------------------------------------------------------------------
+// helper function for getting total calories on date
+//---------------------------------------------------------------------
+
+function getSum(obj){
+    var sum=0.0;
+    for(var i =0;i<obj.length;i++){
+       sum+=parseFloat(obj[i].consumed_calories);
+    }
+
+    return sum.toFixed(2);
+}
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+var date_offset=0;
+function changeDate(number){
+
+   if(number===0){
+    date_offset=0;
+   }
+  date_offset+=number;
+  
+  getDate();
+  getAllFoodOnDate();
+}
+
+
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+
+function getTime(){
+    var today = new Date();
+
+
+var hh = today.getHours();   
+if (hh>12){
+  hh=hh-12;
+}
+
+ hh = String(hh).padStart(2, '0');
+
+var mm = String(today.getMinutes() + 1).padStart(2, '0'); //January is 0!
+var ss = String(today.getSeconds() + 1).padStart(2, '0'); //January is 0!
+
+today = hh + ':' + mm + ':' + ss;
+    return today;
+}
+
+
+function toggle(handle){
+  runningTally=0;
+  document.getElementById('runningTally').innerHTML='';
+  var index=(handle.value);
+  var options = ['1950-01-01',DATE_FILTER];
+  DATE_FILTER=options[index];
+  combineData();
+
+  
+
+
+}
+
+</script>
+
+
+<div id='header'></div>
+ 
+
+<title>REPORT</title>
+
+</head>
+<body>
+  <hr id='monthBar' /><br/>
+  <hr id='monthHalfBar' /><br/>
+  <div id='bar' >
+    <div id='past' class='bar' >1</div><div id='today' class='bar'>2</div>
+  </div>
+<div id='total_percent'></div>
+  <div id='scale'></div>
+  
+<h2>MASTER </h2>
+
+
+
+
+<div id='master_total'></div>
+<div id='master'></div>
+<form >
+  
+  <input type="radio" id="yes" name="filter" value="1" onchange='toggle(this)' checked>
+  <label for="male ">Yes</label>
+  <input type="radio" id="no" name="filter" value="0" onchange='toggle(this)'>
+  <label for="female">No</label>
+
+
+
+</form>
+
+
+<div id='runningTally'></div>
+
+
+
+<textarea id='json' >
+  
+
+</textarea>
+
+ 
+ 
+
+
+
+
+
+         
+         
+         
+         
+ 
+<div id='debug'></div>  
+
+    </div>
+
+
+<div id='graph'></div>
+
+</body>
+</html>
+

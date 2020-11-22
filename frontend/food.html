@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<title>FOOD</title>
+<meta charset="UTF-8">
+<script src="constants.js"></script>
+<style>
+   .block{
+        background-color: lightblue;
+        color:black;
+        display: inline-block;
+        margin-bottom : 1px;
+        margin-right: 1px;
+        margin-top:0px; 
+        white-space: nowrap;
+      }
+</style>
+<script>
+
+window.onload=init;
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+function init(){
+  drawHeader();
+  
+  test();
+  
+  //parse();
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+function test(){
+    var authcode= localStorage.getItem("authcode");
+    console.log(authcode);
+    getScale(authcode);
+}
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------
+    function getScale(token){
+
+      
+      
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var object =  JSON.parse(this.responseText);
+          
+            
+            document.getElementById('scale_results').innerHTML=`${this.responseText}`;
+            
+            
+          
+        }else{
+          console.log( this.responseText);
+        }
+      };
+
+     
+      var end_date = getDateFormat(-30);
+//https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
+//https://api.fitbit.com/1/user/-/foods/log.json?foodId=0&foodName=coke&mealTypeId=7&unitId=1&amount=1&date=2020-09-08&calories=5
+      xhttp.open("GET", `https://api.fitbit.com/1/user/-/profile.json`, true);
+      xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+      xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
+      
+
+      xhttp.send();
+
+
+    }
+
+
+/**
+//---------------------------------------------------------------------
+// 
+//---------------------------------------------------------------------
+*/
+function getDateFormat(offset){
+  var target_date = new Date();
+
+    target_date.setDate(target_date.getDate()+offset);
+
+    var dd = String(target_date.getDate()).padStart(2, '0');
+    var mm = String(target_date.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = target_date.getFullYear();
+
+    
+    target_date = yyyy + '-' + mm + '-' + dd;
+    return target_date;
+}
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------
+    
+    function parse(dates,kg){
+      var handle = document.getElementById('scale_graph');
+      
+      for(var i =0;i<dates.length;i++){
+          var math = (kg[i]-170)*10;
+          handle.innerHTML+=`${dates[i]} _ <div class='block' style='width:${math}px'> ${kg[i]} </div><br>`
+      }
+   }
+
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+    // 
+    //--------------------------------------------------------------------------------------------------------------------------------
+    function save(){
+      var handle = document.getElementById('weight');
+      var weight_in_pounds=handle.value;
+      
+      
+      
+      
+          var token= localStorage.getItem("authcode");
+        //https://api.fitbit.com/1/user/-/body/log/weight.json?weight=10&date=2020-08-20&time=22%3A33%3A44
+
+
+      var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('feedback').innerHTML+=('success: '+this.responseText);
+            
+            
+            
+          
+        }else{
+          document.getElementById('feedback').innerHTML+=('ERROR: '+this.responseText);
+        }
+      };
+
+     
+     var today = getDateFormat(0) ;
+    
+      xhttp.open("POST", 
+        `https://api.fitbit.com/1/user/-/foods/log.json?foodName=coke&mealTypeId=7&unitId=1&amount=1&date=2020-09-08&calories=5`, true);
+      xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
+      xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
+      
+
+      xhttp.send();
+
+    }
+
+</script>
+
+<body>
+<div id='header'></div>
+<div id='today_scale'></div>
+<input type="text" id='weight' />
+<div id='feedback'></div><br/>
+<br/>
+<br/>
+<button onclick="save(this)">save</button> <br/>
+ <button onclick="test()">test</button> <br/>
+ <textarea id='scale_results'></textarea>
+ <div id='scale_graph'></div>
+ 
+</body>
+</html>
+

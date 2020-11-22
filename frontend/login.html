@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<title>LOGIN</title>
+<head>
+  <script src="constants.js"></script>
+<script>
+
+
+window.onload=init;
+
+function init(){
+  drawHeader();
+    GetURLParameter();
+}
+//-------------------------------------------------------------
+// get code url parameter from fitit
+//-------------------------------------------------------------
+function GetURLParameter(){
+          var pageURL = window.location.search.substring(1);
+          var code = pageURL.match(/[0-9a-zA-Z]+/g);
+          getAuthCode(code[1]);
+
+          
+}
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+// use CODE to get AUTHCODE
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    function getAuthCode(code) {
+          console.log('getAuthCode(){]'+code);
+        
+        var xhttp = new XMLHttpRequest();
+      
+
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var token =  JSON.parse(this.responseText).access_token;
+            
+            
+          
+           localStorage.setItem("authcode", token);
+          document.getElementById('result').innerHTML+='done';
+          document.title='✅✅✅'; 
+        }
+      };
+
+      
+      
+      
+      xhttp.open("POST", `https://api.fitbit.com/oauth2/token?code=${code}&grant_type=authorization_code&redirect_uri=${callback_url}`, true);
+      xhttp.setRequestHeader('Authorization', `Basic ${global_basic}`); // THIS is base64 of id and another thing.
+      console.log(global_basic);
+      xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      xhttp.send();
+    }
+
+</script>
+</head>
+<body>
+<div id='header'></div>
+<h2>get authocde</h2>
+
+
+<p id="result">...</p>
+</body>
+</html> 
+
+
