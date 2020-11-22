@@ -320,36 +320,7 @@ function getAverage(some_array){
     return avg.toFixed(2);
 }
 
-/**
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-*/
 
-var stats;
-function getStats(){
-  getCookie();
-    name=document.getElementById('name').value;
-    if(name===''){
-      return;
-    }
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        
-        var result=this.responseText;
-        stats = result.replace(/[\[\]\"]+/g,'');
-        document.getElementById('stats').innerHTML=stats;
-        stats = stats.split(',');
-
-
-        }
-      };
-    xhttp.open("GET", database_url+"/stats/"+name, flag);
-     xhttp.setRequestHeader('Content-Type','application/json');
-  xhttp.setRequestHeader('Accept','application/json');
-    xhttp.send();
-}
 
 /**
 //---------------------------------------------------------------------
@@ -662,6 +633,39 @@ function getAllFoodOnDate(){
 }
 
 
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var stats;
+function getStats(){
+  getCookie();
+    name=document.getElementById('name').value;
+    if(name===''){
+      return;
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        
+        var result=this.responseText;
+        stats = result.replace(/[\[\]\"]+/g,'');
+        document.getElementById('stats').innerHTML=stats;
+        stats = stats.split(',');
+
+
+        }
+      };
+
+      //TODO add body
+    xhttp.open("GET", database_url+"/stats/"+name, flag);
+    xhttp.setRequestHeader('Content-Type','application/json');
+    xhttp.setRequestHeader('Accept','application/json');
+    xhttp.send();
+}
+
+
 
 /**
 //---------------------------------------------------------------------
@@ -704,7 +708,6 @@ function testDate(){
 
 
 
-   
       
            var body = ` {
 
