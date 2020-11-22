@@ -674,7 +674,7 @@ function testDate(){
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
         //var theUrl = database_url+"/date/11-22-2020";
-        var theUrl = database_url+"/other/11-22-2020";
+        var theUrl = database_url+"/other/"+getDate();
         //var theUrl = database_url+"/testUser";
         xmlhttp.open("POST", theUrl,flag);
         
