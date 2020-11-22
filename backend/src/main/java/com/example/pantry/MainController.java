@@ -46,9 +46,23 @@ public class MainController {
 		return "Saved mysql";
 	}
 
+	@PostMapping(path="/test") 
+	public @ResponseBody String testItem(@RequestBody Item item) {
+		
+		itemRepository.save(item);
+		return "Saved mysql";
+	}
+
+	@PostMapping(path="/testUser") 
+	public @ResponseBody List<Item>  testUser(@RequestBody User user) {
+		
+		
+		return itemRepository.testingThis("11-22-2020",user.name);
+	}
+
 	//
-	@GetMapping(path="/test")
-	public String  test() {
+	@GetMapping(path="/hello")
+	public String  hello() {
 		
 		return "Hello from API";
 	}
@@ -63,7 +77,6 @@ public class MainController {
 
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
-		
 		return itemRepository.testingThis(date,user.name);
 	}
 
@@ -86,7 +99,7 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// 
 	@GetMapping(path = "/stats/{name}")
-	public @ResponseBody List<Item> getStats(@PathVariable String name,@RequestBody User user) {	
+	public @ResponseBody List<Item> getStats(@RequestBody User user,@PathVariable String name) {	
 		
 		return itemRepository.getStatsCustomQuery(name,user.name); //----------------------
         
