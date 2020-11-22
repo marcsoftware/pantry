@@ -423,36 +423,7 @@ function getSum(obj){
 }
 
 
-/**
-//---------------------------------------------------------------------
-// get names of all food to opulate the dropdown menu   @GetMapping(path = "/list")
-//---------------------------------------------------------------------
-*/
- // get all food items from database   
-function getAllNames() {
-  getCookie();
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-        
-        var result=this.responseText.replace(/[\[\]\"]/g,'').split(',');
-        
-        result=result.map(function (element) {
-          return `<option value='${element}'>`;
-        });
-          
-        document.getElementById('listAll').innerHTML=result.join('');
-        
-      
-      
-    }
-  };
-  xhttp.open("GET", database_url+"/list", flag);
-   xhttp.setRequestHeader('Content-Type','application/json');
-  xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send();
-}
+
 
 /**
 //---------------------------------------------------------------------
@@ -658,14 +629,60 @@ function getStats(){
         }
       };
 
-      //TODO add body
-    xhttp.open("GET", database_url+"/stats/"+name, flag);
+        var body = ` {
+
+                            "name": "${global_name}",
+                            "email": 200,
+                            "idToken": "box"
+ 
+                        }`;
+
+      
+    xhttp.open("POST", database_url+"/stats/"+name, flag);
     xhttp.setRequestHeader('Content-Type','application/json');
     xhttp.setRequestHeader('Accept','application/json');
-    xhttp.send();
+    xhttp.send(body);
 }
 
+/**
+//---------------------------------------------------------------------
+// get names of all food to opulate the dropdown menu   @GetMapping(path = "/list")
+//---------------------------------------------------------------------
+*/
+ // get all food items from database   
+function getAllNames() {
+  getCookie();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      total_cal_today=0.0;
+        
+        var result=this.responseText.replace(/[\[\]\"]/g,'').split(',');
+        
+        result=result.map(function (element) {
+          return `<option value='${element}'>`;
+        });
+          
+        document.getElementById('listAll').innerHTML=result.join('');
+        
+      
+      
+    }
+  };
 
+  var body = ` {
+
+                            "name": "${global_name}",
+                            "email": 200,
+                            "idToken": "box"
+ 
+                        }`;
+
+  xhttp.open("POST", database_url+"/list", flag);
+  xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
+  xhttp.send(body);
+}
 
 /**
 //---------------------------------------------------------------------
@@ -711,7 +728,7 @@ function testDate(){
       
            var body = ` {
 
-                            "name": "fakelogin",
+                            "name": "${global_name}",
                             "email": 200,
                             "idToken": "box"
  

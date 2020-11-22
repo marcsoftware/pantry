@@ -100,7 +100,7 @@ public class MainController {
 	// This returns a distinct-list of names.
 	// used to populate the dropdown  on the frontent
 	//----------------------------------------------------------------------
-	@GetMapping(path = "/list")
+	@PostMapping(path = "/list")
 	public @ResponseBody List<String> getFromTemplate(@RequestBody User user) {
 		return itemRepository.getDistinctNamesCustomQuery(user.name); //------------------
 	}
@@ -109,7 +109,7 @@ public class MainController {
 	// This returns nutritional states for a foodItem with {name}
 	//----------------------------------------------------------------------
 	// 
-	@GetMapping(path = "/stats/{name}")
+	@PostMapping(path = "/stats/{name}")
 	public @ResponseBody List<Item> getStats(@RequestBody User user,@PathVariable String name) {	
 		
 		return itemRepository.getStatsCustomQuery(name,user.name); //----------------------
