@@ -557,7 +557,7 @@ function getAllFoodOnDate(){
         getCookie();
         
         
-
+        return;//--------------------------------------------------------------------DELETE THIS LINE
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
         //var theUrl = database_url+"/date/11-22-2020";
         var theUrl = database_url+"/testUser/11-22-2020";
@@ -603,6 +603,63 @@ function getAllFoodOnDate(){
         
 }
 
+
+
+/**
+//---------------------------------------------------------------------
+
+//---------------------------------------------------------------------
+*/
+// 
+function testUser(){
+        getCookie();
+        
+        console.log('test user');
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        //var theUrl = database_url+"/date/11-22-2020";
+        var theUrl = database_url+"/testUser";
+        //var theUrl = database_url+"/testUser";
+        xmlhttp.open("POST", theUrl,flag);
+        
+ 
+       
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                total_cal_today=0.0;
+                document.getElementById('log').innerHTML='';
+                var result=this.responseText;
+                var obj = JSON.parse(result); 
+                printJSON(obj);
+                 
+
+            }else if(this.readyState == 4 && this.status == 400){
+                 document.getElementById('log').innerHTML='';
+                 
+                 
+                 
+
+            }
+            
+        };
+
+
+
+   
+      
+           var body = ` {
+
+                            "name": "fakelogin",
+                            "email": 200,
+                            "idToken": "box"
+ 
+                        }`;
+ xmlhttp.setRequestHeader('Content-Type','application/json');
+  xmlhttp.setRequestHeader('Accept','application/json');
+        xmlhttp.send(body);
+        
+}
 
 
 
