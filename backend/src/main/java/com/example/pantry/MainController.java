@@ -47,13 +47,25 @@ public class MainController {
 	}
 
 	@PostMapping(path="/test") 
-	public @ResponseBody String testItem(@RequestBody Item item) {
+	public @ResponseBody String testItem(@RequestBody Item item) { // ------------ can be deleted
 		
 		itemRepository.save(item);
 		return "Saved mysql";
 	}
 
-	@PostMapping(path="/testUser") 
+	@GetMapping(path = "/date/{date}")
+	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
+		return itemRepository.testingThis(date,user.name);
+	}
+
+	@GetMapping(path="/testUser/{date}") 
+	public @ResponseBody List<Item>  testUser(@PathVariable String date,@RequestBody User user) {
+		
+		
+		return itemRepository.testingThis("11-22-2020",user.name);
+	}
+
+	@GetMapping(path="/testUser") 
 	public @ResponseBody List<Item>  testUser(@RequestBody User user) {
 		
 		
@@ -75,10 +87,7 @@ public class MainController {
 		return itemRepository.findAll();
 	}
 
-	@GetMapping(path = "/date/{date}")
-	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
-		return itemRepository.testingThis(date,user.name);
-	}
+
 
 	@GetMapping(path = "/name/{name}")
 	public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
