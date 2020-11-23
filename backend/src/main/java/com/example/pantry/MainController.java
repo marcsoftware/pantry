@@ -37,6 +37,12 @@ public class MainController {
 	@Autowired
 	private UserRepository UserRepository;
 
+	//
+	@GetMapping(path="/food")
+	public @ResponseBody Iterable<Item> getAllFood() {
+		
+		return itemRepository.findAll();
+	}
 
 
 	@PostMapping(path="/food") 
@@ -46,12 +52,7 @@ public class MainController {
 		return "Saved mysql";
 	}
 
-	@PostMapping(path="/test") 
-	public @ResponseBody String testItem(@RequestBody Item item) { // ------------ can be deleted
-		
-		itemRepository.save(item);
-		return "Saved mysql";
-	}
+
 
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
@@ -59,7 +60,7 @@ public class MainController {
 	}
 
 
-@GetMapping(path="/other/{date}") 
+    @GetMapping(path="/other/{date}") 
 	public @ResponseBody List<Item>  testGet(@PathVariable String date,@RequestBody User user) {
 		
 		
@@ -82,29 +83,6 @@ public class MainController {
 	}
 
 	
-	//
-	@GetMapping(path="/food")
-	public @ResponseBody Iterable<Item> getAllFood() {
-		
-		return itemRepository.findAll();
-	}
-
-
-
-	@GetMapping(path = "/name/{name}")
-	public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
-		return itemRepository.findByName(name);
-	}
-
-	//----------------------------------------------------------------------
-	// This returns a distinct-list of names.
-	// used to populate the dropdown  on the frontent
-	//----------------------------------------------------------------------
-	@PostMapping(path = "/list")
-	public @ResponseBody List<String> getFromTemplate(@RequestBody User user) {
-		return itemRepository.getDistinctNamesCustomQuery(user.name); //------------------
-	}
-
 	//----------------------------------------------------------------------
 	// This returns nutritional states for a foodItem with {name}
 	//----------------------------------------------------------------------
@@ -116,6 +94,26 @@ public class MainController {
         
 		
 	}
+
+	//----------------------------------------------------------------------
+	// this is for populating the drop down menu
+	//----------------------------------------------------------------------
+	// 
+	@GetMapping(path = "/name/{name}")
+	public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
+		return itemRepository.findByName(name);
+	}
+
+	//----------------------------------------------------------------------
+	// This returns a distinct-list of names.
+	// used to populate the dropdown  on the frontent
+	//----------------------------------------------------------------------
+	@PostMapping(path = "/list")
+	public @ResponseBody List<String> getFromTemplate(@RequestBody User user) {
+		return itemRepository.getDistinctNamesCustomQuery(user.name); 
+	}
+
+
 
 	//----------------------------------------------------------------------
 	// trunscates table
