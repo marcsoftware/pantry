@@ -110,6 +110,7 @@ public class MainController {
 	//----------------------------------------------------------------------
 	@PostMapping(path = "/list")
 	public @ResponseBody List<String> getFromTemplate(@RequestBody User user) {
+		//todo : rename user.name to userName in the pojo
 		return itemRepository.getDistinctNamesCustomQuery(user.name); 
 	}
 
