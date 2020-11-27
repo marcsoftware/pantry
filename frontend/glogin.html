@@ -62,7 +62,8 @@ function init(){
               
               'token:'+googleUser.getAuthResponse().id_token;
               document.cookie = "token="+googleUser.getAuthResponse().id_token; 
-              document.cookie = "name="+googleUser.getBasicProfile().getName(); 
+              document.cookie = "userName="+googleUser.getBasicProfile().getName(); 
+              document.cookie = "userEmail="+googleUser.getBasicProfile().getEmail(); 
 
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
@@ -77,9 +78,10 @@ function init(){
 
   function fakeLogin(){
 
-    document.cookie = "userEmail=localhost;SameSite=None; Secure; expires=Thu, 18 Dec 3013 12:00:00 UTC"; 
-       
-              
+    document.cookie = 
+    "userEmail=localhost;userName='localhost';idToken='12345';SameSite=None; Secure; expires=Thu, 18 Dec 3013 12:00:00 UTC"; 
+     document.getElementById('profile').innerHTML='logged in as localhost';  
+          
   }
   </script>
   <style type="text/css">
@@ -134,5 +136,6 @@ function init(){
   <script>startApp();</script>
 
   <button onclick="fakeLogin()">fake login</button>
+  <span id='profile'></span>
 </body>
 </html>
