@@ -1,9 +1,26 @@
 <html>
 <head>
+   <script src="constants.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 
   <script src="https://apis.google.com/js/api:client.js"></script>
   <script>
+
+//---------------------------------------------------------------------
+window.onload=init;
+
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function init(){
+
+    drawHeader();
+ 
+
+}
 
 /**
 //---------------------------------------------------------------------
@@ -103,6 +120,7 @@
   </style>
   </head>
   <body>
+    <div id='header'></div>
   <!-- In the callback, you would hide the gSignInWrapper element on a
   successful sign in -->
   <div id="gSignInWrapper">
