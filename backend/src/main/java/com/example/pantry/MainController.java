@@ -200,6 +200,8 @@ public class MainController {
 			return true;
 		}
 
+		//TODO pass User to authenticateUser()
+
 		return false;
 	}
 	
