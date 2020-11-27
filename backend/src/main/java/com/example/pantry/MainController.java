@@ -136,7 +136,7 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// 
 	@GetMapping(path="/auth")
-	public @ResponseBody String authenticateUser(@RequestBody User user) throws GeneralSecurityException, IOException {
+	public @ResponseBody boolean authenticateUser(@RequestBody User user) throws GeneralSecurityException, IOException {
 
 
 		  final JacksonFactory jsonFactory = new JacksonFactory();
@@ -158,7 +158,9 @@ public class MainController {
 		try {
 			 idToken = verifier.verify(idTokenString);
 		}catch(Exception  e){
-			return "idToken string was not in the valid format. length should be 101 and no invalid symbols";
+			//return "idToken string was not in the valid format. length should be 101 and no invalid symbols";
+			return false;
+
 		}
 
 
@@ -183,9 +185,10 @@ public class MainController {
 			// ...
 	*/
 
-			return("VALID ID token.");
+
+			return true;
 		} else {
-				return("Invalid ID token.");
+			return false;
 		}
 
 
