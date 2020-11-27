@@ -57,6 +57,12 @@ public class MainController {
 	}
 
 
+	@PostMapping(path="/testing")
+	public @ResponseBody Item testing(@RequestBody FoodContext foodContext) {
+
+		return foodContext.item;
+	}
+
 
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {

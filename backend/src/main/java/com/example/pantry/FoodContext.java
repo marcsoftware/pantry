@@ -1,8 +1,8 @@
 package com.example.pantry;
 
 public class FoodContext{
-    private Item item;
-    private User user;
+    public Item item;
+    public User user;
 
     public void setItem(Item item) {
 
