@@ -45,22 +45,17 @@ public class MainController {
 	}
 
 
-	@PostMapping(path="/food") 
-	public @ResponseBody String addFood(@RequestBody Item item) {
-		if(check(item.userName)){
+
+
+	@PostMapping(path="/food")
+	public @ResponseBody String testing(@RequestBody FoodContext foodContext) {
+		if(check(foodContext.item.userName)){
 
 		}else{
 			return "not authorized.";
 		}
-		itemRepository.save(item);
-		return "Saved mysql";
-	}
-
-
-	@PostMapping(path="/testing")
-	public @ResponseBody Item testing(@RequestBody FoodContext foodContext) {
-
-		return foodContext.item;
+		itemRepository.save(foodContext.item);
+		return "item saved.";
 	}
 
 
