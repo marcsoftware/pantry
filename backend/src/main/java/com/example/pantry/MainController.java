@@ -47,7 +47,11 @@ public class MainController {
 
 	@PostMapping(path="/food") 
 	public @ResponseBody String addFood(@RequestBody Item item) {
-		
+		if(check(item.userName)){
+
+		}else{
+			return "not authorized.";
+		}
 		itemRepository.save(item);
 		return "Saved mysql";
 	}
@@ -187,6 +191,13 @@ public class MainController {
 
 	}
 
+	private boolean check(String userName){
+		if(userName.equals("localhost")){
+			return true;
+		}
+
+		return false;
+	}
 	
 
 	
