@@ -46,10 +46,12 @@ public class MainController {
 
 
 
-
+    //---------------------------------------------------------
+    // save a food item
+    //---------------------------------------------------------
 	@PostMapping(path="/food")
 	public @ResponseBody String testing(@RequestBody FoodContext foodContext) {
-		if(check(foodContext.item.userEmail)){
+		if(check(foodContext.user)){
 
 		}else{
 			return "not authorized.";
@@ -61,16 +63,18 @@ public class MainController {
 
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
+
+        if(check(user)){ // TODO make this an aspect
+
+        }else{
+            user.setUserEmail("none");
+        }
+
 		return itemRepository.testingThis(date,user.userEmail);
 	}
 
 
-    @GetMapping(path="/other/{date}") 
-	public @ResponseBody List<Item>  testGet(@PathVariable String date,@RequestBody User user) {
-		
-		
-		return itemRepository.testingThis(date,user.userEmail);
-	}
+  
 
 
 	@PostMapping(path="/other/{date}") 
@@ -195,8 +199,8 @@ public class MainController {
 
 	}
 
-	private boolean check(String userEmail){
-		if(userEmail.equals("localhost")){
+	private boolean check(User user){
+		if(user.userEmail.equals("localhost")){
 			return true;
 		}
 
