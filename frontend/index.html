@@ -139,7 +139,7 @@ function init(){
     getAllNames();
     getWeekCalories();
     //drawGraph();
-    getCookie();
+    readProfile();
 
 }
 
@@ -149,8 +149,10 @@ function init(){
 //---------------------------------------------------------------------
 */
 var global_name='';
-function getCookie() {
-  var cname="userEmail";
+var global_email='';
+var global_token='';
+function getCookie(x) {
+  var cname=x;
   console.log(document.cookie);
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -162,14 +164,26 @@ function getCookie() {
     }
     if (c.indexOf(name) == 0) {
       var result = c.substring(name.length, c.length);
-      global_name=result;
-      document.getElementById('cookie').innerHTML=result;
+      
+      
       return result;
     }
   }
   return "";
 }
 
+
+/**
+//---------------------------------------------------------------------
+// read all cookies and stores in global variables
+//---------------------------------------------------------------------
+*/
+function readProfile(){
+  global_name = getCookie('userName');
+    global_email = getCookie('userEmail');
+    document.getElementById('cookie').innerHTML=global_name;
+    global_token = getCookie('idToken');
+}
 
 /**
 //---------------------------------------------------------------------
@@ -257,7 +271,7 @@ var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
   return; // TODO temperary remove
-  getCookie();
+  readProfile();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -379,7 +393,7 @@ function totalCal(number){
 */
  // get all food items from database   
 function getAllFood() {
-  getCookie();
+  readProfile();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -432,7 +446,7 @@ function getSum(obj){
 */
 // save form to database
 function save(){
-        getCookie();
+        readProfile();
         getFormData();
         convert();
         doAlgebra();
@@ -477,11 +491,11 @@ function save(){
                             "ratio_unit": ${ratio_amount_unit},
                             "date": "${getDate()}",
                             "time": "${getTime()}",
-                            "userEmail":"${global_name}"
+                            "userEmail":"${global_email}"
                         },
                             "user":{
                             "name": "${global_name}",
-                            "userEmail": "${global_name}",
+                            "userEmail": "${global_email}",
                             "idToken": "box"
                         }
                     }`;
@@ -505,7 +519,7 @@ function save(){
 */
 // 
 function getAllFoodOnDate(){
-        getCookie();
+        readProfile();
         
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
@@ -543,7 +557,7 @@ function getAllFoodOnDate(){
            var body = ` {
 
                             "name": "${global_name}",
-                            "userEmail": "${global_name}",
+                            "userEmail": "${global_email}",
                             "idToken": "box"
  
                         }`;
@@ -561,7 +575,7 @@ function getAllFoodOnDate(){
 */
 var stats;
 function getStats(){
-  getCookie();
+  readProfile();
     name=document.getElementById('name').value;
     if(name===''){
       return;
@@ -582,7 +596,7 @@ function getStats(){
         var body = ` {
 
                             "name": "${global_name}",
-                            "userEmail": "${global_name}",
+                            "userEmail": "${global_email}",
                             "idToken": "box"
  
                         }`;
@@ -601,7 +615,7 @@ function getStats(){
 */
  // get all food items from database   
 function getAllNames() {
-  getCookie();
+  readProfile();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -623,7 +637,7 @@ function getAllNames() {
   var body = ` {
 
                             "name": "${global_name}",
-                            "userEmail": "${global_name}",
+                            "userEmail": "${global_email}",
                             "idToken": "box"
  
                         }`;
