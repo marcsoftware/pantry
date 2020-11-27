@@ -25,7 +25,7 @@ public class Item {
 
 	public String date;
 	public String time;
-	public String userName;
+	public String userEmail;
 
 	public Integer getId() {
 		return id;
@@ -35,12 +35,12 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 

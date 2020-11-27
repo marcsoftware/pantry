@@ -49,7 +49,7 @@ public class MainController {
 
 	@PostMapping(path="/food")
 	public @ResponseBody String testing(@RequestBody FoodContext foodContext) {
-		if(check(foodContext.item.userName)){
+		if(check(foodContext.item.userEmail)){
 
 		}else{
 			return "not authorized.";
@@ -61,7 +61,7 @@ public class MainController {
 
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
-		return itemRepository.testingThis(date,user.name);
+		return itemRepository.testingThis(date,user.userEmail);
 	}
 
 
@@ -69,7 +69,7 @@ public class MainController {
 	public @ResponseBody List<Item>  testGet(@PathVariable String date,@RequestBody User user) {
 		
 		
-		return itemRepository.testingThis(date,user.name);
+		return itemRepository.testingThis(date,user.userEmail);
 	}
 
 
@@ -101,7 +101,7 @@ public class MainController {
 	}
 
 	//----------------------------------------------------------------------
-	// this is for populating the drop down menu
+	// this is for ???
 	//----------------------------------------------------------------------
 	// 
 	@GetMapping(path = "/name/{name}")
@@ -116,7 +116,7 @@ public class MainController {
 	@PostMapping(path = "/list")
 	public @ResponseBody List<String> getFromTemplate(@RequestBody User user) {
 		//todo : rename user.name to userName in the pojo
-		return itemRepository.getDistinctNamesCustomQuery(user.name); 
+		return itemRepository.getDistinctNamesCustomQuery(user.userEmail); 
 	}
 
 
@@ -195,8 +195,8 @@ public class MainController {
 
 	}
 
-	private boolean check(String userName){
-		if(userName.equals("localhost")){
+	private boolean check(String userEmail){
+		if(userEmail.equals("localhost")){
 			return true;
 		}
 

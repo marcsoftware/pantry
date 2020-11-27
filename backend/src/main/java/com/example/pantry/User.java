@@ -13,7 +13,7 @@ public class User {
 
 	public String name;
 
-	public String email;
+	public String userEmail;
 
  	public String idTokenString;
 
@@ -33,12 +33,12 @@ public class User {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getIdTokenString() {

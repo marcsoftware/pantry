@@ -18,18 +18,18 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByName(String name);
 
 
-    @Query("select u from Item u where u.date= ?1  and u.userName= ?2 ")
-    List<Item> testingThis(String date,String userName); 
+    @Query("select u from Item u where u.date= ?1  and u.userEmail= ?2 ")
+    List<Item> testingThis(String date,String userEmail); 
 
     
-    @Query("select DISTINCT u.name from Item u where u.userName= ?1 ")
-    List<String> getDistinctNamesCustomQuery(String userName); // 
+    @Query("select DISTINCT u.name from Item u where u.userEmail= ?1 ")
+    List<String> getDistinctNamesCustomQuery(String userEmail); // 
 
     //label unit calories
     //"select u.ratio_label,u.ratio_unit, u.ratio_calories from Item u where u.name= ?1"
     @Query("select distinct u.ratio_label,u.ratio_unit, u.ratio_calories from Item u where u.name= ?1 "
-            +" and u.ratio_label != 'null' and u.ratio_calories != 'null' and u.userName= ?2 ")
-    List<Item> getStatsCustomQuery(String name,String userName);   // 
+            +" and u.ratio_label != 'null' and u.ratio_calories != 'null' and u.userEmail= ?2 ")
+    List<Item> getStatsCustomQuery(String name,String userEmail);   // 
 
     @Modifying
     @Transactional
