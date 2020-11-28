@@ -64,9 +64,10 @@ function init(){
               googleUser.getBasicProfile().getName()+  
               
               'token:'+googleUser.getAuthResponse().id_token;
-              document.cookie = "idToken="+googleUser.getAuthResponse().id_token; 
+              
               document.cookie = "userName="+googleUser.getBasicProfile().getName(); 
               document.cookie = "userEmail="+googleUser.getBasicProfile().getEmail(); 
+              document.cookie = "idToken="+googleUser.getAuthResponse().id_token; 
 
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
