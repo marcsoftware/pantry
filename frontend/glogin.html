@@ -1,5 +1,8 @@
 <html>
 <head>
+  
+<meta charset="UTF-8">
+
    <script src="constants.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 
@@ -61,7 +64,7 @@ function init(){
               googleUser.getBasicProfile().getName()+  
               
               'token:'+googleUser.getAuthResponse().id_token;
-              document.cookie = "token="+googleUser.getAuthResponse().id_token; 
+              document.cookie = "idToken="+googleUser.getAuthResponse().id_token; 
               document.cookie = "userName="+googleUser.getBasicProfile().getName(); 
               document.cookie = "userEmail="+googleUser.getBasicProfile().getEmail(); 
 
