@@ -73,7 +73,7 @@ function init(){
 
                       "userName":"${googleUser.getBasicProfile().getName()}" , 
                       "userEmail":"${googleUser.getBasicProfile().getEmail()}"  ,
-                      "idToken":"${googleUser.getAuthResponse().id_token}"  ,
+                      "idToken":"${googleUser.getAuthResponse().id_token}"  
             }`;
 
             document.getElementById('json').value = profile;
