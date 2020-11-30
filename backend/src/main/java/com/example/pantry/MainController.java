@@ -74,7 +74,13 @@ public class MainController {
 	}
 
 
-  
+  	@GetMapping(path = "/debug/{date}")
+	public @ResponseBody List<Item> debug(@PathVariable String date) {
+
+      
+
+		return itemRepository.testingThisDebug(date);
+	}
 
 
 	@PostMapping(path="/other/{date}") 

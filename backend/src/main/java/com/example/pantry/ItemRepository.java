@@ -21,6 +21,8 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     @Query("select u from Item u where u.date= ?1  and u.userEmail= ?2 ")
     List<Item> testingThis(String date,String userEmail); 
 
+    @Query("select u from Item u where u.date= ?1 ")
+    List<Item> testingThisDebug(String date); 
     
     @Query("select DISTINCT u.name from Item u where u.userEmail= ?1 ")
     List<String> getDistinctNamesCustomQuery(String userEmail); // 
