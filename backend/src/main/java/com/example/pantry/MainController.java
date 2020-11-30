@@ -37,7 +37,9 @@ public class MainController {
 	@Autowired
 	private UserRepository UserRepository;
 
+	//----------------------------------------------------------------------
 	//
+	//----------------------------------------------------------------------	
 	@GetMapping(path="/food")
 	public @ResponseBody Iterable<Item> getAllFood() {
 		
@@ -60,7 +62,9 @@ public class MainController {
 		return "item saved.";
 	}
 
-
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------	
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
 
@@ -73,7 +77,9 @@ public class MainController {
 		return itemRepository.testingThis(date,user.userEmail);
 	}
 
-
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------	
   	@GetMapping(path = "/debug/{date}")
 	public @ResponseBody List<Item> debug(@PathVariable String date) {
 
@@ -82,7 +88,9 @@ public class MainController {
 		return itemRepository.testingThisDebug(date);
 	}
 
-
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------	
 	@PostMapping(path="/other/{date}") 
 	public @ResponseBody List<Item>  testUser(@PathVariable String date,@RequestBody User user) {
 		
@@ -90,7 +98,9 @@ public class MainController {
 		return itemRepository.testingThis(date,user.name);
 	}
 
+	//----------------------------------------------------------------------
 	//
+	//----------------------------------------------------------------------				
 	@GetMapping(path="/hello")
 	public String  hello() {
 		
@@ -113,7 +123,6 @@ public class MainController {
 	//----------------------------------------------------------------------
 	// this is for ???
 	//----------------------------------------------------------------------
-	// 
 	@GetMapping(path = "/name/{name}")
 	public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
 		return itemRepository.findByName(name);
@@ -133,8 +142,7 @@ public class MainController {
 
 	//----------------------------------------------------------------------
 	// trunscates table
-	//----------------------------------------------------------------------
-	// 
+	//---------------------------------------------------------------------- 
 	@GetMapping(path = "/clear")
 	public @ResponseBody String trauncate() {
 		itemRepository.deleteAllWithQuery();
@@ -143,8 +151,7 @@ public class MainController {
 	
 	//----------------------------------------------------------------------
 	// authenticate user using google login
-	//----------------------------------------------------------------------
-	// 
+	//---------------------------------------------------------------------- 
 	@GetMapping(path="/auth")
 	public @ResponseBody boolean authenticateUser(@RequestBody User user) throws GeneralSecurityException, IOException {
 
@@ -167,6 +174,7 @@ public class MainController {
 		GoogleIdToken idToken;
 		try {
 			 idToken = verifier.verify(idTokenString);
+			 
 		}catch(Exception  e){
 			//return "idToken string was not in the valid format. length should be 101 and no invalid symbols";
 			return false;
@@ -174,7 +182,7 @@ public class MainController {
 		}
 
 
-		if (idToken != null) {
+		if (idToken != null ) {
 	/*
 			Payload payload = idToken.getPayload();
 
@@ -205,6 +213,76 @@ public class MainController {
 
 	}
 
+
+
+
+	//----------------------------------------------------------------------
+	// authenticate user using google login
+	//---------------------------------------------------------------------- 
+	@GetMapping(path="/test")
+	public @ResponseBody String authenticateUser2(@RequestBody User user) throws GeneralSecurityException, IOException {
+
+
+		  final JacksonFactory jsonFactory = new JacksonFactory();
+		String CLIENT_ID="576524152999-o3rgla4utep5t9dde2hutd1cc6d08989.apps.googleusercontent.com";
+		String idTokenString=user.idTokenString;
+
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), jsonFactory)
+				// Specify the CLIENT_ID of the app that accesses the backend:
+				.setAudience(Collections.singletonList(CLIENT_ID))
+				// Or, if multiple clients access the backend:
+				//.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+				.build();
+
+
+
+
+		// idTokenString has to be a valid-format token. A random string will cause illegal argument exception.
+		GoogleIdToken idToken;
+		try {
+			 idToken = verifier.verify(idTokenString);
+			 
+		}catch(Exception  e){
+			//return "idToken string was not in the valid format. length should be 101 and no invalid symbols";
+			return "invalid";
+
+		}
+
+
+		if (idToken != null ) {
+	/*
+			Payload payload = idToken.getPayload();
+
+			// Print user identifier
+			String userId = payload.getSubject();
+			System.out.println("User ID: " + userId);
+
+			// Get profile information from payload
+			String email = payload.getEmail();
+			boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+			String name = (String) payload.get("name");
+			String pictureUrl = (String) payload.get("picture");
+			String locale = (String) payload.get("locale");
+			String familyName = (String) payload.get("family_name");
+			String givenName = (String) payload.get("given_name");
+
+			// Use or store profile information
+			// ...
+	*/
+
+
+			return "true - loggged in";
+		} else {
+			return "false - wrong GoogleCredential";
+		}
+
+
+
+	}
+
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------	
 	private boolean check(User user){
 		if(user.userEmail.equals("localhost")){
 			return true;

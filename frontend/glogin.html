@@ -69,6 +69,15 @@ function init(){
               document.cookie = "userEmail="+googleUser.getBasicProfile().getEmail(); 
               document.cookie = "idToken="+googleUser.getAuthResponse().id_token; 
 
+            var profile = `{
+
+                      "userName":"${googleUser.getBasicProfile().getName()}" , 
+                      "userEmail":"${googleUser.getBasicProfile().getEmail()}"  ,
+                      "idToken":"${googleUser.getAuthResponse().id_token}"  ,
+            }`;
+
+            document.getElementById('json').value = profile;
+
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
@@ -141,5 +150,6 @@ function init(){
 
   <button onclick="fakeLogin()">fake login</button>
   <span id='profile'></span>
+  <textarea id='json'></textarea>
 </body>
 </html>
