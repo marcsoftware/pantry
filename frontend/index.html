@@ -511,14 +511,8 @@ function getAllFoodOnDate(){
         
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-        //var theUrl = database_url+"/date/11-22-2020";
         var theUrl = database_url+"/date/"+getDate();
-        //var theUrl = database_url+"/testUser";
-       
-        
  
-       xmlhttp.open("GET", "http://localhost:5000/demo/date/12-01-2020",flag);    
-
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 total_cal_today=0.0;
@@ -530,7 +524,7 @@ function getAllFoodOnDate(){
                  
 
             }else if(this.readyState == 4 ){
-                 document.getElementById('log').innerHTML='';
+                 document.getElementById('log').innerHTML='failed'+this.status;
                  
                  console.log('failed'+this.status);
                  
@@ -539,13 +533,9 @@ function getAllFoodOnDate(){
             
         };
 
+        console.log(global_body);
 
-
-   
-      
-
-
-                    
+           xmlhttp.open("GET", "http://localhost:5000/demo/other",flag);    
           xmlhttp.setRequestHeader('Content-Type','application/json');
           xmlhttp.setRequestHeader('Accept','application/json');
           xmlhttp.send(global_body);

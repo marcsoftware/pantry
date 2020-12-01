@@ -90,11 +90,18 @@ function init(){
 */
 
   function fakeLogin(){
-
+    logout();
     document.cookie = 
     "userEmail=localhost;userName='localhost';idToken='12345';SameSite=None; Secure; expires=Thu, 18 Dec 3013 12:00:00 UTC"; 
      document.getElementById('profile').innerHTML='logged in as localhost';  
           
+  }
+
+  function logout(){
+    document.cookie = 
+    "userEmail=localhost;userName='localhost';idToken='12345';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC"; 
+    
+    
   }
   </script>
   <style type="text/css">
