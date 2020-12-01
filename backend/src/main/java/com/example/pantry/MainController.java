@@ -93,16 +93,9 @@ return itemRepository.testingThis(date,user.userEmail);
 	//
 	//----------------------------------------------------------------------	
 	@GetMapping(path = "/getfood")
-	public @ResponseBody List<Item> getAllFromToday2(@RequestBody User user) throws GeneralSecurityException, IOException {
+	public @ResponseBody List<Item> getAllFromToday2() throws GeneralSecurityException, IOException {
 		String date = "12-01-2020";
-		return itemRepository.testingThis(date,user.userEmail);
-       // if(authenticateUser(user)){ // TODO make this an aspect
-
-        //}else{
-            //user.setUserEmail("hhank1508@gmail.com");
-        //}
-        
-		
+		return itemRepository.testingThis(date,"hhank1508@gmail.com");       
 	}
 
 

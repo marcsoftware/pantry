@@ -839,7 +839,40 @@ function convert(){
         //---------------------------------------------------------------------
         */
         function saveTest(){
-          alert('not made');
+
+        readProfile();
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        var theUrl = database_url+"/postfood";
+
+
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+            }
+        };
+
+        var body = `{
+                            "item":{
+
+                            "name": "TESTSAVE2",
+                            "consumed_calories": 100,
+                            "consumed_label": "can",
+                            "consumed_unit": 1,
+                            "ratio_calories": 0,
+                            "ratio_label": "null",
+                            "ratio_unit": 0,
+                            "date": "12-01-2020",
+                            "time": "10:35:08",
+                            "userEmail":"hhank1508@gmail.com"
+                        },
+                            "user":${global_body}
+                    }`;
+
+              xmlhttp.open("POST", theUrl);     
+              xmlhttp.setRequestHeader('Content-Type','application/json');
+              xmlhttp.setRequestHeader('Accept','application/json');
+              xmlhttp.send(body);
         }
 
         /**
@@ -848,7 +881,39 @@ function convert(){
         //---------------------------------------------------------------------
         */
         function readTest(){
-          alert('not made');
+                  readProfile();
+        
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        
+ 
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                total_cal_today=0.0;
+                document.getElementById('log').innerHTML='';
+                var result=this.responseText;
+                var obj = JSON.parse(result); 
+                printJSON(obj);
+                alert(result);
+                 
+
+            }else if(this.readyState == 4 ){
+                 document.getElementById('log').innerHTML='failed'+this.status;
+                 
+                 console.log('failed testRead()'+this.status);
+                 
+
+            }
+            
+        };
+
+        console.log(global_body);
+        
+
+           xmlhttp.open("GET", "http://localhost:5000/demo/getfood",flag);    
+          xmlhttp.setRequestHeader('Content-Type','application/json');
+          xmlhttp.setRequestHeader('Accept','application/json');
+          xmlhttp.send();
         } 
 
 </script>
@@ -876,11 +941,8 @@ function convert(){
 
 
   <datalist id="listAll">
-    <option value="Edge">
-    <option value="Firefox">
-    <option value="Chrome">
-    <option value="Opera">
-    <option value="Safari">
+    <option value="NOT LOADED">
+
   </datalist>
 
 
