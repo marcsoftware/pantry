@@ -910,10 +910,10 @@ function convert(){
         console.log(global_body);
         
 
-           xmlhttp.open("GET", "http://localhost:5000/demo/getfood",flag);    
+           xmlhttp.open("POST", "http://localhost:5000/demo/getfood",flag);    
           xmlhttp.setRequestHeader('Content-Type','application/json');
           xmlhttp.setRequestHeader('Accept','application/json');
-          xmlhttp.send();
+          xmlhttp.send(global_body);
         } 
 
 </script>
