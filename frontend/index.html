@@ -102,7 +102,7 @@ tr:hover {background-color:#f5f5f5;}
 flag=true;
 
 /*
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   @GetMapping(path = "/name/{name}")
   public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
@@ -119,7 +119,7 @@ flag=true;
   }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 */
 
 
@@ -153,7 +153,7 @@ var global_email='';
 var global_token='';
 function getCookie(x) {
   var cname=x;
-  console.log(document.cookie);
+  
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
@@ -248,7 +248,7 @@ function getWeekCalories(){
 //---------------------------------------------------------------------
 */
 function getCalorieArray(){
-  return ; ///////////////////////////////////////////////////////////////////// DISABLED
+  
     for(var i =0;i<=30;i++){
         
     
@@ -289,10 +289,18 @@ function getTotalSmart(target_date) {
 
     }
   };
+
+       var body = ` {
+
+                            "name": "${global_name}",
+                            "userEmail": "${global_email}",
+                            "idTokenString":"${global_token}"
+ 
+                        }`;
   xhttp.open("GET", database_url+"/date/"+target_date, flag);
    xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send();
+  xhttp.send(body);
 }
 
 
@@ -525,12 +533,12 @@ function getAllFoodOnDate(){
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
         //var theUrl = database_url+"/date/11-22-2020";
-        var theUrl = database_url+"/other/"+getDate();
+        var theUrl = database_url+"/date/"+getDate();
         //var theUrl = database_url+"/testUser";
        
         
  
-       
+       xmlhttp.open("GET", "localhost:5000/demo/date/12-01-2020",flag);    
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -539,13 +547,13 @@ function getAllFoodOnDate(){
                 var result=this.responseText;
                 var obj = JSON.parse(result); 
                 printJSON(obj);
-
+                alert(result);
                  
 
-            }else if(this.readyState == 4 && this.status == 400){
+            }else if(this.readyState == 4 ){
                  document.getElementById('log').innerHTML='';
                  
-                 
+                 console.log('failed'+this.status);
                  
 
             }
@@ -556,15 +564,18 @@ function getAllFoodOnDate(){
 
    
       
-           var body = ` {
+           var body = ` 
+ {
 
-                            "name": "${global_name}",
-                            "userEmail": "${global_email}",
-                            "idTokenString": "${global_token}"
+                            "name": "hank hill",
+                            "userEmail": "hhank1508@gmail.com",
+                            "idTokenString": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjJlMzAyNWYyNmI1OTVmOTZlYWM5MDdjYzJiOTQ3MTQyMmJjYWViOTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTExMzMxNjYzMzE5NjM0NDUzNDU4IiwiZW1haWwiOiJoaGFuazE1MDhAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJEYWttREpfNHdDYlNpejQxVUNqVFNRIiwibmFtZSI6ImhhbmsgaGlsbCIsInBpY3R1cmUiOiJodHRwczovL2xoNC5nb29nbGV1c2VyY29udGVudC5jb20vLUM2Ukdfa2xkN3NFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2tNZDN2NlA5UlFnaXhfclEwVlBiSWVfdjRUUGcvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6ImhhbmsiLCJmYW1pbHlfbmFtZSI6ImhpbGwiLCJsb2NhbGUiOiJlbiIsImlhdCI6MTYwNjg0MDA5MywiZXhwIjoxNjA2ODQzNjkzLCJqdGkiOiJjMzdlZWI2ZmNlNGE4OGQyODBlYjM0NjIzY2NmYTA5ZmQ3MTAzMTIwIn0.ijJSjadcutiRHvfJommClaDj_Gf1O3nl1L8_Bw2CZNq7Fi68C3BhV4MqFGZpvt0NMhc5SI6re9Z6FFzh5aMZ-NpN-PINuPnJI1hrDzjZyKlcHXubdxAyig9GFyGiO9238WS8-LqZm7LSqRxtvk23DVF5uGpfyrvyXqk5tVIapvQXJi9QTPsU4QxbeZ0m4rUm8T7-RLRoNTtBF86X_4mKQ1tFz1Z3uGMbpvx5u55sQ_QtmcYf0vSuMMgLZ7KYAV5pRzv5YA44cdYy1zlpc8KoUEqjkax9sgKrey9D0R5SR-2IF5EJq1fyapKpspCTsMdTXfD2bOCbbLsq5Yf9-lS6_A"
  
-                        }`;
+                        }
+`;
 
-          xmlhttp.open("POST", theUrl,flag);              
+
+                    
           xmlhttp.setRequestHeader('Content-Type','application/json');
           xmlhttp.setRequestHeader('Accept','application/json');
           xmlhttp.send(body);
