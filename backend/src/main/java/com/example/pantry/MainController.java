@@ -52,8 +52,8 @@ public class MainController {
     // save a food item
     //---------------------------------------------------------
 	@PostMapping(path="/food")
-	public @ResponseBody String testing(@RequestBody FoodContext foodContext) {
-		if(check(foodContext.user)){
+	public @ResponseBody String testing(@RequestBody FoodContext foodContext) throws GeneralSecurityException, IOException {
+		if(authenticateUser(foodContext.user)){
 
 		}else{
 			return "not authorized.";
@@ -66,9 +66,9 @@ public class MainController {
 	//
 	//----------------------------------------------------------------------	
 	@GetMapping(path = "/date/{date}")
-	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) {
+	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) throws GeneralSecurityException, IOException {
 
-        if(check(user)){ // TODO make this an aspect
+        if(authenticateUser(user)){ // TODO make this an aspect
 
         }else{
             user.setUserEmail("none");

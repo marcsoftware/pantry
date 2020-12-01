@@ -538,7 +538,7 @@ function getAllFoodOnDate(){
        
         
  
-       xmlhttp.open("GET", "localhost:5000/demo/date/12-01-2020",flag);    
+       xmlhttp.open("GET", "http://localhost:5000/demo/date/12-01-2020",flag);    
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -565,13 +565,12 @@ function getAllFoodOnDate(){
    
       
            var body = ` 
- {
+{
 
-                            "name": "hank hill",
-                            "userEmail": "hhank1508@gmail.com",
-                            "idTokenString": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjJlMzAyNWYyNmI1OTVmOTZlYWM5MDdjYzJiOTQ3MTQyMmJjYWViOTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTExMzMxNjYzMzE5NjM0NDUzNDU4IiwiZW1haWwiOiJoaGFuazE1MDhAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJEYWttREpfNHdDYlNpejQxVUNqVFNRIiwibmFtZSI6ImhhbmsgaGlsbCIsInBpY3R1cmUiOiJodHRwczovL2xoNC5nb29nbGV1c2VyY29udGVudC5jb20vLUM2Ukdfa2xkN3NFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2tNZDN2NlA5UlFnaXhfclEwVlBiSWVfdjRUUGcvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6ImhhbmsiLCJmYW1pbHlfbmFtZSI6ImhpbGwiLCJsb2NhbGUiOiJlbiIsImlhdCI6MTYwNjg0MDA5MywiZXhwIjoxNjA2ODQzNjkzLCJqdGkiOiJjMzdlZWI2ZmNlNGE4OGQyODBlYjM0NjIzY2NmYTA5ZmQ3MTAzMTIwIn0.ijJSjadcutiRHvfJommClaDj_Gf1O3nl1L8_Bw2CZNq7Fi68C3BhV4MqFGZpvt0NMhc5SI6re9Z6FFzh5aMZ-NpN-PINuPnJI1hrDzjZyKlcHXubdxAyig9GFyGiO9238WS8-LqZm7LSqRxtvk23DVF5uGpfyrvyXqk5tVIapvQXJi9QTPsU4QxbeZ0m4rUm8T7-RLRoNTtBF86X_4mKQ1tFz1Z3uGMbpvx5u55sQ_QtmcYf0vSuMMgLZ7KYAV5pRzv5YA44cdYy1zlpc8KoUEqjkax9sgKrey9D0R5SR-2IF5EJq1fyapKpspCTsMdTXfD2bOCbbLsq5Yf9-lS6_A"
- 
-                        }
+                      "name":"hank hill" , 
+                      "userEmail":"hhank1508@gmail.com"  ,
+                      "idTokenString":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjJlMzAyNWYyNmI1OTVmOTZlYWM5MDdjYzJiOTQ3MTQyMmJjYWViOTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTExMzMxNjYzMzE5NjM0NDUzNDU4IiwiZW1haWwiOiJoaGFuazE1MDhAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJSajJQVDctX1VJVW9fOU0zZ2RaZGJRIiwibmFtZSI6ImhhbmsgaGlsbCIsInBpY3R1cmUiOiJodHRwczovL2xoNC5nb29nbGV1c2VyY29udGVudC5jb20vLUM2Ukdfa2xkN3NFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2tNZDN2NlA5UlFnaXhfclEwVlBiSWVfdjRUUGcvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6ImhhbmsiLCJmYW1pbHlfbmFtZSI6ImhpbGwiLCJsb2NhbGUiOiJlbiIsImlhdCI6MTYwNjg0OTMxNiwiZXhwIjoxNjA2ODUyOTE2LCJqdGkiOiJjZDRkZjhiZDllN2QxMWMzYmYyMDc2MGJkNDhlZTVmZjI1N2UwMTAzIn0.FUAAoVv-jPezyd3MaZRZtB68mXG5ON8Z7jPJSTak4jrL-9eg2ZPTfKaEJFbfDxpdRoQbPSvtzb_0E-03h3OJzHqmT4ZKPtzJi-PsOaSiEXmarWwGxOtVmYk6bn9qqk9T45k8nGgyn0WO42EPSY4ECWrm8kddhK8Cy8f-Rpn_n3OtHs0rSnq1Ch0GCj7p3YrJlaEcWRy2hBLKlm7CmrN7CpNCedW09zWdI9G8KFuDzFyUdwD7sLCZYwvYutHo5ybj4MuT-BSUz29GJdl7xb-lPOmg18mJ7FGo2ikGA7JEGn4WSEEmxJAw0MUtN2Y39nTQvIMkJmgPJvq2s1vDPTAuDQ"  
+            }
 `;
 
 
@@ -888,7 +887,7 @@ function convert(){
 <title>food log</title>
 </head>
 <body>
-
+ <button type='button' onclick="getAllFoodOnDate()">Click Me!</button> 
 <div id='header'></div>
 <h2>food log</h2>
 
