@@ -37,28 +37,8 @@ public class MainController {
 	@Autowired
 	private UserRepository UserRepository;
 
-	//----------------------------------------------------------------------
-	//
-	//----------------------------------------------------------------------	
-	@GetMapping(path="/food")
-	public @ResponseBody Iterable<Item> getAllFood() {
-		
-		return itemRepository.findAll();
-	}
 
-    //---------------------------------------------------------
-    // save a food item
-    //---------------------------------------------------------
-	@PostMapping(path="/postfood")
-	public @ResponseBody String testingfastfood(@RequestBody FoodContext foodContext) throws GeneralSecurityException, IOException {
-		
 
-		
-		
-		
-		itemRepository.save(foodContext.item);
-		return "item saved.";
-	}
 
     //---------------------------------------------------------
     // save a food item
@@ -79,25 +59,31 @@ public class MainController {
 	//----------------------------------------------------------------------	
 	@GetMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromToday(@PathVariable String date,@RequestBody User user) throws GeneralSecurityException, IOException {
-return itemRepository.testingThis(date,user.userEmail);
-       /* if(authenticateUser(user)){ // TODO make this an aspect
+
+        if(authenticateUser(user)){ // TODO make this an aspect
 
         }else{
             user.setUserEmail("hhank1508@gmail.com");
-        }*/
+        }
 
-		
+		return itemRepository.testingThis(date,user.userEmail);		
 	}
+
 
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------	
-	@PostMapping(path = "/getfood")
-	public @ResponseBody List<Item> getAllFromToday2(@RequestBody User user) throws GeneralSecurityException, IOException {
-		String date = "12-01-2020";
-		return itemRepository.testingThis(date,user.userEmail);       
-	}
+	@PostMapping(path = "/date/{date}")
+	public @ResponseBody List<Item> getAllFromTodayPost(@PathVariable String date,@RequestBody User user) throws GeneralSecurityException, IOException {
 
+        if(authenticateUser(user)){ // TODO make this an aspect
+
+        }else{
+            user.setUserEmail("none");
+        }
+
+		return itemRepository.testingThis(date,user.userEmail);		
+	}
 
 
 	//----------------------------------------------------------------------
