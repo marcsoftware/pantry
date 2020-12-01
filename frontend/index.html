@@ -270,7 +270,7 @@ var calorie_array=[];
 var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
-  return; // TODO temperary remove
+  
   readProfile();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -496,7 +496,7 @@ function save(){
                             "user":{
                             "name": "${global_name}",
                             "userEmail": "${global_email}",
-                            "idToken": "box"
+                            "idTokenString": "${global_token}"
                         }
                     }`;
  xmlhttp.setRequestHeader('Content-Type','application/json');
@@ -558,7 +558,7 @@ function getAllFoodOnDate(){
 
                             "name": "${global_name}",
                             "userEmail": "${global_email}",
-                            "idToken": "box"
+                            "idTokenString": "${global_token}"
  
                         }`;
  xmlhttp.setRequestHeader('Content-Type','application/json');
@@ -597,7 +597,7 @@ function getStats(){
 
                             "name": "${global_name}",
                             "userEmail": "${global_email}",
-                            "idToken": "box"
+                            "idTokenString":"${global_token}",
  
                         }`;
 
@@ -638,7 +638,7 @@ function getAllNames() {
 
                             "name": "${global_name}",
                             "userEmail": "${global_email}",
-                            "idToken": "box"
+                            "idTokenString": "${global_token}",
  
                         }`;
 
