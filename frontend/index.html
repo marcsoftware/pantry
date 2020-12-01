@@ -99,29 +99,8 @@ tr:hover {background-color:#f5f5f5;}
 
 <script>
 
+//----------------------------------------------------------------------
 flag=true;
-
-/*
-
-
-  @GetMapping(path = "/name/{name}")
-  public @ResponseBody List<Item> getAllFromName(@PathVariable String name) {
-    return itemRepository.findByName(name);
-  }
-
-  //----------------------------------------------------------------------
-  // This returns a distinct-list of names.
-  // used to populate the dropdown  on the frontent
-  //----------------------------------------------------------------------
-  @GetMapping(path = "/list")
-  public @ResponseBody List<String> getFromTemplate() {
-    return itemRepository.getDistinctNamesCustomQuery();
-  }
-
-
-
-*/
-
 
 window.onload=init;
 
@@ -178,10 +157,20 @@ function getCookie(x) {
 // read all cookies and stores in global variables
 //---------------------------------------------------------------------
 */
+
+var global_body='';
 function readProfile(){
   global_name = getCookie('userName');
     global_email = getCookie('userEmail');
     global_token = getCookie('idToken');
+
+       global_body = ` {
+
+                            "name": "${global_name}",
+                            "userEmail": "${global_email}",
+                            "idTokenString":"${global_token}"
+ 
+                        }`;
     document.getElementById('cookie').innerHTML=global_name;
 }
 
@@ -271,7 +260,7 @@ var calorie_array=[];
 var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
-  
+  return ;//////////////////////////////////////////////////////////////////////////////
   readProfile();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -290,17 +279,11 @@ function getTotalSmart(target_date) {
     }
   };
 
-       var body = ` {
-
-                            "name": "${global_name}",
-                            "userEmail": "${global_email}",
-                            "idTokenString":"${global_token}"
- 
-                        }`;
+     
   xhttp.open("GET", database_url+"/date/"+target_date, flag);
    xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send(body);
+  xhttp.send(global_body);
 }
 
 
@@ -502,11 +485,7 @@ function save(){
                             "time": "${getTime()}",
                             "userEmail":"${global_email}"
                         },
-                            "user":{
-                            "name": "${global_name}",
-                            "userEmail": "${global_email}",
-                            "idTokenString": "${global_token}"
-                        }
+                            "user":${global_body}
                     }`;
  xmlhttp.setRequestHeader('Content-Type','application/json');
   xmlhttp.setRequestHeader('Accept','application/json');
@@ -564,20 +543,12 @@ function getAllFoodOnDate(){
 
    
       
-           var body = ` 
-{
-
-                      "name":"hank hill" , 
-                      "userEmail":"hhank1508@gmail.com"  ,
-                      "idTokenString":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjJlMzAyNWYyNmI1OTVmOTZlYWM5MDdjYzJiOTQ3MTQyMmJjYWViOTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTc2NTI0MTUyOTk5LW8zcmdsYTR1dGVwNXQ5ZGRlMmh1dGQxY2M2ZDA4OTg5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTExMzMxNjYzMzE5NjM0NDUzNDU4IiwiZW1haWwiOiJoaGFuazE1MDhAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJSajJQVDctX1VJVW9fOU0zZ2RaZGJRIiwibmFtZSI6ImhhbmsgaGlsbCIsInBpY3R1cmUiOiJodHRwczovL2xoNC5nb29nbGV1c2VyY29udGVudC5jb20vLUM2Ukdfa2xkN3NFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2tNZDN2NlA5UlFnaXhfclEwVlBiSWVfdjRUUGcvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6ImhhbmsiLCJmYW1pbHlfbmFtZSI6ImhpbGwiLCJsb2NhbGUiOiJlbiIsImlhdCI6MTYwNjg0OTMxNiwiZXhwIjoxNjA2ODUyOTE2LCJqdGkiOiJjZDRkZjhiZDllN2QxMWMzYmYyMDc2MGJkNDhlZTVmZjI1N2UwMTAzIn0.FUAAoVv-jPezyd3MaZRZtB68mXG5ON8Z7jPJSTak4jrL-9eg2ZPTfKaEJFbfDxpdRoQbPSvtzb_0E-03h3OJzHqmT4ZKPtzJi-PsOaSiEXmarWwGxOtVmYk6bn9qqk9T45k8nGgyn0WO42EPSY4ECWrm8kddhK8Cy8f-Rpn_n3OtHs0rSnq1Ch0GCj7p3YrJlaEcWRy2hBLKlm7CmrN7CpNCedW09zWdI9G8KFuDzFyUdwD7sLCZYwvYutHo5ybj4MuT-BSUz29GJdl7xb-lPOmg18mJ7FGo2ikGA7JEGn4WSEEmxJAw0MUtN2Y39nTQvIMkJmgPJvq2s1vDPTAuDQ"  
-            }
-`;
 
 
                     
           xmlhttp.setRequestHeader('Content-Type','application/json');
           xmlhttp.setRequestHeader('Accept','application/json');
-          xmlhttp.send(body);
+          xmlhttp.send(global_body);
         
 }
 
@@ -607,19 +578,13 @@ function getStats(){
         }
       };
 
-        var body = ` {
 
-                            "name": "${global_name}",
-                            "userEmail": "${global_email}",
-                            "idTokenString":"${global_token}"
- 
-                        }`;
 
       
     xhttp.open("POST", database_url+"/stats/"+name, flag);
     xhttp.setRequestHeader('Content-Type','application/json');
     xhttp.setRequestHeader('Accept','application/json');
-    xhttp.send(body);
+    xhttp.send(global_body);
 }
 
 /**
@@ -648,18 +613,12 @@ function getAllNames() {
     }
   };
 
-  var body = ` {
 
-                            "name": "${global_name}",
-                            "userEmail": "${global_email}",
-                            "idTokenString": "${global_token}"
- 
-                        }`;
 
   xhttp.open("POST", database_url+"/list", flag);
   xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send(body);
+  xhttp.send(global_body);
 }
 
 
