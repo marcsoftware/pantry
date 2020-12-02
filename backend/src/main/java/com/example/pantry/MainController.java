@@ -160,7 +160,7 @@ public class MainController {
 		  final JacksonFactory jsonFactory = new JacksonFactory();
 		String CLIENT_ID="576524152999-o3rgla4utep5t9dde2hutd1cc6d08989.apps.googleusercontent.com";
 		String idTokenString=user.idTokenString;
-
+		String checkEmail=user.userEmail;
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), jsonFactory)
 				// Specify the CLIENT_ID of the app that accesses the backend:
 				.setAudience(Collections.singletonList(CLIENT_ID))
@@ -184,7 +184,7 @@ public class MainController {
 
 
 		if (idToken != null ) {
-	/*
+	
 			Payload payload = idToken.getPayload();
 
 			// Print user identifier
@@ -194,18 +194,18 @@ public class MainController {
 			// Get profile information from payload
 			String email = payload.getEmail();
 			boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-			String name = (String) payload.get("name");
-			String pictureUrl = (String) payload.get("picture");
-			String locale = (String) payload.get("locale");
-			String familyName = (String) payload.get("family_name");
-			String givenName = (String) payload.get("given_name");
+			//String name = (String) payload.get("name");
+			//String pictureUrl = (String) payload.get("picture");
+			//String locale = (String) payload.get("locale");
+			//String familyName = (String) payload.get("family_name");
+			//String givenName = (String) payload.get("given_name");
 
 			// Use or store profile information
 			// ...
-	*/
+	
+			
 
-
-			return true;
+			return (email.equals(checkEmail));
 		} else {
 			return false;
 		}
