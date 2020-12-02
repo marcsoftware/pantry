@@ -260,7 +260,7 @@ var calorie_array=[];
 var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
-  return ;//////////////////////////////////////////////////////////////////////////////
+  
   readProfile();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -280,7 +280,7 @@ function getTotalSmart(target_date) {
   };
 
      
-  xhttp.open("GET", database_url+"/date/"+target_date, flag);
+  xhttp.open("POST", database_url+"/date/"+target_date, flag);
    xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
   xhttp.send(global_body);
