@@ -4,5 +4,16 @@
 }
 
 #header a{
-    color:red;
+    color:#6b7185;
+}
+
+#header{
+    background-color:#b4bcdb;
+    margin:0px;
+    padding: 2px;
+}
+
+body{
+    padding-top: 0px;
+    margin-top: 0px;
 }
