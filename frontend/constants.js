@@ -9,7 +9,15 @@ function drawHeader(){
     var handle=document.getElementById('header');
 
     if(handle){
-        handle.innerHTML='<meta charset="utf-8"/><a href="/index.html">food log</a> <a href="/report.html">report</a>  <a href="/fitbit.html">fitbit</a> <a  href="" id="hyperlink">connect</a> <a href="/scale.html">scale</a> <a href="/food.html">food</a> <a href="/glogin.html">login</a> | <span id="cookie"></span>'
+        handle.innerHTML=`<meta charset="utf-8"/>
+                         <a href="/index.html">food log</a>
+                          <a href="/report.html">report</a>  
+                          <a href="/fitbit.html">fitbit</a>
+                           <a  href="" id="hyperlink">connect</a> 
+                           <a href="/scale.html">scale</a>
+                         <a href="/food.html">food</a> 
+                         <a href="/glogin.html">login</a> 
+                         | <span id="cookie"></span>`
     }
 
         setConfig();
