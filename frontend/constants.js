@@ -38,7 +38,7 @@ function setConfig(){
      if(!pageURL.toString().includes('poundreport')){
             // if not deployed on poundreport. 
 
-            callback_url = `http://localhost:8080/login.html`;  // from fitbit.com app setting page
+            callback_url = `http://localhost:8080/connect.html`;  // from fitbit.com app setting page
             database_url='http://localhost:5000/demo'; // endpoint of java database
             client_id='22BVZC';
             global_basic='MjJCVlpDOmRjMTFjNzYwNTA4MjRmYjUwMWRjODhmNWRjYzRlOWE0';
@@ -48,7 +48,7 @@ function setConfig(){
             //database_url="http://pantry-env.7zyk5zdmpf.us-east-1.elasticbeanstalk.com";
             database_url="https://eb.poundreport.com/demo";
             
-            callback_url =`https://poundreport.com/login.html`;
+            callback_url =`https://poundreport.com/connect.html`;
             client_id='22BWQ4';
             global_basic='MjJCV1E0OmY0NmYxZGQwYTMwNzcyMzFiNmY2YmZhY2UyMDMwNjVh'; //
             console.log('deployed constansts chosen');
