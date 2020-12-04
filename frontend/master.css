@@ -6,13 +6,21 @@
 #header a{
     color:#6b7185;
     margin: 3px;
-    padding-top: 2px;
+    margin-left:0px;
+    padding: 10px;
+}
+
+#header a:hover{
+    background-color:grey;
+    color:white;
 }
 
 #header{
     background-color:#b4bcdb;
     margin:0px;
-    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left:0px;
 }
 
 body{

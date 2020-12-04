@@ -9,8 +9,7 @@ function drawHeader(){
     var handle=document.getElementById('header');
 
     if(handle){
-        handle.innerHTML=`<meta charset="utf-8"/>
-                         <a href="/index.html">food log</a>
+        handle.innerHTML=`<meta charset="utf-8"/><a href="/index.html">food log</a>
                           <a href="/report.html">report</a>  
                           
                            <a  href="" id="hyperlink">connect</a> 
