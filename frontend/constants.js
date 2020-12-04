@@ -11,8 +11,7 @@ function drawHeader(){
     if(handle){
         handle.innerHTML=`<meta charset="utf-8"/><a href="/index.html">food log</a>
                           <a href="/report.html">report</a>  
-                           <a href="/scale.html">scale</a>
-                         <a href="/glogin.html">login</a> 
+                           <a href="/scale.html">scale</a>                         
                          | <a  href="" id="hyperlink">connect</a><a href="/glogin.html">login</a>  <span id="cookie"></span>`
     }
 
