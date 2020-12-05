@@ -786,6 +786,9 @@ function getCalorieArray(){
 
  
 
+var calorie_array=[];
+var avg_array=[];
+window.calorie_array=[];
 function getTotalSmart(target_date) {
 
   var xhttp = new XMLHttpRequest();
@@ -805,40 +808,6 @@ function getTotalSmart(target_date) {
     }
   };
     xhttp.open("POST", database_url+"/date/"+target_date, flag);
-   xhttp.setRequestHeader('Content-Type','application/json');
-  xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send(global_body);
-}
-
-//---------------------------------------------------------------------
-// 
-//---------------------------------------------------------------------
-
-var calorie_array=[];
-var avg_array=[];
-window.calorie_array=[];
-function getTotalSmartNEW(target_date) {
-  
-  readProfile();
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
-
-      var result=this.responseText;
-      var obj = JSON.parse(result); 
-      var sum = getSum(obj);
-      calorie_array.push(sum);
-      var clone =calorie_array.slice();
-
-      avg_array.push(sum);
-      //document.getElementById('array').innerHTML=avg_array;
-
-    }
-  };
-
-     
-  xhttp.open("POST", database_url+"/date/"+target_date, flag);
    xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
   xhttp.send(global_body);
