@@ -69,6 +69,57 @@ function getUrl(){
 
 
 
-//---------------------------------
+//--------------------------------- TODO put this in lib.js
+flag=true;
+
+/**
+//---------------------------------------------------------------------
+// read all cookies and stores in global variables
+//---------------------------------------------------------------------
+*/
+
+var global_body='';
+function readProfile(){
+  global_name = getCookie('userName');
+    global_email = getCookie('userEmail');
+    global_token = getCookie('idToken');
+
+       global_body = ` {
+
+                            "name": "${global_name}",
+                            "userEmail": "${global_email}",
+                            "idTokenString":"${global_token}"
+ 
+                        }`;
+    document.getElementById('cookie').innerHTML=global_name;
+}
 
 
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+var global_name='';
+var global_email='';
+var global_token='';
+function getCookie(x) {
+  var cname=x;
+  
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      var result = c.substring(name.length, c.length);
+      
+      
+      return result;
+    }
+  }
+  return "";
+}
