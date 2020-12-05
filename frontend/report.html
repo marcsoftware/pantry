@@ -640,7 +640,7 @@ function combineData(){
         if(customZoneCal+aboveCustomZoneCal){
             totalCalories=customZoneCal+aboveCustomZoneCal;
             totalMinutes=minutesCustom+minutesAbove;
-            console.log('----------Custom>'+minutesCustom+'||||'+minutesAbove);
+            //console.log('----------Custom>'+minutesCustom+'||||'+minutesAbove);
         }                    
         totalCalories=totalCalories|| 0;
         fieldName = 'minutes';
@@ -805,7 +805,7 @@ function getTotalSmart(target_date) {
 
     }
   };
-  xhttp.open("GET", database_url+"/date/"+target_date, false);
+  xhttp.open("GET", database_url+"/date/"+target_date, true);
   xhttp.send();
 }
 
