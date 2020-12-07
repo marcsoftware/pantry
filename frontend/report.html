@@ -429,8 +429,8 @@ function combineData(){
   var hand= document.getElementById('master');
   let properties = Object.keys(foodlog_master).reverse();
   
-    //for(var i in foodlog_master){
-      for(var j =0;j<properties.length;j++){
+    
+    for(var j =0;j<properties.length;j++){
      i=properties[j];
       var row='<tr>';
       //table_rows+=foodlog_master[i]['calories'];
@@ -668,9 +668,9 @@ function combineData(){
 
 
 
-  //--------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
     //
-    //--------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
     
     function parse(){
       //setCookie('raw',document.getElementById('json').value);
@@ -701,13 +701,14 @@ function combineData(){
 
 
 //---------------------------------------------------------------------
-//
+//  draw fitbit calories burned graph.
 //---------------------------------------------------------------------
 
 var foodlog_master= {};
 function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
+    
     for(var i =0;i<avg_array.length;i++){
       var date = getDateFormat2(0-i);
       var date_format = getDateFormat(0-i);
@@ -716,6 +717,7 @@ function drawGraph(){
       total+=parseInt(number);
      // handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
       foodlog_master[date_format]= { "calories":number } ;
+      
 
     }
 
@@ -727,6 +729,8 @@ function drawGraph(){
     if(burned <=0){
         isPositive=0;
     }
+
+    console.log('drawgraph() is done.');
    // document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
 
 }
@@ -771,6 +775,8 @@ function getCalorieArray(){
        
 
     }
+
+    console.log('getTotalSmart() is done.');
 }
 
 
@@ -782,6 +788,7 @@ function getCalorieArray(){
 //---------------------------------------------------------------------
 //   TODO stores total from date in an array-element
 //    index 0 is the lastest date
+// gets calories from BACKEND not from fitbit.
 //---------------------------------------------------------------------
 
  
@@ -803,6 +810,7 @@ function getTotalSmart(target_date) {
       var clone =calorie_array.slice();
 
       avg_array.push(sum);
+
       //document.getElementById('array').innerHTML=avg_array;
 
     }
