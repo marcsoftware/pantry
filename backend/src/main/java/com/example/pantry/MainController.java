@@ -103,7 +103,7 @@ public class MainController {
 	//
 	//----------------------------------------------------------------------				
 	@GetMapping(path="/hello")
-	public String  hello() {
+	public String hello() {
 		
 		return "Hello from API";
 	}

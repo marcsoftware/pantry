@@ -304,15 +304,56 @@ function wait(){
   
 }
 
+//------------------------------------------------
+// Example POST method implementation:
+//------------------------------------------------
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    //body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+
+
+
+
 //------------------------------------------------------------------------------------------------------------------------
 // TODO : why get rid of this function.
 //------------------------------------------------------------------------------------------------------------------------
 function test(){
     var authcode= localStorage.getItem("authcode");
     
-    getHeartToday(authcode);
-    //getScale(authcode);
+    getHeartToday(authcode); // TODO make promise.
+    var end_date = getDateFormat(-30);
+    postData(
+                `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`,
+                {  }
+            )
+          .then(data => {
+            console.log('---------'+data); // JSON data parsed by `data.json()` call
+
+            var object =  JSON.parse(data);
+            
+            document.getElementById("json").value = this.responseText;
+
+          });
+
+
+    //getScale(authcode); // todo - this function is brocken.
 }
+
 
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -331,7 +372,7 @@ function test(){
             var object =  JSON.parse(this.responseText);
             
             document.getElementById("json").value = this.responseText;
-            wait();
+            
 
           
         }else{
@@ -349,7 +390,6 @@ function test(){
 
 
     }
-
 
 
 //----------------------------------------------------------------------------------------------------------------------------
