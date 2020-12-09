@@ -297,7 +297,7 @@ function wait(){
     parse();
     
     getWeekCalories();
-    console.log();
+    
     combineData();
    
 
@@ -337,21 +337,43 @@ async function getFitbitHeart(token='') {
     var end_date = getDateFormat(-30);
     var url = `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`;
     var data = {};
+    console.log('----'+token);
   // Default options are marked with *
   const response = await fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
     credentials: 'same-origin', // include, *same-origin, omit
-    Authorization: `'Bearer ${token}'`,
+    
+
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `'Bearer ${token}'`,
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     redirect: 'follow', // manual, *follow, error
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     //body: JSON.stringify(data) // body data type must match "Content-Type" header
   });
+
+
+alert(JSON.stringify({
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    
+
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `'Bearer ${token}'`,
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    //body: JSON.stringify(data) // body data type must match "Content-Type" header
+  }));
+
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
@@ -367,23 +389,23 @@ async function getFitbitHeart(token='') {
       
       var xhttp = new XMLHttpRequest();
       
-
+         
       
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var object =  JSON.parse(this.responseText);
             
             document.getElementById("json").value = this.responseText;
-            
+         
 
           
         }else{
-          console.log( this.responseText);
+          
         }
       };
 
       var end_date = getDateFormat(-30);
-//https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1min.json
+console.log('tokken;'+token);
       xhttp.open("GET", `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`, true);
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
 
