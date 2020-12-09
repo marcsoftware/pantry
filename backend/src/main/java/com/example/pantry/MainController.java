@@ -73,6 +73,23 @@ public class MainController {
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------	
+	@GetMapping(path = "/date/{startDate}/{endDate}")
+	public @ResponseBody List<Item> getBetweenDates(@PathVariable String startDate,@PathVariable String endDate,@RequestBody User user) throws GeneralSecurityException, IOException {
+
+        if(authenticateUser(user)){ // TODO make this an aspect
+
+        }else{
+            user.setUserEmail("hhank1508@gmail.com");
+        }
+
+		return itemRepository.getBetweenDates(startDate,endDate,user.userEmail);		
+	}
+
+
+
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------	
 	@PostMapping(path = "/date/{date}")
 	public @ResponseBody List<Item> getAllFromTodayPost(@PathVariable String date,@RequestBody User user) throws GeneralSecurityException, IOException {
 
