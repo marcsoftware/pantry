@@ -792,80 +792,52 @@ function drawGraph(){
 // TODO get rid of other date functions REFACTOR
 function getWeekCalories(){
 
-    getCalorieArray();
+    getLast30DayCalories(); 
     var days;
     // get last 7 days not including today
     days = avg_array.slice(1,6);
-
-    //document.getElementById('average7').innerHTML=getAverage(days);
-       
     days = avg_array.slice(1,30);
-    //document.getElementById('average30').innerHTML=getAverage(days);   
-  
     days = avg_array.slice(0,6);
-    
-    //document.getElementById('average7today').innerHTML=getAverage(days); 
-    
 }
 
-
 //---------------------------------------------------------------------
-// put day calories totals from the last 30 days.
+//   
 //---------------------------------------------------------------------
+function getLast30DayCalories(){
 
-function getCalorieArray(){
-    for(var i =0;i<=30;i++){
-        
-    
-        var target_date = getDateFormat2(0-i);
-        getTotalSmart(target_date);
-       
-
-    }
-
-    
 }
-
-
-
-
-// something breaks after here //////////////////////////////////////////////////////////////////////
-
 
 //---------------------------------------------------------------------
 //   TODO stores total from date in an array-element
 //    index 0 is the lastest date
 // gets calories from BACKEND not from fitbit.
 //---------------------------------------------------------------------
-
- 
-
 var calorie_array=[];
 var avg_array=[];
 window.calorie_array=[];
 function getTotalSmart(target_date) {
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      total_cal_today=0.0;
+        total_cal_today=0.0;
 
-      var result=this.responseText;
-      var obj = JSON.parse(result); 
-      var sum = getSum(obj);
-      calorie_array.push(sum);
-      var clone =calorie_array.slice();
+        var result=this.responseText;
+        var obj = JSON.parse(result); 
+        var sum = getSum(obj);
+        calorie_array.push(sum);
+        var clone =calorie_array.slice();
 
-      avg_array.push(sum);
+        avg_array.push(sum);
 
-      //document.getElementById('array').innerHTML=avg_array;
+        //document.getElementById('array').innerHTML=avg_array;
 
-    }
-  };
+        }
+    };
     xhttp.open("POST", database_url+"/date/"+target_date, flag);
-   xhttp.setRequestHeader('Content-Type','application/json');
-  xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send(global_body);
+    xhttp.setRequestHeader('Content-Type','application/json');
+    xhttp.setRequestHeader('Accept','application/json');
+    xhttp.send(global_body);
 }
 
 
