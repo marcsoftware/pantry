@@ -737,7 +737,16 @@ function drawGraph(){
 // TODO get rid of other date functions REFACTOR
 function getWeekCalories(){
 
-    getLast30DayCalories(); 
+    
+      getLast30DayCalories()
+          .then(data => {
+            console.log('---------'+JSON.stringify(data)); // JSON data parsed by `data.json()` call
+            
+            
+            alert(data);
+
+          });
+
     var days;
     // get last 7 days not including today
     days = avg_array.slice(1,6);
