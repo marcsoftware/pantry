@@ -749,14 +749,14 @@ function getWeekCalories(){
 //    TODO : call the last 30 day endpoint !!!!
 //---------------------------------------------------------------------
 async function getLast30DayCalories(token='') {
-  alert(1);
+    readProfile();
     var end_date = getDateFormat(-30);
     var url = database_url+`/date/12-01-2020/12-02-2020`;
     var data = {};
     console.log('----'+token);
   // Default options are marked with *
   const response = await fetch(url, {
-    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
     credentials: 'same-origin', // include, *same-origin, omit
@@ -767,6 +767,7 @@ async function getLast30DayCalories(token='') {
       Authorization: `Bearer ${token}`,
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
+    body:`${global_body}` ,
     redirect: 'follow', // manual, *follow, error
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     //body: JSON.stringify(data) // body data type must match "Content-Type" header

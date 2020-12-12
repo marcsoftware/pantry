@@ -73,7 +73,7 @@ public class MainController {
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------	
-	@GetMapping(path = "/date/{startDate}/{endDate}")
+	@PostMapping(path = "/date/{startDate}/{endDate}")
 	public @ResponseBody List<Item> getBetweenDates(@PathVariable String startDate,@PathVariable String endDate,@RequestBody User user) throws GeneralSecurityException, IOException {
 
         if(authenticateUser(user)){ // TODO make this an aspect
