@@ -75,12 +75,14 @@ public class MainController {
 	//----------------------------------------------------------------------	
 	@PostMapping(path = "/date/{startDate}/{endDate}")
 	public @ResponseBody List<Item> getBetweenDates(@PathVariable String startDate,@PathVariable String endDate,@RequestBody User user) throws GeneralSecurityException, IOException {
-
+		/*
         if(authenticateUser(user)){ // TODO make this an aspect
 
         }else{
             user.setUserEmail("hhank1508@gmail.com");
         }
+
+        */
 
 		return itemRepository.getBetweenDates(startDate,endDate,user.userEmail);		
 	}
