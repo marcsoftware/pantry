@@ -24,7 +24,7 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     @Query("select u from Item u where u.date= ?1 ")
     List<Item> testingThisDebug(String date); 
 
-    @Query("select u from Item u where u.date= ?1 ")
+    @Query("select u from Item u where u.date between ?1 and ?2")
     List<Item> getBetweenDates(String startDate,String endDate,String userEmail); 
     
     @Query("select DISTINCT u.name from Item u where u.userEmail= ?1 ")
