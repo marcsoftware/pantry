@@ -749,8 +749,9 @@ function getWeekCalories(){
 //    TODO : call the last 30 day endpoint !!!!
 //---------------------------------------------------------------------
 async function getLast30DayCalories(token='') {
+  alert(1);
     var end_date = getDateFormat(-30);
-    var url = `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`;
+    var url = database_url+`/date/12-01-2020/12-02-2020`;
     var data = {};
     console.log('----'+token);
   // Default options are marked with *
@@ -770,7 +771,7 @@ async function getLast30DayCalories(token='') {
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     //body: JSON.stringify(data) // body data type must match "Content-Type" header
   });
-
+}
 
 //---------------------------------------------------------------------
 //   TODO stores total from date in an array-element
