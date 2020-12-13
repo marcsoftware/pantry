@@ -1,0 +1,9 @@
+insert into Item (id,name, consumed_calories, consumed_label, consumed_unit, ratio_calories, ratio_label, ratio_unit, date, time, userEmail) values (1000,"coke","100","can","1","100","can","1","12-12-2020","06:53:43","hhank1508@gmail.com");
+
+
+    
+
+
+
+
+
