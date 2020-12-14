@@ -720,7 +720,7 @@ function getWeekCalories(){
             calorie_array.push(sum);
             var clone =calorie_array.slice();
 
-            avg_array.push(sum);
+            avg_array.push(sum); // <- thi is the problem.
             drawGraph();
             combineData();
             
