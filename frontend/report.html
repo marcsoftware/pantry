@@ -323,7 +323,7 @@ function wait(){
     
     getWeekCalories();
     
-    combineData();
+    
   
 }
 
@@ -721,6 +721,8 @@ function getWeekCalories(){
             var clone =calorie_array.slice();
 
             avg_array.push(sum);
+            drawGraph();
+            combineData();
             
 
           });
