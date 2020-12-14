@@ -720,7 +720,7 @@ function getWeekCalories(){
             calorie_array.push(sum);
             var clone =calorie_array.slice();
 
-            avg_array.push(sum); // <- thi is the problem.
+            avg_array.push(sum); // <- this is the problem.
             drawGraph();
             combineData();
             
@@ -729,7 +729,7 @@ function getWeekCalories(){
 
     var days;
     // get last 7 days not including today
-    days = avg_array.slice(1,6);
+    days = avg_array.slice(1,6); //TODO i dont think this does any thing
     days = avg_array.slice(1,30);
     days = avg_array.slice(0,6);
 }
