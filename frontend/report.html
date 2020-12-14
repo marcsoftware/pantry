@@ -733,7 +733,7 @@ async function getLast30DayCalories(token='') {
     readProfile();
     var end_date = getDateFormat(-30);
     var url = database_url+`/date/${start_date}/${end_date}`;
-    var data = {};
+    var data = {}; 
     console.log('----'+token);
   // Default options are marked with *
   const response = await fetch(url, {
