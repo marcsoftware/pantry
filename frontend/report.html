@@ -715,8 +715,8 @@ function getWeekCalories(){
             total_cal_today=0.0;
 
             var result=data;
-            var obj = JSON.parse(result); 
-            var sum = getSum(obj);
+            //var obj = JSON.parse(result);  //ERROR
+            var sum = getSum(result);
             calorie_array.push(sum);
             var clone =calorie_array.slice();
 
