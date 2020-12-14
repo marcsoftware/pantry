@@ -729,7 +729,7 @@ function getWeekCalories(){
 async function getLast30DayCalories(token='') {
     var end_date = getDateFormat2(-30);
     var start_date = getDateFormat2(0);
-    
+    console.log('end_date'+end_date);
     readProfile();
     var end_date = getDateFormat(-30);
     var url = database_url+`/date/${start_date}/${end_date}`;
