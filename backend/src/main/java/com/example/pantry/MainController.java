@@ -84,7 +84,7 @@ public class MainController {
 
         */
 
-		return itemRepository.getBetweenDates(startDate,endDate,user.userEmail);		
+		return itemRepository.getBetweenDates(endDate,user.userEmail);		
 	}
 
 
