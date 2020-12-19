@@ -726,11 +726,13 @@ function getWeekCalories(){
             
             //TODO loop through all dates. right now it is just averaging everything
             //parseFloat(obj[i].consumed_calories);
-            
-            var cal = (data[0].consumed_calories);
-            var date= (data[0].date);
-            avg_array[date]= parseFloat(avg_array[date] || 0)+parseFloat(cal);
-            
+            var cal,date;
+            for(var i=0;i<data.length;i++){
+               cal = (data[i].consumed_calories);
+               date= (data[i].date);
+               
+              avg_array[date]= parseFloat(avg_array[date] || 0)+parseFloat(cal);
+            } 
             
 
             
@@ -743,7 +745,7 @@ function getWeekCalories(){
 
           });
 
-    var days;
+    
  
  
 }
