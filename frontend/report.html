@@ -715,12 +715,15 @@ function getWeekCalories(){
             total_cal_today=0.0;
 
             var result=data;
-            //var obj = JSON.parse(result);  //ERROR
+            
+            //TODO loop through all dates. right now it is just averaging everything
+            //parseFloat(obj[i].consumed_calories);
+            alert(data[0].consumed_calories);
             var sum = getSum(result);
             calorie_array.push(sum);
             var clone =calorie_array.slice();
 
-            avg_array.push(sum); // <- this is the problem.
+            avg_array.push(sum); 
             drawGraph();
             combineData();
             
