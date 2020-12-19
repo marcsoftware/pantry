@@ -672,6 +672,13 @@ function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
     
+    for (var key in avg_array) {
+      if (avg_array.hasOwnProperty(key)) {
+          console.log(key, avg_array[key]);
+      }
+    }
+  
+
     for(var i =0;i<avg_array.length;i++){
       var date = getDateFormat2(0-i);
       var date_format = getDateFormat(0-i);
@@ -718,15 +725,16 @@ function getWeekCalories(){
             
             //TODO loop through all dates. right now it is just averaging everything
             //parseFloat(obj[i].consumed_calories);
-            var calendar=[];
+            
             var cal = (data[0].consumed_calories);
             var date= (data[0].date);
-            calendar[date]= parseFloat(calendar[date] || 0)+parseFloat(cal);
+            avg_array[date]= parseFloat(avg_array[date] || 0)+parseFloat(cal);
             
             
+
             
-            
-            avg_array=calendar.slice();  
+          
+            //avg_array=calendar.slice();  
 
             drawGraph();
             combineData();
