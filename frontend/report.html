@@ -407,7 +407,7 @@ function combineData(){
   let properties = Object.keys(foodlog_master).reverse();
   
     
-    for(var j =0;j<properties.length;j++){
+    for(var j =0;j<properties.length;j++){ //TODO today
      i=properties[j];
       var row='<tr>';
       //table_rows+=foodlog_master[i]['calories'];
@@ -645,7 +645,7 @@ function combineData(){
           
       }
 
-      output(container.reverse().join(''));
+      
       var totalHours = Math.floor(totalMinutes/60);
       var remainder = totalMinutes%60;
 
