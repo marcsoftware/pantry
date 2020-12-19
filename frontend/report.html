@@ -940,23 +940,6 @@ function getAllFood() {
 }
 
 
-// TODO move this variables ?
-var day_totals=[];
-window.global_totals=[];
-
-
-//---------------------------------------------------------------------
-// helper function for getting total calories on date
-//---------------------------------------------------------------------
-
-function getSum(obj){
-    var sum=0.0;
-    for(var i =0;i<obj.length;i++){
-       sum+=parseFloat(obj[i].consumed_calories);
-    }
-
-    return sum.toFixed(2);
-}
 
 
 
