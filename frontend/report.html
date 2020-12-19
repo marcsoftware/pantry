@@ -718,12 +718,16 @@ function getWeekCalories(){
             
             //TODO loop through all dates. right now it is just averaging everything
             //parseFloat(obj[i].consumed_calories);
-            alert(data[0].consumed_calories);
-            var sum = getSum(result);
-            calorie_array.push(sum);
-            var clone =calorie_array.slice();
+            var calendar=[];
+            var cal = (data[0].consumed_calories);
+            var date= (data[0].date);
+            calendar[date]= parseFloat(calendar[date] || 0)+parseFloat(cal);
+            
+            
+            
+            calorie_array=calendar.slice(); // todo : sideeffect of this variable ?
+            avg_array=calendar.slice(); 
 
-            avg_array.push(sum); 
             drawGraph();
             combineData();
             
