@@ -672,13 +672,14 @@ function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
     
+    var calendar=[];
     for (var key in avg_array) {
       if (avg_array.hasOwnProperty(key)) {
-          console.log(key, avg_array[key]);
+          calendar.push(avg_array[key]);
       }
     }
   
-
+    avg_array=calendar.slice();
     for(var i =0;i<avg_array.length;i++){
       var date = getDateFormat2(0-i);
       var date_format = getDateFormat(0-i);
@@ -753,7 +754,7 @@ function getWeekCalories(){
 async function getLast30DayCalories(token='') {
     var end_date = getDateFormat2(-30);
     var start_date = getDateFormat2(0);
-    console.log('end_date'+end_date);
+    
     readProfile();
     
     var url = database_url+`/date/${start_date}/${end_date}`;
