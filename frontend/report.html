@@ -662,25 +662,15 @@ function drawGraph(){
     var handle = document.getElementById('graph');
     var total=0;
     
-    var calendar=[];
+    
     for (var key in avg_array) {
-      if (avg_array.hasOwnProperty(key)) {
-          calendar.push(avg_array[key]);
-      }
+          var width=avg_array[key]/8;
+          var number =avg_array[key];
+          total+=parseInt(number);
+          foodlog_master[key]= { "calories":number } ;
     }
   
-    avg_array=calendar.slice();
-    for(var i =0;i<avg_array.length;i++){
-      var date = getDateFormat2(0-i);
-      var date_format = getDateFormat(0-i);
-      var width=avg_array[i]/8;
-      var number =avg_array[i];
-      total+=parseInt(number);
-     // handle.innerHTML+=date_format+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
-      foodlog_master[date_format]= { "calories":number } ;
-      
-
-    }
+ 
 
     var metabolism=2000; // calorie burn perday;
     var total_metabolism = metabolism*avg_array.length;
