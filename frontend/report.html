@@ -408,12 +408,14 @@ function combineData(){
   
     
     for(var j =0;j<properties.length;j++){ //TODO today
-     i=properties[j];
+     i=properties[j]; //i holds the date. TODO rename variable.
+     var fiti = cast(i);
+
       var row='<tr>';
       //table_rows+=foodlog_master[i]['calories'];
-      if(fitbit_master[i] === undefined){
+      if(fitbit_master[fiti] === undefined){
 
-        fitbit_master[i] ={"minutes":0 , "calories":0} ;
+        fitbit_master[fiti] ={"minutes":0 , "calories":0} ;
       }
 
       if(DATE_FILTER !== '' &&  i< DATE_FILTER){
@@ -421,8 +423,8 @@ function combineData(){
       }
       var shrink=VIEW_WIDTH;
       var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]['calories']);
-      var fitbit_burn=parseInt(fitbit_master[i]['calories']);
-      var fibit_minutes=(fitbit_master[i]['minutes']);
+      var fitbit_burn=parseInt(fitbit_master[fiti]['calories']);
+      var fibit_minutes=(fitbit_master[fiti]['minutes']);
       var fitbit_average=(fitbit_burn/fibit_minutes).toFixed(1);
       var total_burn=parseInt(food_burn+0+fitbit_burn);
       calorie_total+=parseInt(total_burn);
@@ -460,6 +462,7 @@ function combineData(){
     reverseElements();
     document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${(calorie_total/ONE_POUND_FAT).toFixed(2)}pounds`;
     hand.innerHTML='<table>'+table_rows.reverse().join('')+'</table>' ;
+
 
 }
   
@@ -563,12 +566,8 @@ function combineData(){
         try{
           var date = json['activities-heart'][id]['dateTime'];
           //var customZone = json['activities-heart'][id]['value']['customHeartRateZones'][1];
-          
-
-          
+                    
           var customZone=json['activities-heart'][id]['value']['customHeartRateZones'][1];
-
-          
           var aboveCustomZone=json['activities-heart'][id]['value']['customHeartRateZones'][2];
           if(customZone){ // the user might not have setup a customZone
            
@@ -731,7 +730,8 @@ function getWeekCalories(){
 }
 
 //---------------------------------------------------------------------
-//    TODO : call the last 30 day endpoint !!!!
+//    TODO : only get first of the month and later.
+//   
 //---------------------------------------------------------------------
 async function getLast30DayCalories(token='') {
     var end_date = getDateFormat2(-30);
@@ -817,9 +817,32 @@ function getDateFormat(offset){
     return target_date;
 }
 
+//---------------------------------------------------------------------
+//  move the year to the back fo the string 2020-10-11 becomes 10-11-2020
+//---------------------------------------------------------------------
+
+function cast(date){
+    var year = date.match(/[0-9][0-9][0-9][0-9]/g);
+    var smalls = date.match(/[0-9][0-9]/g);
+    var target_date = `${smalls[0]}-${smalls[1]}-${year}`;
+    
+    return target_date;
+}
+
 
 //---------------------------------------------------------------------
-//  TODO : get rid of this . fitbit and java have different date formats.
+//  creates dictionary where data is the key and value is zero.
+// ex : "07-21-30": 0 etc...
+//---------------------------------------------------------------------
+function blankCalendar(){
+    var calendar = [];
+
+    for(var i =0;i<=30;i++){ // TODO only get beginning of month not last 30 days.
+
+    }
+}
+//---------------------------------------------------------------------
+//  TODO : get rid of this . fitbit has year first and java has year last.
 //---------------------------------------------------------------------
 
 function getDateFormat2(offset){
