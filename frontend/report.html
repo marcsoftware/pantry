@@ -301,7 +301,7 @@ function test(){
     
     getFitbitHeart(authcode)
           .then(data => {
-            console.log('---------'+JSON.stringify(data)); // JSON data parsed by `data.json()` call
+            
             
             document.getElementById("json").value = JSON.stringify(data);
             wait();
@@ -400,101 +400,29 @@ var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
 var DATE_FILTER;
 var TODAY_DIET=0;
-function combineData(){
+function combineFoodlogAndFitbit(){
   var table_rows=[];
   var calorie_total=0;
   var hand= document.getElementById('master');
   let properties = Object.keys(foodlog_master).reverse();
   
-    
+    //for (var key in avg_array) {
     for(var j =0;j<properties.length;j++){ //TODO today
-     i=properties[j]; //i holds the date. TODO rename variable.
-     var fiti = cast(i);
+      i=properties[j]; //i holds the date. TODO rename variable.
+      var fiti = cast(i);
 
-      var row='<tr>';
-      //table_rows+=foodlog_master[i]['calories'];
-      if(fitbit_master[fiti] === undefined){
-
-        fitbit_master[fiti] ={"minutes":0 , "calories":0} ;
-      }
-
-      if(DATE_FILTER !== '' &&  i< DATE_FILTER){
-        continue;
-      }
       var shrink=VIEW_WIDTH;
-      var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]['calories']);
+      var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]);
       var fitbit_burn=parseInt(fitbit_master[fiti]['calories']);
-      var fibit_minutes=(fitbit_master[fiti]['minutes']);
-      var fitbit_average=(fitbit_burn/fibit_minutes).toFixed(1);
       var total_burn=parseInt(food_burn+0+fitbit_burn);
       calorie_total+=parseInt(total_burn);
-      var x_css='';
-      var y_css='';
-      var z_css='';
-
-      if(food_burn < 0){
-          x_css=' right ';
-      }
-
-      if(fitbit_burn < 0){
-          y_css=' right ';
-      }
-      if(total_burn < 0){
-          z_css=' right ';
-      }
-      var x= food_burn;
-      var y=fitbit_burn;
-      var z= total_burn;
-      row+=`<th class='date'>${i} </th>
-                   <th> <div class="block ${x_css}" style="width:${Math.abs((x)/shrink*100)}%" >  ${x}</div>  </th>
-                   <th> <div class="block ${y_css}" style="width:${Math.abs((y)/shrink*100)}%" >   ${y} ○  ${fibit_minutes} ○ ${fitbit_average} </div> </th>
-                    <th> <div class="block ${z_css}" style="width:${Math.abs((z)/shrink*100)}%" >   ${z} </div> </th>`;
-                   
-     row+='</tr>';
-     TODAY_DIET=food_burn;
-     table_rows.push(row);
-     drawRunningTally(i,fitbit_burn,food_burn);
-      
-
+    
     }
    
-    
-    reverseElements();
-    document.getElementById('master_total').innerHTML=`${calorie_total}cals = ${(calorie_total/ONE_POUND_FAT).toFixed(2)}pounds`;
-    hand.innerHTML='<table>'+table_rows.reverse().join('')+'</table>' ;
 
 
 }
   
-
-    //---------------------------------------------------------------------
-    // drawy running tally in reverse order after rendering 
-    //---------------------------------------------------------------------
-    function reverseElements(){
-          var list = document.getElementById('runningTally').innerHTML;
-          list = list.split('<br>');
-          list = list.reverse();
-          document.getElementById('runningTally').innerHTML=list.join('<br>');
-    }
-
-    //---------------------------------------------------------------------
-    //
-    //---------------------------------------------------------------------
-    var runningTally=0;
-    var today=0;
-    var past=0;
-
-    function drawRunningTally(date,fitbit_burn,food_burn){
-      past+=today;
-      today=fitbit_burn+food_burn;
-
-      runningTally+=today;
-      var x =`${date}<div class="block " style="width:${runningTally/40}px" >   ${(runningTally/ONE_POUND_FAT).toFixed(2)} lbs ${((runningTally/(ONE_POUND_FAT*POUND_GOAL))*100).toFixed(2)}% </div><br> `
-      document.getElementById('runningTally').innerHTML+=x;
-
-      drawProgressBar(food_burn);
-    }
-
 
 
 
@@ -651,13 +579,11 @@ function combineData(){
     }
 
 
-
 //---------------------------------------------------------------------
 //  draw fitbit calories burned graph.
 //---------------------------------------------------------------------
-
 var foodlog_master= {};
-function drawGraph(){
+function makeFoodlogArray(){
     var handle = document.getElementById('graph');
     var total=0;
     
@@ -665,11 +591,10 @@ function drawGraph(){
     for (var key in avg_array) {
           var width=avg_array[key]/8;
           var number =avg_array[key];
+
           total+=parseInt(number);
-          foodlog_master[key]= { "calories":number } ;
+          foodlog_master[key]= number;
     }
-  
- 
 
     var metabolism=2000; // calorie burn perday;
     var total_metabolism = metabolism*avg_array.length;
@@ -680,8 +605,7 @@ function drawGraph(){
         isPositive=0;
     }
 
-    console.log('drawgraph() is done.');
-   // document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
+    
 
 }
 
@@ -697,7 +621,7 @@ function getWeekCalories(){
     
       getLast30DayCalories()
           .then(data => {
-            console.log('between dates: '+JSON.stringify(data)); // JSON data parsed by `data.json()` call
+            
             
             total_cal_today=0.0;
 
@@ -719,8 +643,8 @@ function getWeekCalories(){
           
             //avg_array=calendar.slice();  
 
-            drawGraph();
-            combineData();
+            makeFoodlogArray();
+            combineFoodlogAndFitbit();
             
 
           });
@@ -741,9 +665,9 @@ async function getLast30DayCalories(token='') {
     readProfile();
     
     var url = database_url+`/date/${start_date}/${end_date}`;
-    console.log('url :'+url);
+    
     var data = {}; 
-    console.log('----'+token);
+    
   // Default options are marked with *
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -774,7 +698,7 @@ async function getFitbitHeart(token='') {
     var end_date = getDateFormat(-30);
     var url = `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`;
     var data = {};
-    console.log('----'+token);
+    
   // Default options are marked with *
   const response = await fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -843,7 +767,7 @@ function blankCalendar(){
     for(var i =0;i<max;i++){ // TODO only get beginning of month not last 30 days.
       var key =getDateFormat2(i*-1);
       calendar[key]=0;
-      console.log(key);
+      
 
 
     }
@@ -999,7 +923,7 @@ function toggle(handle){
   var index=(handle.value);
   var options = ['1950-01-01',DATE_FILTER];
   DATE_FILTER=options[index];
-  combineData();
+  combineFoodlogAndFitbit();
 
   
 
