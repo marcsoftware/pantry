@@ -327,20 +327,16 @@ function wait(){
   
 }
 
-
-
-
-
-
-
 //---------------------------------------------------------------------
 //
 //---------------------------------------------------------------------
 function makeFitbitArray(){
-        (getMinutes('2020-11-20'));
+        
 
     for (var key in avg_array) {
-        console.log(getMinutes(key));
+        var k = uncast(key);
+        //console.log(k);
+        console.log(getMinutes(k));
     }
 }
 
@@ -476,7 +472,8 @@ function combineFoodlogAndFitbit(){
           var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
           var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
         }catch(e){
-            return [0,0,0];
+          console.log(e);
+            return 0;
         }
         var fieldName = 'caloriesOut';
         var totalCalories=parseInt(fatburnZone[fieldName])+
@@ -501,7 +498,7 @@ function combineFoodlogAndFitbit(){
         
         fitbit_master[date]=record;
         
-        return [date,totalMinutes,totalCalories]
+        return totalCalories;
      
     }
 
@@ -711,6 +708,18 @@ function cast(date){
     return target_date;
 }
 
+
+//---------------------------------------------------------------------
+//  move the year to the back fo the string 2020-10-11 becomes 10-11-2020
+//---------------------------------------------------------------------
+
+function uncast(date){
+    var year = date.match(/[0-9][0-9][0-9][0-9]/g);
+    var smalls = date.match(/[0-9][0-9]/g);
+    var target_date = `${year}-${smalls[0]}-${smalls[1]}`;
+    
+    return target_date;
+}
 
 //---------------------------------------------------------------------
 //  creates dictionary where data is the key and value is zero.
