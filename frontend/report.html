@@ -331,62 +331,17 @@ function wait(){
 
 
 
-//---------------------------------------------------------------------
-//
-//---------------------------------------------------------------------
-    function getScale(token){
 
-      
-      
-      var xhttp = new XMLHttpRequest();
-      
-
-      
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var object =  JSON.parse(this.responseText);
-            
-            var list=[];
-            var last_key;
-            for(var key in object['weight']){
-                var kg = object['weight'][key]['weight'];
-
-                var num=kg;
-                //num = num.slice(0, (num.indexOf("."))+2);
-
-                list.push(num);
-                last_key=key;
-
-            }
-            var first= list[0];
-            var min = Math.min(...list);
-            var last= list[last_key];
-            document.getElementById('scale').innerHTML=`${first} - ${min} -  ${last}`;
-            
-            
-          
-        }else{
-          console.log( this.responseText);
-        }
-      };
-
-      var end_date = getDateFormat(-30);
-      var today = getDateFormat(-5);
-
-
-      xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/${DATE_FILTER}/${today}.json`, true);
-      xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
-      xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
-
-      xhttp.send();
-
-    }
 
 //---------------------------------------------------------------------
 //
 //---------------------------------------------------------------------
 function makeFitbitArray(){
+        (getMinutes('2020-11-20'));
 
+    for (var key in avg_array) {
+        console.log(getMinutes(key));
+    }
 }
 
 //---------------------------------------------------------------------
@@ -404,7 +359,7 @@ function combineFoodlogAndFitbit(){
   var hand= document.getElementById('master');
   let properties = Object.keys(foodlog_master).reverse();
   
-    //for (var key in avg_array) {
+  
     for(var j =0;j<properties.length;j++){ //TODO today
       i=properties[j]; //i holds the date. TODO rename variable.
       var fiti = cast(i);
