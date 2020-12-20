@@ -413,7 +413,13 @@ function combineFoodlogAndFitbit(){
 
       var shrink=VIEW_WIDTH;
       var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]);
-      var fitbit_burn=parseInt(fitbit_master[fiti]['calories']);
+      var x ;
+       try{
+        x=fitbit_master[fiti]['calories'];
+       }catch(e){
+        x=0;
+       }
+      var fitbit_burn=parseInt(x|| 0); 
       var total_burn=parseInt(food_burn+0+fitbit_burn);
       calorie_total+=parseInt(total_burn);
     
