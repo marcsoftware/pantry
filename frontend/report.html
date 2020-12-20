@@ -706,11 +706,12 @@ function getWeekCalories(){
             //TODO loop through all dates. right now it is just averaging everything
             //parseFloat(obj[i].consumed_calories);
             var cal,date;
+            avg_array=blankCalendar();
             for(var i=0;i<data.length;i++){
                cal = (data[i].consumed_calories);
                date= (data[i].date);
                
-              avg_array[date]= parseFloat(avg_array[date] || 0)+parseFloat(cal);
+              avg_array[date]+=parseFloat(cal);
             } 
             
 
@@ -835,11 +836,19 @@ function cast(date){
 // ex : "07-21-30": 0 etc...
 //---------------------------------------------------------------------
 function blankCalendar(){
-    var calendar = [];
+    var calendar=[];
+    var date = new Date();
+    var max = date.getDate();
+    
+    for(var i =0;i<max;i++){ // TODO only get beginning of month not last 30 days.
+      var key =getDateFormat2(i*-1);
+      calendar[key]=0;
+      console.log(key);
 
-    for(var i =0;i<=30;i++){ // TODO only get beginning of month not last 30 days.
 
     }
+
+    return calendar;
 }
 //---------------------------------------------------------------------
 //  TODO : get rid of this . fitbit has year first and java has year last.
