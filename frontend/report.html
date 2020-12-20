@@ -375,21 +375,19 @@ function wait(){
 
 
       xhttp.open("GET", `https://api.fitbit.com/1/user/-/body/log/weight/date/${DATE_FILTER}/${today}.json`, true);
-      
-    
-
-
-
       xhttp.setRequestHeader('Authorization', 'Bearer '+token); // THIS is base64 of id and another thing.
       xhttp.setRequestHeader('Accept-Language', 'en_US'); // this determine if KG or LBS
 
-
       xhttp.send();
-
 
     }
 
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+function makeFitbitArray(){
 
+}
 
 //---------------------------------------------------------------------
 //
@@ -414,19 +412,16 @@ function combineFoodlogAndFitbit(){
       var shrink=VIEW_WIDTH;
       var food_burn= parseInt(BASE_CALORIES- foodlog_master[i]);
       var x ;
-       try{
-        x=fitbit_master[fiti]['calories'];
-       }catch(e){
-        x=0;
-       }
+      try{
+          x=fitbit_master[fiti]['calories'];
+      }catch(e){
+          x=0;
+      }
       var fitbit_burn=parseInt(x|| 0); 
       var total_burn=parseInt(food_burn+0+fitbit_burn);
       calorie_total+=parseInt(total_burn);
     
     }
-   
-
-
 }
   
 
@@ -650,6 +645,7 @@ function getWeekCalories(){
             //avg_array=calendar.slice();  
 
             makeFoodlogArray();
+            makeFitbitArray();
             combineFoodlogAndFitbit();
             
 
