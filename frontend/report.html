@@ -332,12 +332,59 @@ function wait(){
 //---------------------------------------------------------------------
 function makeFitbitArray(){
         
+        var json=document.getElementById('json').value;
+        json= JSON.parse(json);
 
-    for (var key in avg_array) {
-        var k = uncast(key);
-        //console.log(k);
-        console.log(getMinutes(k));
-    }
+        id=0;
+            try{
+              var date = json['activities-heart'][id]['dateTime'];
+                        
+              var customZone=json['activities-heart'][id]['value']['customHeartRateZones'][1];
+              var aboveCustomZone=json['activities-heart'][id]['value']['customHeartRateZones'][2];
+              if(customZone){ // the user might not have setup a customZone
+               
+
+                minutesCustom= parseInt(customZone['minutes']);
+                minutesAbove= parseInt(aboveCustomZone['minutes']);
+                
+                customZoneCal=parseInt(customZone['caloriesOut']);//TODO don't overwrite customZone json info
+
+                aboveCustomZoneCal=parseInt(aboveCustomZone['caloriesOut']);
+
+                // subtracting minutes - assuming user burns 1 calorie per minute while sitting down
+                customZoneCal=customZoneCal-(minutesCustom*BASE_CALORIE_PER_MINUTE);  
+                aboveCustomZoneCal=aboveCustomZoneCal-(minutesAbove*BASE_CALORIE_PER_MINUTE);
+
+
+              }else{
+                customZoneCal=0;
+                aboveCustomZoneCal=0;
+              }
+              var fatburnZone = json['activities-heart'][id]['value']['heartRateZones'][1];
+              var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
+              var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
+            }catch(e){
+              console.log(e);
+                return 0;
+            }
+            var fieldName = 'caloriesOut';
+            var totalCalories=parseInt(fatburnZone[fieldName])+
+                              parseInt(cardioZone[fieldName])+
+                              parseInt(peakZone[fieldName]);                        
+            
+            
+            if(customZoneCal+aboveCustomZoneCal){
+                totalCalories=customZoneCal+aboveCustomZoneCal;
+                totalMinutes=minutesCustom+minutesAbove;
+            }                    
+            totalCalories=totalCalories|| 0;
+            var record = totalCalories  ;
+            
+            fitbit_master[date]=record;
+            
+            
+     
+     
 }
 
 //---------------------------------------------------------------------
@@ -435,7 +482,7 @@ function combineFoodlogAndFitbit(){
     }
 
     //---------------------------------------------------------------------
-    //
+    // id is a integer. 0 is the oldest.
     //---------------------------------------------------------------------
     var fitbit_master = {};
     var BASE_CALORIE_PER_MINUTE=1; // amount of calories user burns while sitting down
@@ -445,6 +492,8 @@ function combineFoodlogAndFitbit(){
 
         try{
           var date = json['activities-heart'][id]['dateTime'];
+          
+          
           //var customZone = json['activities-heart'][id]['value']['customHeartRateZones'][1];
                     
           var customZone=json['activities-heart'][id]['value']['customHeartRateZones'][1];
@@ -494,9 +543,10 @@ function combineFoodlogAndFitbit(){
           totalMinutes=totalMinutes|| 0;
         }
 
-        var record =  {"minutes":totalMinutes , "calories":totalCalories}  ;
+        var record = totalCalories  ;
         
         fitbit_master[date]=record;
+        
         
         return totalCalories;
      
