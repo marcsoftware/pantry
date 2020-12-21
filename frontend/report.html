@@ -336,7 +336,7 @@ function makeFitbitArray(){
         json= JSON.parse(json);
 
         for(let i=0; i<30; i++){
-            id =0;
+            id =i;
             try{
               var date = json['activities-heart'][id]['dateTime'];
                         
@@ -380,7 +380,7 @@ function makeFitbitArray(){
             }                    
             totalCalories=totalCalories|| 0;
             var record = totalCalories  ;
-            console.log(cast(date));
+            
             fitbit_master[cast(date)]=record;
             
         }    
