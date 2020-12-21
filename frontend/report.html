@@ -335,7 +335,8 @@ function makeFitbitArray(){
         var json=document.getElementById('json').value;
         json= JSON.parse(json);
 
-        id=0;
+        for(let i=0; i<30; i++){
+            id =0;
             try{
               var date = json['activities-heart'][id]['dateTime'];
                         
@@ -379,12 +380,12 @@ function makeFitbitArray(){
             }                    
             totalCalories=totalCalories|| 0;
             var record = totalCalories  ;
+            console.log(cast(date));
+            fitbit_master[cast(date)]=record;
             
-            fitbit_master[date]=record;
-            
-            
+        }    
      
-     
+      
 }
 
 //---------------------------------------------------------------------
@@ -751,8 +752,10 @@ function getDateFormat(offset){
 //---------------------------------------------------------------------
 
 function cast(date){
-    var year = date.match(/[0-9][0-9][0-9][0-9]/g);
+     var year = date.match(/[0-9][0-9][0-9][0-9]/g);
+    date = date.replace(year,"");
     var smalls = date.match(/[0-9][0-9]/g);
+    
     var target_date = `${smalls[0]}-${smalls[1]}-${year}`;
     
     return target_date;
@@ -765,7 +768,9 @@ function cast(date){
 
 function uncast(date){
     var year = date.match(/[0-9][0-9][0-9][0-9]/g);
+    date = date.replace(year,"");
     var smalls = date.match(/[0-9][0-9]/g);
+    
     var target_date = `${year}-${smalls[0]}-${smalls[1]}`;
     
     return target_date;
