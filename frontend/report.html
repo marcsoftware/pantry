@@ -335,7 +335,11 @@ function makeFitbitArray(){
         var json=document.getElementById('json').value;
         json= JSON.parse(json);
 
-        for(let i=0; i<30; i++){
+           var date = new Date();
+     var max = date.getDate();
+     
+
+        for(let i=0; i<max; i++){
             id =i;
             try{
               var date = json['activities-heart'][id]['dateTime'];
@@ -365,7 +369,7 @@ function makeFitbitArray(){
               var cardioZone = json['activities-heart'][id]['value']['heartRateZones'][2];
               var peakZone = json['activities-heart'][id]['value']['heartRateZones'][3];
             }catch(e){
-              console.log(e);
+              console.log(id+'line 368 '+e);
                 return 0;
             }
             var fieldName = 'caloriesOut';
@@ -413,7 +417,7 @@ function combineFoodlogAndFitbit(){
         }
 
         var total= fitbit_master[key]+foodlog_master[key]
-        var row = `<tr> <td class='date'>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td>  <td>${total}</td> <tr/>`;
+        var row = `<tr> <td class='date'>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td> <td>${total}</td> <tr/>`;
         rows+=row
      }
      document.getElementById('master').innerHTML=`<table>${rows} </table>`;
@@ -485,6 +489,7 @@ function combineFoodlogAndFitbit(){
     var fitbit_master = {};
     var BASE_CALORIE_PER_MINUTE=1; // amount of calories user burns while sitting down
     function getMinutes(id){
+
         var json=document.getElementById('json').value;
         json= JSON.parse(json);
 
@@ -661,7 +666,12 @@ function getWeekCalories(){
 //   
 //---------------------------------------------------------------------
 async function getLast30DayCalories(token='') {
-    var end_date = getDateFormat2(-30);
+
+     var date = new Date();
+     var max = date.getDate();
+     
+
+    var end_date = getDateFormat2(max*-1);
     var start_date = getDateFormat2(0);
     
     readProfile();
@@ -697,7 +707,12 @@ async function getLast30DayCalories(token='') {
 //  TOKEN is base64 of id and another thing.
 //------------------------------------------------
 async function getFitbitHeart(token='') {
-    var end_date = getDateFormat(-30);
+    
+
+     var date = new Date();
+     var max = date.getDate();
+     var end_date = getDateFormat(max*-1);
+
     var url = `https://api.fitbit.com/1/user/-/activities/heart/date/today/${end_date}/1min.json`;
     var data = {};
     
