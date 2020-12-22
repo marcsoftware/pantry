@@ -381,7 +381,7 @@ function makeFitbitArray(){
             totalCalories=totalCalories|| 0;
             var record = totalCalories  ;
             
-            fitbit_master[cast(date)]=record;
+            fitbit_master[yearLastFormatDate(date)]=record;
             
         }    
      
@@ -397,7 +397,12 @@ var VIEW_WIDTH=3000;
 var BASE_CALORIES=2000; // calories burned per day by user
 var DATE_FILTER;
 var TODAY_DIET=0;
-function combineFoodlogAndFitbit(){
+function combineFoodlogAndFitbit(){ 
+     fitbit_master;
+     foodlog_master;
+
+     console.log(fitbit_master);
+     //console.log(foodlog_master);
 
 }
   
@@ -524,7 +529,7 @@ function combineFoodlogAndFitbit(){
 
         var record = totalCalories  ;
         
-        fitbit_master[date]=record;
+        //fitbit_master[date]=record;
         
         
         return totalCalories;
@@ -729,8 +734,8 @@ function getDateFormat(offset){
 //  move the year to the back fo the string 2020-10-11 becomes 10-11-2020
 //---------------------------------------------------------------------
 
-function cast(date){
-     var year = date.match(/[0-9][0-9][0-9][0-9]/g);
+function yearLastFormatDate(date){
+    var year = date.match(/[0-9][0-9][0-9][0-9]/g);
     date = date.replace(year,"");
     var smalls = date.match(/[0-9][0-9]/g);
     
@@ -741,10 +746,10 @@ function cast(date){
 
 
 //---------------------------------------------------------------------
-//  move the year to the back fo the string 2020-10-11 becomes 10-11-2020
+//  move the year to the back fo the string 2020-10-31 becomes 2020-10-31
 //---------------------------------------------------------------------
 
-function uncast(date){
+function yearFirstFormatDate(date){
     var year = date.match(/[0-9][0-9][0-9][0-9]/g);
     date = date.replace(year,"");
     var smalls = date.match(/[0-9][0-9]/g);
