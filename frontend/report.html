@@ -195,9 +195,7 @@ th{
 }
 
 .date{
-   border-style: none;
-  
-  
+  border-style: none;
   width: 1%;
 }
 
@@ -413,7 +411,7 @@ function combineFoodlogAndFitbit(){
         }
 
         var total= fitbit_master[key]+foodlog_master[key]
-        var row = `<tr> <td>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td>  <tr/>`;
+        var row = `<tr> <td>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td>  <td>${total}</td> <tr/>`;
         rows+=row
      }
      document.getElementById('master').innerHTML=`<table>${rows} </table>`;
