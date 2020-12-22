@@ -175,9 +175,9 @@
         table {
           padding: 0px;
           color:black;
-  border-collapse: collapse;
-  width: 100%;
-}
+          border-collapse: collapse;
+          width: 100%;
+        }
 
 th, td {
   padding: 0px;
@@ -379,7 +379,9 @@ function makeFitbitArray(){
                 totalMinutes=minutesCustom+minutesAbove;
             }                    
             totalCalories=totalCalories|| 0;
-            var record = totalCalories  ;
+           
+            var record = totalCalories ;
+
             
             fitbit_master[yearLastFormatDate(date)]=record;
             
@@ -401,8 +403,20 @@ function combineFoodlogAndFitbit(){
      fitbit_master;
      foodlog_master;
 
-     console.log(fitbit_master);
+     //console.log(fitbit_master);
      //console.log(foodlog_master);
+     var rows='';
+     for(var key in foodlog_master){
+
+        if(fitbit_master[key]==undefined){ //TODO stop from being undefined in first place.
+            fitbit_master[key]=0;
+        }
+
+        var total= fitbit_master[key]+foodlog_master[key]
+        var row = `<tr> <td>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td>  <tr/>`;
+        rows+=row
+     }
+     document.getElementById('master').innerHTML=`<table>${rows} </table>`;
 
 }
   
@@ -527,7 +541,7 @@ function combineFoodlogAndFitbit(){
           totalMinutes=totalMinutes|| 0;
         }
 
-        var record = totalCalories  ;
+        var record =parseFloat( totalCalories) || 0 ;
         
         //fitbit_master[date]=record;
         
@@ -878,9 +892,6 @@ function getAllFood() {
 }
 
 
-
-
-
 //---------------------------------------------------------------------
 //
 //---------------------------------------------------------------------
@@ -928,18 +939,12 @@ function toggle(handle){
   var options = ['1950-01-01',DATE_FILTER];
   DATE_FILTER=options[index];
   combineFoodlogAndFitbit();
-
-  
-
-
 }
 
 </script>
 
-
 <div id='header'></div>
  
-
 <title>REPORT</title>
 
 </head>
@@ -954,50 +959,12 @@ function toggle(handle){
   
 <h2>MASTER </h2>
 
-
-
-
 <div id='master_total'></div>
 <div id='master'></div>
-<form >
-  
-  <input type="radio" id="yes" name="filter" value="1" onchange='toggle(this)' checked>
-  <label for="male ">Yes</label>
-  <input type="radio" id="no" name="filter" value="0" onchange='toggle(this)'>
-  <label for="female">No</label>
 
+<textarea id='json' ></textarea>
 
-
-</form>
-
-
-<div id='runningTally'></div>
-
-
-
-<textarea id='json' >
-  
-
-</textarea>
-
- 
- 
-
-
-
-
-
-         
-         
-         
-         
- 
-<div id='debug'></div>  
-
-    </div>
-
-
-<div id='graph'></div>
+</div>
 
 </body>
 </html>
