@@ -495,9 +495,6 @@ function combineFoodlogAndFitbit(){
 
         try{
           var date = json['activities-heart'][id]['dateTime'];
-          
-          
-          //var customZone = json['activities-heart'][id]['value']['customHeartRateZones'][1];
                     
           var customZone=json['activities-heart'][id]['value']['customHeartRateZones'][1];
           var aboveCustomZone=json['activities-heart'][id]['value']['customHeartRateZones'][2];
@@ -561,9 +558,9 @@ function combineFoodlogAndFitbit(){
     //---------------------------------------------------------------------
     // 
     function parse(){
-      //setCookie('raw',document.getElementById('json').value);
+      
         localStorage.setItem("raw", document.getElementById('json').value);
-        //document.getElementById('total2').innerHTML='';
+        
        var totalCal=0;
        var totalMinutes=0;
        var new_json= JSON.parse(document.getElementById('json').value)['activities-heart'];
@@ -662,7 +659,7 @@ function getWeekCalories(){
 }
 
 //---------------------------------------------------------------------
-//    TODO : only get first of the month and later.
+//     gets foodlog calories from every day in the current month.
 //   
 //---------------------------------------------------------------------
 async function getLast30DayCalories(token='') {
