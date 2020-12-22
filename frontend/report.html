@@ -296,6 +296,7 @@ function getUrlArgs(){
 //---------------------------------------------------------------------
 // TODO : why get rid of this function.
 //---------------------------------------------------------------------
+var fitbit_response;
 function test(){
     var authcode= localStorage.getItem("authcode");
     
@@ -304,6 +305,7 @@ function test(){
             
             
             document.getElementById("json").value = JSON.stringify(data);
+            fitbit_response= JSON.stringify(data);
             wait();
 
           });
