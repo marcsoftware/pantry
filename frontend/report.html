@@ -181,6 +181,7 @@
 
 th, td {
   padding: 0px;
+  padding-right: 3px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 
@@ -411,7 +412,7 @@ function combineFoodlogAndFitbit(){
         }
 
         var total= fitbit_master[key]+foodlog_master[key]
-        var row = `<tr> <td>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td>  <td>${total}</td> <tr/>`;
+        var row = `<tr> <td class='date'>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td>  <td>${total}</td> <tr/>`;
         rows+=row
      }
      document.getElementById('master').innerHTML=`<table>${rows} </table>`;
