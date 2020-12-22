@@ -304,7 +304,7 @@ function test(){
           .then(data => {
             
             
-            document.getElementById("json").value = JSON.stringify(data);
+            
             fitbit_response= JSON.stringify(data);
             wait();
 
@@ -334,7 +334,8 @@ function wait(){
 //---------------------------------------------------------------------
 function makeFitbitArray(){
         
-        var json=document.getElementById('json').value;
+        var json=fitbit_response;
+
         json= JSON.parse(json);
 
            var date = new Date();
@@ -492,7 +493,7 @@ function combineFoodlogAndFitbit(){
     var BASE_CALORIE_PER_MINUTE=1; // amount of calories user burns while sitting down
     function getMinutes(id){
 
-        var json=document.getElementById('json').value;
+        var json=fitbit_response;
         json= JSON.parse(json);
 
         try{
@@ -561,11 +562,11 @@ function combineFoodlogAndFitbit(){
     // 
     function parse(){
       
-        localStorage.setItem("raw", document.getElementById('json').value);
+        
         
        var totalCal=0;
        var totalMinutes=0;
-       var new_json= JSON.parse(document.getElementById('json').value)['activities-heart'];
+       var new_json= JSON.parse(fitbit_response)['activities-heart'];
       var container=[];
       for(let i in new_json){
           
@@ -976,7 +977,7 @@ function toggle(handle){
 <div id='master_total'></div>
 <div id='master'></div>
 
-<textarea id='json' ></textarea>
+
 
 </div>
 
