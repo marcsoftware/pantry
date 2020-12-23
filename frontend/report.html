@@ -180,7 +180,7 @@
           width: 99%;
         }
 
-th, td {
+ td {
   padding: 0px;
   padding-right: 3px;
   text-align: left;
@@ -202,6 +202,7 @@ th{
 .date{
   border-style: none;
   width: 2%;
+  text-align: center;
 }
 
 tr:hover {background-color:#f5f5f5;}
@@ -309,6 +310,7 @@ function test(){
             
             
             fitbit_response= JSON.stringify(data);
+            console.log(data);
             wait();
 
           });
@@ -429,7 +431,8 @@ function combineFoodlogAndFitbit(){
         var row = `<tr> <td class='date'>${key}</td>  <td>${foodlog_master[key]}</td> <td>${fitbit_master[key]}</td> <td>${total}</td> <tr/>`;
         rows+=row
      }
-     document.getElementById('master').innerHTML=`<table>${rows} </table>`;
+     var header=`<th>date</th><th>calories consumed minus 2000</th><th>fitbit fatburn zone calories</th><th>total cal burn</th>`;
+     document.getElementById('master').innerHTML=`<table>${header} ${rows} </table>`;
 
 }
   
@@ -604,6 +607,7 @@ function combineFoodlogAndFitbit(){
 //  draw fitbit calories burned graph.
 //---------------------------------------------------------------------
 var foodlog_master= {};
+var METABOLISM=2000;
 function makeFoodlogArray(){
     var handle = document.getElementById('graph');
     var total=0;
@@ -614,11 +618,11 @@ function makeFoodlogArray(){
           var number =avg_array[key];
 
           total+=parseInt(number);
-          foodlog_master[key]= number *-1;
+          foodlog_master[key]= (number - METABOLISM)*-1;
     }
 
-    var metabolism=2000; // calorie burn perday;
-    var total_metabolism = metabolism*avg_array.length;
+    ; // calorie burn perday;
+    var total_metabolism = METABOLISM*avg_array.length;
     var burned = total_metabolism-total;
     var text = ['gained','burned'];
     var isPositive=1;
