@@ -618,7 +618,12 @@ function makeFoodlogArray(){
           var number =avg_array[key];
 
           total+=parseInt(number);
-          foodlog_master[key]= (number - METABOLISM)*-1;
+          var cals = (number - METABOLISM)*-1;
+          if (cals===METABOLISM){ // if equal then user probably forgot to add food , so dont count that day.
+              cals =0;
+
+          }
+          foodlog_master[key]= cals;
     }
 
     ; // calorie burn perday;
