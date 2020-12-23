@@ -135,26 +135,7 @@ function init(){
 var ONE_POUND_FAT=3500; // 1 pound of fat is 3500 calories
 
 function drawGraph(){
-    var handle = document.getElementById('graph');
-    var total=0;
-    for(var i =0;i<avg_array.length;i++){
-      var date = getDateFormat(0-i);
-      var width=avg_array[i]/8;
-      var number =avg_array[i];
-      total+=parseInt(number);
-      handle.innerHTML+=date+' '+`<div class="block" style="width:${width}px">${number}</div><br/>`;
 
-    }
-
-    var metabolism=2000; // calorie burn perday;
-    var total_metabolism = metabolism*avg_array.length;
-    var burned = total_metabolism-total;
-    var text = ['gained','burned'];
-    var isPositive=1;
-    if(burned <=0){
-        isPositive=0;
-    }
-    document.getElementById('total').innerHTML=`   ${burned} calories ${text[isPositive]} ${(burned/ONE_POUND_FAT)} pounds ${text[isPositive]}?  `;
 
 }
 
@@ -169,18 +150,7 @@ function drawGraph(){
 function getWeekCalories(){
 
     getCalorieArray();
-    var days;
-    // get last 7 days not including today
-    days = avg_array.slice(1,6);
 
-    document.getElementById('average7').innerHTML=getAverage(days);
-       
-    days = avg_array.slice(1,30);
-    document.getElementById('average30').innerHTML=getAverage(days);   
-  
-    days = avg_array.slice(0,6);
-    
-    document.getElementById('average7today').innerHTML=getAverage(days); 
     
 }
 
@@ -191,14 +161,14 @@ function getWeekCalories(){
 */
 function getCalorieArray(){
   
-    for(var i =0;i<=30;i++){
+    
         
     
-        var target_date = getDateFormat(0-i);
+        var target_date = getDateFormat(0);
         getTotalSmart(target_date);
        
 
-    }
+    
 }
 
 
@@ -797,20 +767,9 @@ function convert(){
 <div id='header'></div>
 <h2>food log</h2>
 
-
-
-
-
-
-
     <div id="form">
          <label for="fname">name:</label><br>
           <input type="text" id="name" list="listAll" name="fname" onblur="getStats()" value=""><br>
-
-
-
-
-
 
   <datalist id="listAll">
     <option value="NOT LOADED">
@@ -829,11 +788,7 @@ function convert(){
           <input type="text" id="ratio_cal" name="lname" value=""><br>
            <button type="button" onclick='save()'>save</button> 
            <p id='stats'></p>
-           <div id='average30'>average30</div>  
-           <div id='average7'>history</div>
-           <div id='average7today'>average</div> 
-           <div >---</div>
-           <div id='total'>total</div>
+     
  
 <div id='debug'></div>  
 
