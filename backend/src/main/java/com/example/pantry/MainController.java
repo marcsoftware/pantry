@@ -135,7 +135,7 @@ public class MainController {
 	@PostMapping(path = "/stats/{name}")
 	public @ResponseBody List<Item> getStats(@RequestBody User user,@PathVariable String name) {	
 		
-		return itemRepository.getStatsCustomQuery(name,user.name); //----------------------
+		return itemRepository.getStatsCustomQuery(name,user.userEmail); //----------------------
         
 		
 	}

@@ -474,6 +474,7 @@ function getAllFoodOnDate(){
 var stats;
 function getStats(){
   readProfile();
+
     name=document.getElementById('name').value;
     if(name===''){
       return;
@@ -486,7 +487,7 @@ function getStats(){
         stats = result.replace(/[\[\]\"]+/g,'');
         document.getElementById('stats').innerHTML=stats;
         stats = stats.split(',');
-
+        alert('490'+stats);
 
         }
       };
