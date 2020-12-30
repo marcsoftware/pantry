@@ -7,7 +7,11 @@
     color:#6b7185;
     margin: 3px;
     margin-left:0px;
-    padding: 10px;
+    padding-right: 5px;
+    padding-top: 20px;
+    padding-bottom:10px;
+    
+    vertical-align: middle;
 }
 
 #header a:hover{
@@ -16,12 +20,14 @@
 }
 
 #header{
-      border-bottom: 1px solid grey;
+    border-bottom: 1px solid grey;
     vertical-align: middle;
     margin:0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    height: 40px;
+    
     padding-left:0px;
+    padding-right:5px;
+    padding-top:2px;
 }
 
 body{
