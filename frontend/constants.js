@@ -9,10 +9,10 @@ function drawHeader(){
     var handle=document.getElementById('header');
 
     if(handle){
-        handle.innerHTML=`<meta charset="utf-8"/><a href="/index.html">food log</a>
-                          <a href="/report.html">report</a>  
-                           <a href="/scale.html">scale</a>                         
-                         | <a  href="" id="hyperlink">connect</a><a href="/glogin.html">login</a>  <span id="cookie"></span>
+        handle.innerHTML=`<meta charset="utf-8"/><a href="/index.html" class='left'>food log</a>
+                          <a href="/report.html" class='left'>report</a>  
+                           <a href="/scale.html" class='left'>scale</a>                         
+                          <a  href="" id="hyperlink" class='right'>connect</a><a href="/glogin.html" class='right'>login</a>  <span id="cookie"></span>
                            <div id="gSignInWrapper">
     <div id="customBtn" class="customGPlusSignIn">
       <span class="icon"></span>
