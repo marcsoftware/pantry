@@ -167,7 +167,7 @@ function getCookie(x) {
     console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
-          document.getElementById('name').innerText = "Signed in: " +
+          var stuff = "Signed in: " +
               googleUser.getBasicProfile().getName()+  
               
               'token:'+googleUser.getAuthResponse().id_token;

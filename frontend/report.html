@@ -2,6 +2,7 @@
 
 <html>
   <link rel="stylesheet" href="master.css">
+  <script src="https://apis.google.com/js/api:client.js"></script>
 <script src="constants.js"></script>
 <meta charset="UTF-8">
 
@@ -227,6 +228,7 @@ window.onload=init;
 function init(){
 
     drawHeader();
+    startApp();
     readProfile();
     DATE_FILTER=getUrlArgs();
     test();
