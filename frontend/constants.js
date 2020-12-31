@@ -129,3 +129,85 @@ function getCookie(x) {
   }
   return "";
 }
+
+
+///////////////////////////// google sign-in stuff
+/**
+//---------------------------------------------------------------------
+// global variables
+//---------------------------------------------------------------------
+*/
+  
+  var googleUser = {};
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '576524152999-o3rgla4utep5t9dde2hutd1cc6d08989.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+  function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+          document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName()+  
+              
+              'token:'+googleUser.getAuthResponse().id_token;
+              
+              document.cookie = "userName="+googleUser.getBasicProfile().getName(); 
+              document.cookie = "userEmail="+googleUser.getBasicProfile().getEmail(); 
+              document.cookie = "idToken="+googleUser.getAuthResponse().id_token; 
+
+            var profile = `{
+
+                      "name":"${googleUser.getBasicProfile().getName()}" , 
+                      "userEmail":"${googleUser.getBasicProfile().getEmail()}"  ,
+                      "idTokenString":"${googleUser.getAuthResponse().id_token}"  
+            }`;
+
+
+            document.getElementById('cookie').innerHTML = googleUser.getBasicProfile().getName();
+
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+
+  function fakeLogin(){
+    logout();
+    document.cookie = 
+    "userEmail=localhost;userName='localhost';idToken='12345';SameSite=None; Secure; expires=Thu, 18 Dec 3013 12:00:00 UTC"; 
+     document.getElementById('profile').innerHTML='logged in as localhost';  
+          
+  }
+
+  function logout(){
+    document.cookie = 
+    "userEmail=localhost;userName='localhost';idToken='12345';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC"; 
+    
+    
+  }
