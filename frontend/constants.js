@@ -98,8 +98,24 @@ function readProfile(){
  
                         }`;
     document.getElementById('cookie').innerHTML=global_name;
+
+   hideLogButtons();
 }
 
+/**
+//---------------------------------------------------------------------
+// hide either the logout or login button 
+//---------------------------------------------------------------------
+*/
+function hideLogButtons(){
+     //#gSignInWrapper #logout
+    if(!global_name){
+        document.getElementById('logout').innerHTML='';
+
+    }else{
+        document.getElementById('gSignInWrapper').innerHTML='';
+    }
+}
 
 /**
 //---------------------------------------------------------------------
@@ -183,7 +199,7 @@ function getCookie(x) {
                       "idTokenString":"${googleUser.getAuthResponse().id_token}"  
             }`;
 
-
+            readProfile();
             document.getElementById('cookie').innerHTML = googleUser.getBasicProfile().getName();
 
         }, function(error) {
@@ -209,5 +225,6 @@ function getCookie(x) {
     document.cookie = 
     "userEmail='';userName='';idToken='';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC"; 
     
+    hideLogButtons();
     
   }
