@@ -12,7 +12,7 @@ function drawHeader(){
         handle.innerHTML=`<meta charset="utf-8"/><a href="/index.html" class='left'>food log</a>
                           <a href="/report.html" class='left'>report</a>  
                            <a href="/scale.html" class='left'>scale</a>                         
-                          <a  href="" id="hyperlink" class='right'>connect</a> <a  href=""  class='right'onclick='logout()' id='logout'>logout</a> <span id="cookie"></span>
+                          <a  href="" id="hyperlink" class='right'>connect</a> <a  href=""  class='right' onclick='logout()' id='logout'>logout</a> <span id="cookie"></span>
                            <div id="gSignInWrapper">
     <div id="customBtn" class="customGPlusSignIn">
       <span class="icon"></span>
@@ -188,10 +188,10 @@ function getCookie(x) {
               googleUser.getBasicProfile().getName()+  
               
               'token:'+googleUser.getAuthResponse().id_token;
-              
-              document.cookie = "userName="+googleUser.getBasicProfile().getName(); 
-              document.cookie = "userEmail="+googleUser.getBasicProfile().getEmail(); 
-              document.cookie = "idToken="+googleUser.getAuthResponse().id_token; 
+              var expires=';SameSite=None; Secure; expires=Thu, 18 Dec 2070 12:00:00 UTC';
+              document.cookie = "userName="+googleUser.getBasicProfile().getName()+expires; 
+              document.cookie = "userEmail="+googleUser.getBasicProfile().getEmail()+expires; 
+              document.cookie = "idToken="+googleUser.getAuthResponse().id_token+expires; 
 
             var profile = `{
 
@@ -223,8 +223,16 @@ function getCookie(x) {
   }
 
   function logout(){
+    // document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=[something];"
+
     document.cookie = 
-    "userEmail='';userName='';idToken='';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC"; 
+    "userEmail='x';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC;path=/"; 
+
+    document.cookie = 
+    "userName='x';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC;path=/"; 
+
+    document.cookie = 
+    "idToken='x';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC;path=/"; 
     
     hideLogButtons();
     
