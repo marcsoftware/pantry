@@ -12,7 +12,7 @@ function drawHeader(){
         handle.innerHTML=`<meta charset="utf-8"/><a href="/index.html" class='left'>food log</a>
                           <a href="/report.html" class='left'>report</a>  
                            <a href="/scale.html" class='left'>scale</a>                         
-                          <a  href="" id="hyperlink" class='right'>connect</a><a href="/glogin.html" class='right'>login</a>  <span id="cookie"></span>
+                          <a  href="" id="hyperlink" class='right'>connect</a> <a  href=""  class='right'onclick='logout()' id='logout'>logout</a> <span id="cookie"></span>
                            <div id="gSignInWrapper">
     <div id="customBtn" class="customGPlusSignIn">
       <span class="icon"></span>
@@ -207,7 +207,7 @@ function getCookie(x) {
 
   function logout(){
     document.cookie = 
-    "userEmail=localhost;userName='localhost';idToken='12345';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC"; 
+    "userEmail='';userName='';idToken='';SameSite=None; Secure; expires=Thu, 18 Dec 1013 12:00:00 UTC"; 
     
     
   }
