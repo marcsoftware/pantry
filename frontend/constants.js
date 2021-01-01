@@ -114,6 +114,7 @@ function hideLogButtons(){
 
     }else{
         document.getElementById('gSignInWrapper').innerHTML='';
+        document.getElementById('logout').innerHTML='logout';
     }
 }
 
