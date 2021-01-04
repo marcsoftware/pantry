@@ -17,6 +17,9 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
     List<Item> findByDate(String date); // not used
     List<Item> findByName(String name);
 
+    @Modifying
+    @Transactional
+    void deleteById(Integer id);
 
     @Query("select u from Item u where u.date= ?1  and u.userEmail= ?2 ")
     List<Item> testingThis(String date,String userEmail); 
