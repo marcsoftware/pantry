@@ -74,10 +74,15 @@ public class MainController {
 	//
 	//----------------------------------------------------------------------	
 	@GetMapping(path = "/delete/{id}")
-	public String deleteItemWithID(@PathVariable String date,@RequestBody User user) throws GeneralSecurityException, IOException {
+	public @ResponseBody List<Item> deleteWidthID(@PathVariable String id,@RequestBody User user) throws GeneralSecurityException, IOException {
 
-       
-		return "yes";		
+        if(authenticateUser(user)){ // TODO make this an aspect
+
+        }else{
+            user.setUserEmail("hhank1508@gmail.com");
+        }
+
+		return itemRepository.testingThis("01-04-2021",user.userEmail);		
 	}
 
 
