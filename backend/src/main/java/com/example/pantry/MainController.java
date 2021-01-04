@@ -73,6 +73,18 @@ public class MainController {
 	//----------------------------------------------------------------------
 	//
 	//----------------------------------------------------------------------	
+	@GetMapping(path = "/delete/{id}")
+	public String deleteItemWithID(@PathVariable String date,@RequestBody User user) throws GeneralSecurityException, IOException {
+
+       
+		return "yes";		
+	}
+
+
+
+	//----------------------------------------------------------------------
+	//
+	//----------------------------------------------------------------------	
 	@PostMapping(path = "/date/{startDate}/{endDate}")
 	public @ResponseBody List<Item> getBetweenDates(@PathVariable String startDate,@PathVariable String endDate,@RequestBody User user) throws GeneralSecurityException, IOException {
 		/*
