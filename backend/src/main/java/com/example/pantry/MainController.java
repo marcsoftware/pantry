@@ -74,7 +74,7 @@ public class MainController {
 	//
 	//----------------------------------------------------------------------	
 	@GetMapping(path = "/delete/{id}")
-	public @ResponseBody List<Item> deleteWidthID(@PathVariable String id,@RequestBody User user) throws GeneralSecurityException, IOException {
+	public @ResponseBody String deleteWidthID(@PathVariable String id,@RequestBody User user) throws GeneralSecurityException, IOException {
 
         if(authenticateUser(user)){ // TODO make this an aspect
 
@@ -82,7 +82,7 @@ public class MainController {
             user.setUserEmail("hhank1508@gmail.com");
         }
 
-		return itemRepository.testingThis("01-04-2021",user.userEmail);		
+		return "test string";		
 	}
 
 
@@ -139,7 +139,7 @@ public class MainController {
 	//
 	//----------------------------------------------------------------------				
 	@GetMapping(path="/hello")
-	public String hello() {
+	public @ResponseBody String hello() {
 		
 		return "Hello from API";
 	}
