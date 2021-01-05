@@ -285,11 +285,21 @@ function print(data){
     <td>${data.ratio_calories}</td>
     <td>${data.ratio_unit+data.ratio_label}</td>
     <td>${data.time}</td>
+    <td onclick='removeItem(${data.id})' class='button' >🗑️</td>
   </tr>
 
     `;
 }
 
+
+/**
+//---------------------------------------------------------------------
+//
+//---------------------------------------------------------------------
+*/
+function removeItem(id){
+  alert('remove '+id);
+}
 
 /**
 //---------------------------------------------------------------------
