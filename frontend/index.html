@@ -10,6 +10,9 @@
     <script src="constants.js"></script>
     <style>
 
+      .button{
+        cursor: pointer;
+      }
       #total{
         color:grey;
       }
@@ -294,11 +297,27 @@ function print(data){
 
 /**
 //---------------------------------------------------------------------
-//
+// permanently delete item form the databae
 //---------------------------------------------------------------------
 */
 function removeItem(id){
-  alert('remove '+id);
+  
+
+    readProfile();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var result=this.responseText;
+        var obj = JSON.parse(result); 
+        printJSON(obj);
+      
+      
+    }
+  };
+  xhttp.open("GET", database_url+"/delete/"+id, flag);
+   xhttp.setRequestHeader('Content-Type','application/json');
+  xhttp.setRequestHeader('Accept','application/json');
+  xhttp.send();
 }
 
 /**
