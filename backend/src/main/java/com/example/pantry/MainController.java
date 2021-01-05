@@ -76,12 +76,9 @@ public class MainController {
 	@GetMapping(path = "/delete/{id}")
 	public @ResponseBody String deleteWidthID(@PathVariable String id,@RequestBody User user) throws GeneralSecurityException, IOException {
 
-        if(authenticateUser(user)){ // TODO make this an aspect
+     
 
-        }else{
-            user.setUserEmail("hhank1508@gmail.com");
-        }
-
+        itemRepository.deleteById(1);
 		return "test string";		
 	}
 
