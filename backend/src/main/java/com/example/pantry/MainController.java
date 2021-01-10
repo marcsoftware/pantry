@@ -63,7 +63,7 @@ public class MainController {
         if(authenticateUser(user)){ // TODO make this an aspect
 
         }else{
-            user.setUserEmail("hhank1508@gmail.com");
+            
         }
 
 		return itemRepository.testingThis(date,user.userEmail);		
@@ -76,7 +76,12 @@ public class MainController {
 	@PostMapping(path = "/delete/{id}")
 	public @ResponseBody Integer deleteWidthID(@PathVariable Integer id,@RequestBody User user) throws GeneralSecurityException, IOException {
 
-     
+     	if(authenticateUser(user)){ // TODO make this an aspect
+
+        }else{
+            
+        }
+
 
         itemRepository.deleteById(id);
 		return id;		
@@ -112,7 +117,7 @@ public class MainController {
         if(authenticateUser(user)){ // TODO make this an aspect
 
         }else{
-            user.setUserEmail("none");
+            
         }
 
 		return itemRepository.testingThis(date,user.userEmail);		
