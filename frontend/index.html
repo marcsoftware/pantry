@@ -317,7 +317,8 @@ function removeItem(id){
   xhttp.open("POST", database_url+"/delete/"+id, flag);
    xhttp.setRequestHeader('Content-Type','application/json');
   xhttp.setRequestHeader('Accept','application/json');
-  xhttp.send();
+  
+  xhttp.send('{}' );
 }
 
 /**
@@ -530,6 +531,7 @@ function getStats(){
     xhttp.open("POST", database_url+"/stats/"+name, flag);
     xhttp.setRequestHeader('Content-Type','application/json');
     xhttp.setRequestHeader('Accept','application/json');
+
     xhttp.send(global_body);
 }
 
