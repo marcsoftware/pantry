@@ -281,7 +281,7 @@ function print(data){
   totalCal(data.consumed_calories);
    
     document.getElementById("log").innerHTML +=`
-     <tr>
+     <tr id='${data.id}'>
     <td>${data.name}</td>
     <td>${parseFloat(data.consumed_calories).toFixed(2)}</td>
     <td>${data.consumed_unit+data.consumed_label}</td>
@@ -307,7 +307,9 @@ function removeItem(id){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {    
     if (this.readyState == 4 && this.status == 200) {
-       
+        var id  = (this.responseText);
+        document.getElementById(id).innerHTML='';
+
       
     }
   };

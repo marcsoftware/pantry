@@ -74,12 +74,12 @@ public class MainController {
 	//
 	//----------------------------------------------------------------------	
 	@PostMapping(path = "/delete/{id}")
-	public @ResponseBody String deleteWidthID(@PathVariable Integer id,@RequestBody User user) throws GeneralSecurityException, IOException {
+	public @ResponseBody Integer deleteWidthID(@PathVariable Integer id,@RequestBody User user) throws GeneralSecurityException, IOException {
 
      
 
         itemRepository.deleteById(id);
-		return "test string";		
+		return id;		
 	}
 
 
