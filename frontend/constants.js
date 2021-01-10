@@ -180,7 +180,7 @@ function getCookie(x) {
 //
 //---------------------------------------------------------------------
 */
-  function attachSignin(element) {
+  function attachSignin(element) { // TODO element may not exsist error mesage in the firefox console.
     console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
