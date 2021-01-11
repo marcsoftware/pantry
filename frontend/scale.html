@@ -15,6 +15,11 @@
         margin-top:0px; 
         white-space: nowrap;
       }
+
+      .middle{
+        width:100%;
+        text-align: center;
+      }
 </style>
 <script>
 
@@ -80,8 +85,13 @@ function test(){
             var first= kg_list[0];
             var min = Math.min(...kg_list);
             var last= kg_list[last_key];
-       
             
+            var today = getDateFormat(0);
+            if(date_list.includes(today)){
+                
+            }else{
+                document.getElementById('prompt').style.color='red';
+            }
             
           
         }else{
@@ -101,6 +111,7 @@ function test(){
 
 
     }
+
 
 
 /**
@@ -156,13 +167,13 @@ function getDateFormat(offset){
       
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('feedback').innerHTML+=('success: '+this.responseText);
+            // TODO render weight direclty without reload. 
             
             
-            
+            document.getElementById('prompt').style.color='black';
           
         }else{
-          document.getElementById('feedback').innerHTML+=('ERROR: '+this.responseText);
+         
         }
       };
 
@@ -183,12 +194,12 @@ function getDateFormat(offset){
 <body>
 <div id='header'></div>
 <div id='today_scale'></div>
+<div class='middle'>
+<span class='prompt' id='prompt' >save today's weight:</span><br/>
 <input type="text" id='weight' />
-
-
-<button onclick="save()">save</button> 
+<button onclick="save()">save </button> 
 <div id='feedback'></div><br/>
- 
+ </div>
  <div id='scale_graph'></div>
  
 </body>
