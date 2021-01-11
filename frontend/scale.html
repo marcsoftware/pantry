@@ -80,8 +80,7 @@ function test(){
             var first= kg_list[0];
             var min = Math.min(...kg_list);
             var last= kg_list[last_key];
-            document.getElementById('scale_results').innerHTML=`${last}`;
-            document.getElementById('scale_results').innerHTML=`${first} - ${min} -  ${last}`;
+       
             
             
           
@@ -138,7 +137,7 @@ function getDateFormat(offset){
 
 
     //--------------------------------------------------------------------------------------------------------------------------------
-    // 
+    //  save the users weight today
     //--------------------------------------------------------------------------------------------------------------------------------
     function save(){
       var handle = document.getElementById('weight');
@@ -185,12 +184,11 @@ function getDateFormat(offset){
 <div id='header'></div>
 <div id='today_scale'></div>
 <input type="text" id='weight' />
+
+
+<button onclick="save()">save</button> 
 <div id='feedback'></div><br/>
-<br/>
-<br/>
-<button onclick="save(this)">save</button> <br/>
- <button onclick="test()">test</button> <br/>
- <textarea id='scale_results'></textarea>
+ 
  <div id='scale_graph'></div>
  
 </body>
