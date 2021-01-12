@@ -4,6 +4,7 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.Random;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -241,7 +242,7 @@ public class MainController {
 			// Use or store profile information
 			// ...
 	
-			
+			String temp_token = getSaltString();
 
 			return (email.equals(checkEmail));
 		} else {
@@ -254,8 +255,25 @@ public class MainController {
 
 
 
+	//----------------------------------------------------------------------
+	// get random string to be used as temporaty login token. 
+	//---------------------------------------------------------------------- 
+protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
+
 
 	//----------------------------------------------------------------------
+	// TODO delete this function since it is a copy ?
 	// authenticate user using google login
 	//---------------------------------------------------------------------- 
 	@GetMapping(path="/test")
