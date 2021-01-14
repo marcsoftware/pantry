@@ -36,7 +36,7 @@ public class MainController {
 	private ItemRepository itemRepository;
 
 	@Autowired
-	private UserRepository UserRepository;
+	private UserRepository userRepository;
 
 
 
@@ -234,8 +234,16 @@ public class MainController {
 			String email = payload.getEmail();
 			boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
 	
+			if(! email.equals(checkEmail)){
+				return false;
+			}
 			// TODO get user id then call save
-			String temp_token = getSaltString();
+			String temporaryToken = getSaltString();
+
+			user.temporaryToken=temporaryToken;
+			
+
+			
 
 
 			return (email.equals(checkEmail));

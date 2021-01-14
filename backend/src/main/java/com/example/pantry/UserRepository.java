@@ -15,12 +15,14 @@ import com.example.pantry.User;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
     
-    List<User> findByName(String name);
+    List<User> findByUserEmail(String userEmail);
 
+      @Query("select u from User u where u.userEmail= ?1 ")
+    User getIdFromEmail(String userEmail); 
   
 
     /*
-
+    ON DUPLICATE KEY UPDATE 
      @Query("update Customer c set c.name = :name WHERE c.id = :customerId")
      void setCustomerName(@Param("customerId") Long id, @Param("name") String name);
 
