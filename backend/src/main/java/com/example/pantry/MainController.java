@@ -233,16 +233,10 @@ public class MainController {
 			// Get profile information from payload
 			String email = payload.getEmail();
 			boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-			//String name = (String) payload.get("name");
-			//String pictureUrl = (String) payload.get("picture");
-			//String locale = (String) payload.get("locale");
-			//String familyName = (String) payload.get("family_name");
-			//String givenName = (String) payload.get("given_name");
-
-			// Use or store profile information
-			// ...
 	
+			// TODO get user id then call save
 			String temp_token = getSaltString();
+
 
 			return (email.equals(checkEmail));
 		} else {

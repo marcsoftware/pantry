@@ -17,17 +17,20 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     
     List<User> findByName(String name);
 
-     @Query("select DISTINCT u.name from User u where u.userEmail= ?1 ")
-    List<String> getDistinctNamesCustomQuery(String userEmail); // 
+  
 
     /*
-INSERT INTO subs
-  (subs_name, subs_email, subs_birthday)
-VALUES
-  (?, ?, ?)
-ON DUPLICATE KEY UPDATE
-  subs_name     = VALUES(subs_name),
-  subs_birthday = VALUES(subs_birthday)
+
+     @Query("update Customer c set c.name = :name WHERE c.id = :customerId")
+     void setCustomerName(@Param("customerId") Long id, @Param("name") String name);
+
+        INSERT INTO subs
+          (subs_name, subs_email, subs_birthday)
+        VALUES
+          (?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+          subs_name     = VALUES(subs_name),
+          subs_birthday = VALUES(subs_birthday)
   
     */
     
