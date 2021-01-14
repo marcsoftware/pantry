@@ -239,10 +239,10 @@ public class MainController {
 			}
 			// TODO get user id then call save
 			String temporaryToken = getSaltString();
-
-			user.temporaryToken=temporaryToken;
+			user.idTokenString="x";
+			userRepository.save(user);
 			
-
+			
 			
 
 
