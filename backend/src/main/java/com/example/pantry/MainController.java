@@ -239,8 +239,7 @@ public class MainController {
 			}
 			// TODO get user id then call save
 			String temporaryToken = getSaltString();
-			user.idTokenString="x";
-			userRepository.save(user);
+			
 			
 			
 			
