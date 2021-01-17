@@ -36,7 +36,7 @@ public class MainController {
 	private ItemRepository itemRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	private TokenRepository tokenRepository;
 
 
 
@@ -237,9 +237,13 @@ public class MainController {
 			if(! email.equals(checkEmail)){
 				return false;
 			}
-			// TODO get user id then call save
-			String temporaryToken = getSaltString();
 			
+			// 
+			String temporaryToken = getSaltString();
+			Token token = new Token();
+			token.token=temporaryToken;
+			token.userEmail=email;
+			tokenRepository.save(token);
 			
 			
 			
