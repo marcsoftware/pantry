@@ -9,12 +9,10 @@ import javax.persistence.Column;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Token {
-	@Id
-
-
+	
 	public String token;
 
-	@Column(unique = true)
+	@Id
 	public String userEmail;
 
  
